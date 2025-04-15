@@ -1,0 +1,96 @@
+.main-section {
+  padding: 2rem 1rem 4rem; /* Reduced top padding to bring section closer to navbar */
+  background: #f5f5f5;
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem; /* Reduced gap between elements */
+}
+
+.hero-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1000px;
+   /* A little breathing room between image and text */
+}
+
+@media (min-width: 768px) {
+  .hero-row {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem; /* More natural spacing on larger screens */
+    align-items: center;
+  }
+}
+
+.hero-text {
+  flex: 1;
+  max-width: 500px;
+  padding-top: 0.5rem;
+  padding-left: 5rem; /* Slight vertical alignment fix */
+}
+
+.hero-text h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 2.8rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.black-text {
+  color: black;
+  font-weight: 800;
+}
+
+.highlight {
+  color: #5c415d;
+  font-weight: 700;
+}
+
+.hero-text p {
+  margin-top: 0.75rem;
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.hero-image {
+  flex: 1;
+  max-width: 400px;
+  margin-top: -0.5rem; /* Pull image slightly up */
+}
+
+.hero-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.cta-section {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-section h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #5c415d;
+  margin-bottom: 1rem;
+}
+
+.cta-section p {
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.6;
+  font-weight: 400;
+}
