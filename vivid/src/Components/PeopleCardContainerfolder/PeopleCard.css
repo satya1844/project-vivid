@@ -1,0 +1,29 @@
+.people-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  width: 280px;
+  text-align: center;
+  flex: 0 0 auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.people-card img {
+  width: 100%;
+  height: 200px; /* Adjusted height for better scaling */
+  object-fit: cover; /* Ensures the image scales properly */
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.people-card h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.1rem;
+  color: #2d2d30;
+}
+
+.people-card p {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.95rem;
+  color: #666666;
+}
