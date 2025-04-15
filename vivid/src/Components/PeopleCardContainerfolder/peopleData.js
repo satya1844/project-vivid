@@ -1,73 +1,76 @@
 import tomCruiseImage from '../../assets/tomCruise.png';
 import arianaGrandeImage from '../../assets/arianaGrande.png';
 import sabrinaCarpenterImage from '../../assets/SabrinaCarpenter.png';
+import profilePic from '../../assets/profilepic.png'; // Import the default profile picture
 
 const peopleData = [
   {
-    name: "Tom Cruise",
-    image: tomCruiseImage, // Imported image for Tom Cruise
-    description: "An iconic actor known for his roles in blockbuster movies like Mission Impossible.",
+    name: "Alex Carter",
+    image: tomCruiseImage,
+    description: "A daring adventurer who has traveled to over 50 countries, sharing stories of courage and discovery.",
   },
   {
-    name: "Ariana Grande",
-    image: arianaGrandeImage, // Imported image for Ariana Grande
-    description: "A Grammy-winning pop star with a powerful voice and chart-topping hits.",
+    name: "Sophia Bennett",
+    image: arianaGrandeImage,
+    description: "A talented musician who writes soulful songs that resonate with audiences worldwide.",
   },
   {
-    name: "Sabrina Carpenter",
-    image: sabrinaCarpenterImage, // Imported image for Sabrina Carpenter
-    description: "A talented singer and actress known for her versatile performances.",
+    name: "Liam Harper",
+    image: sabrinaCarpenterImage,
+    description: "An innovative tech entrepreneur passionate about creating solutions for everyday challenges.",
   },
   {
-    name: "John Doe",
-    image: "/assets/8.png",
-    description: "A passionate individual who loves to explore new things.",
+    name: "Emma Collins",
+    image: profilePic, // Using default profile picture
+    description: "A creative artist who brings emotions to life through vibrant paintings and sculptures.",
   },
   {
-    name: "Jane Smith",
-    image: "/assets/9.png",
-    description: "An enthusiastic learner and a creative thinker.",
+    name: "Noah Brooks",
+    image: profilePic,
+    description: "A fitness enthusiast who inspires others to lead a healthy and active lifestyle.",
   },
   {
-    name: "Chris Johnson",
-    image: "/assets/10.png",
-    description: "A tech-savvy person who enjoys solving problems.",
+    name: "Mia Reed",
+    image: profilePic,
+    description: "A nature photographer capturing the beauty of the world one frame at a time.",
   },
   {
-    name: "Emily Davis",
-    image: "/assets/11.png",
-    description: "A nature lover and an advocate for sustainability.",
+    name: "Ethan Hayes",
+    image: profilePic,
+    description: "A culinary expert who loves experimenting with flavors to create unique dishes.",
   },
   {
-    name: "Michael Brown",
-    image: "/assets/12.png",
-    description: "A fitness enthusiast and a motivational speaker.",
+    name: "Olivia Morgan",
+    image: profilePic,
+    description: "A passionate writer who crafts compelling stories that captivate readers.",
   },
   {
-    name: "Sophia Wilson",
-    image: "/assets/13.png",
-    description: "A foodie who loves to explore different cuisines.",
+    name: "Lucas Turner",
+    image: profilePic,
+    description: "A travel enthusiast documenting his adventures to inspire others to explore the world.",
   },
   {
-    name: "Liam Martinez",
-    image: "/assets/14.png",
-    description: "A travel blogger who shares experiences from around the world.",
+    name: "Ava Mitchell",
+    image: profilePic,
+    description: "A community leader dedicated to bringing people together through shared interests.",
   },
   {
-    name: "Olivia Garcia",
-    image: "/assets/15.png",
-    description: "An artist who expresses emotions through paintings.",
+    name: "James Parker",
+    image: profilePic,
+    description: "A tech wizard who enjoys building innovative apps and gadgets.",
   },
   {
-    name: "Ethan Rodriguez",
-    image: "/assets/16.png",
-    description: "A musician who creates melodies that touch the soul.",
+    name: "Ella Rivera",
+    image: profilePic,
+    description: "A motivational speaker who empowers individuals to achieve their dreams.",
   },
   {
-    name: "Ava Hernandez",
-    image: "/assets/17.png",
-    description: "A writer who weaves stories that inspire and entertain.",
+    name: "William Scott",
+    image: profilePic,
+    description: "A historian who brings the past to life through engaging storytelling.",
   },
 ];
 
 export default peopleData;
+
+

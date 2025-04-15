@@ -1,37 +1,38 @@
 import React from "react";
-import "./NavBar.css"; // Import the CSS file for 
+import logo from "../../assets/Logo.svg";
+import "./NavBar.css";
+
 const Navbar = () => {
   return (
-    <header className="navBar">
+    <nav className="navBar">
       <div className="navBar-container">
-        {/* Logo */}
+        {/* Logo on the left */}
         <div className="navBar-logo">
-          <div className="logo-image" />
-          <h1 className="brand-name">Vivid</h1>
+          <img src={logo} alt="Logo" className="logo" />
         </div>
 
-        {/* Navigation */}
-        <nav className="navBar-navigation">
-          <ul className="navBar-menu">
-            <li className="navBar-item">
-              <a href="#" className="navBar-link">Home</a>
-            </li>
-            <li className="navBar-item">
-              <a href="#" className="navBar-link">About</a>
-            </li>
-            <li className="navBar-item">
-              <a href="#" className="navBar-link">Services</a>
-            </li>
-            <li className="navBar-item">
-              <a href="#" className="navBar-link">Contact</a>
-            </li>
-          </ul>
-        </nav>
-
-        {/* Login button */}
-        <button className="navBar-loginButton">Login</button>
+        {/* Navigation and button grouped together on the right */}
+        <div className="navBar-right">
+          <nav className="navBar-navigation">
+            <ul className="navBar-menu">
+              <li className="navBar-item">
+                <a href="#" className="navBar-link">Home</a>
+              </li>
+              <li className="navBar-item">
+                <a href="#" className="navBar-link">About</a>
+              </li>
+              <li className="navBar-item">
+                <a href="#" className="navBar-link">Services</a>
+              </li>
+              <li className="navBar-item">
+                <a href="#" className="navBar-link">Contact</a>
+              </li>
+            </ul>
+          </nav>
+          <button className="navBar-loginButton">Login</button>
+        </div>
       </div>
-    </header>
+    </nav>
   );
 };
 

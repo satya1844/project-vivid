@@ -1,9 +1,8 @@
 /* Navbar container */
-.navBar {
+.navBar{
   width: 100%;
-  background-color: #FBFF1F; /* Light gray background */
-  border-bottom: 1px solid #ccc; /* Border at the bottom */
   margin-top: 0px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .navBar-container {
@@ -13,35 +12,40 @@
   padding: 12px 32px; /* Adjusted padding for better scaling */
   max-width: 1280px;
   margin: 0 auto;
+  background-color: #FBFF1F;
+  border: #000000 solid 1px; 
 }
 
-/* Logo section */
+/* Logo styles */
 .navBar-logo {
   display: flex;
   align-items: center;
-  gap: 16px; /* Reduced gap between logo and text */
 }
 
-.logo-image {
-  width: 50px; /* Adjusted logo size */
-  height: 50px;
-  background-image: url('/component-2.svg'); /* Replace with your logo path */
-  background-size: cover;
-  background-repeat: no-repeat;
+.logo {
+  height: 40px; /* Reduced height */
+  width: auto; /* Let width adjust proportionally */
+  display: flex;
+  align-items: center;
+  object-fit: contain;
 }
 
-.brand-name {
-  font-family: 'Poppins', sans-serif;
-  font-size: 20px; /* Adjusted font size */
-  font-weight: 600;
-  color: #333; /* Dark gray text */
+.logo img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Right side group (navigation + button) */
+.navBar-right {
+  display: flex;
+  align-items: center;
+  gap: 32px; /* Space between nav and button */
 }
 
 /* Navigation menu */
 .navBar-navigation {
-  flex: 1;
   display: flex;
-  justify-content: center; /* Center the navigation menu */
   align-items: center;
 }
 
@@ -70,29 +74,44 @@
 
 /* Hover effect with pop */
 .navBar-link:hover {
-  color: #3a0ca3; /* royal blue pop */
+  color: #5C415D; /* royal blue pop */
   transform: scale(1.1); /* slight zoom */
   letter-spacing: 1px; /* breathes a bit */
   text-shadow: 2px 2px 8px rgba(58, 12, 163, 0.2); /* soft blue glow */
 }
 
-
-
 /* Login button */
 .navBar-loginButton {
-  padding: 8px 16px; /* Adjusted padding */
+  padding: 8px 16px;
   font-family: 'Poppins', sans-serif;
-  font-size: 14px; /* Adjusted font size */
+  font-size: 14px;
   font-weight: 600;
-  color: #333;
-  background-color: #DEDEDE; /* Slightly darker yellow on hover */
-  border: 1px solid #333;
-  border-radius: 8px; /* Slightly smaller border radius */
+  color: #000000;
+  background-color: transparent;
+  border: 2px solid #000000;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .navBar-loginButton:hover {
-  background-color: #000000; /* Slightly darker yellow on hover */
-  color: #ffffff; /* White text on hover */
+  background-color: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navBar-container {
+    padding: 12px 16px;
+  }
+  
+  .navBar-right {
+    gap: 16px;
+  }
+  
+  .navBar-menu {
+    gap: 16px;
+  }
 }
 

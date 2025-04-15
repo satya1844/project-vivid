@@ -1,11 +1,14 @@
 .people-card {
-  background-color: #fff;
+  font-style: 'Source Code Pro';
+  background-color: #ffffff; /* Ensure card background is white */
   border-radius: 12px;
   padding: 1rem;
-  width: 280px;
+  width: 260px; /* Slightly scaled down width */
   text-align: center;
   flex: 0 0 auto;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: scale(0.95); /* Slightly scaled down */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .people-card img {
@@ -16,14 +19,22 @@
   margin-bottom: 1rem;
 }
 
+.people-card h3,
+.people-card p {
+  color: #000000; /* Set all text to black */
+}
+
+.people-card:hover {
+  transform: translateY(-10px) scale(1); /* Restore scale on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
 .people-card h3 {
   font-family: "Poppins", sans-serif;
   font-size: 1.1rem;
-  color: #2d2d30;
 }
 
 .people-card p {
   font-family: "Poppins", sans-serif;
   font-size: 0.95rem;
-  color: #666666;
 }

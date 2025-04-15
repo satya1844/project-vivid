@@ -1,20 +1,23 @@
 .people-cards-section {
-  background-color: #f7ee5a; /* Light yellow background */
+  background-color: #f7ee5a;
   border-radius: 21px;
-  padding: 2rem; /* Adjusted padding for better scaling */
-  margin: 0 auto; /* Center the container */
-  max-width: 100%; /* Allow full width for responsiveness */
-  overflow: visible; /* Ensure content is not clipped */
+  padding: 2rem;
+  margin: 0 auto; /* This centers the block horizontally */
+  max-width: 80%;
+  overflow: visible;
 }
 
 .cards-scroll {
   display: flex;
-  overflow-x: auto; /* Enable horizontal scrolling */
+  overflow-x: auto;
   gap: 1.5rem;
   padding-bottom: 1rem;
   scroll-snap-type: x mandatory;
   scroll-padding: 1rem;
-  scroll-behavior: smooth; /* Smooth scrolling */
+  scroll-behavior: smooth;
+  justify-content: flex-start;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .cards-scroll::-webkit-scrollbar {
@@ -27,20 +30,21 @@
 }
 
 .people-card {
-  background-color: #1a1a1a; /* Dark theme */
+  background-color: #ffffff;
   border-radius: 1rem;
   padding: 1rem;
   width: 250px;
   text-align: center;
   flex: 0 0 auto;
-  scroll-snap-align: center; /* Ensure cards snap to the center */
+  scroll-snap-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  color: #f0f0f0;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for better visibility */
+  color: #000000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transform: scale(0.9);
 }
 
 .people-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-10px) scale(1);
   box-shadow: 0 8px 20px rgba(0, 229, 255, 0.2);
 }
 
@@ -52,16 +56,25 @@
   margin-bottom: 0.75rem;
 }
 
-.people-card h3 {
+.people-card h3,
+.people-card p {
   font-family: "Poppins", sans-serif;
+  color: #000000;
+}
+
+.people-card h3 {
   font-size: 1.1rem;
-  color: #ffffff;
+  margin: 0.5rem 0;
 }
 
 .people-card p {
-  font-family: "Poppins", sans-serif;
   font-size: 0.9rem;
-  color: #cccccc;
+}
+
+.card-content.white-background {
+  background-color: white;
+  border-radius: 8px;
+  padding: 10px;
 }
 
 .cta-section {
@@ -80,20 +93,20 @@
 
 .see-more {
   position: absolute;
-  right: 10px; /* Adjusted to move closer to the right */
+  right: 10px;
   top: 0;
   font-weight: 500;
   cursor: pointer;
-  color: #3a0ca3; /* Royal blue */
+  color: #3a0ca3;
   text-decoration: underline;
 }
 
 @media (max-width: 768px) {
   .people-cards-section {
-    padding: 1rem; /* Reduce padding for smaller screens */
+    padding: 1rem;
   }
 
   .people-card {
-    width: 200px; /* Adjust card width for smaller screens */
+    width: 200px;
   }
 }

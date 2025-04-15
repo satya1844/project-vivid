@@ -1,8 +1,12 @@
 import React from 'react';
+import { useRef } from 'react';
 import './MainSection.css';
 import heroImage from '../../assets/hero-image.png';
+import VariableProximity from '../../assets/VariableProximity/VariableProximity';
 
 function MainSection() {
+  const containerRef = useRef(null);
+
   return (
     <section className="main-section">
       <div className="container">
@@ -26,12 +30,22 @@ function MainSection() {
         {/* Call to Action */}
         <div className="cta-section">
           <h2>Turn Interests into <br /> Meaningful Connections!</h2>
-          <p>
-            Step into a world where your interests connect you with like-minded
-            people! Join communities that match your passion, explore engaging
-            discussions, and share what excites you. Whether you're here to learn,
-            collaborate, or just meet new people — this is your space to grow and belong.
-          </p>
+          <div ref={containerRef} style={{ position: 'relative' }}>
+            <VariableProximity
+              label={
+                "Step into a world where your interests connect you with like-minded " +
+                "people! Join communities that match your passion, explore engaging " +
+                "discussions, and share what excites you. Whether you're here to learn, " +
+                "collaborate, or just meet new people — this is your space to grow and belong."
+              }
+              className="variable-proximity-demo"
+              fromFontVariationSettings="'wght' 400, 'opsz' 9"
+              toFontVariationSettings="'wght' 1000, 'opsz' 40"
+              containerRef={containerRef}
+              radius={100}
+              falloff="linear"
+            />
+          </div>
         </div>
       </div>
     </section>
