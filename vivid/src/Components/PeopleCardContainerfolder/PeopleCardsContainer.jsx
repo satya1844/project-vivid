@@ -1,5 +1,4 @@
 import React from "react";
-import SpotlightCard from "../../../ReactBits/SpotlightCard/SpotlightCard"; // Import SpotlightCard
 import peopleData from "./peopleData";
 import "./PeopleCardsContainer.css";
 
@@ -8,17 +7,13 @@ const PeopleCardsContainer = () => {
     <div className="people-cards-section">
       <div className="cards-scroll">
         {peopleData.map((person, index) => (
-          <SpotlightCard
-            key={index}
-            spotlightColor="rgba(255, 215, 0, 0.3)" // Gold spotlight color
-            className="people-card"
-          >
+          <div className="people-card" key={index}>
             <img src={person.image} alt={person.name} />
             <div className="card-content">
               <h3>{person.name}</h3>
               <p>{person.description}</p>
             </div>
-          </SpotlightCard>
+          </div>
         ))}
       </div>
       <div className="cta-section">

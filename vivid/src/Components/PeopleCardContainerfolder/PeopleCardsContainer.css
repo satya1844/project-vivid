@@ -1,17 +1,20 @@
 .people-cards-section {
   background-color: #f7ee5a; /* Light yellow background */
   border-radius: 21px;
-  padding: 2rem;
-  margin: 2rem auto;
-  max-width: 1100px;
+  padding: 2rem; /* Adjusted padding for better scaling */
+  margin: 0 auto; /* Center the container */
+  max-width: 100%; /* Allow full width for responsiveness */
+  overflow: visible; /* Ensure content is not clipped */
 }
 
 .cards-scroll {
   display: flex;
-  overflow-x: auto;
+  overflow-x: auto; /* Enable horizontal scrolling */
   gap: 1.5rem;
   padding-bottom: 1rem;
   scroll-snap-type: x mandatory;
+  scroll-padding: 1rem;
+  scroll-behavior: smooth; /* Smooth scrolling */
 }
 
 .cards-scroll::-webkit-scrollbar {
@@ -24,38 +27,41 @@
 }
 
 .people-card {
-  background-color: #fff;
-  border-radius: 12px;
+  background-color: #1a1a1a; /* Dark theme */
+  border-radius: 1rem;
   padding: 1rem;
-  width: 280px;
+  width: 250px;
   text-align: center;
   flex: 0 0 auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  scroll-snap-align: center; /* Ensure cards snap to the center */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #f0f0f0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for better visibility */
 }
 
 .people-card:hover {
-  transform: scale(1.05); /* Slight zoom on hover */
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0, 229, 255, 0.2);
 }
 
 .people-card img {
   width: 100%;
-  height: 200px;
+  height: 160px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 1rem;
+  border-radius: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .people-card h3 {
   font-family: "Poppins", sans-serif;
   font-size: 1.1rem;
-  color: #2d2d30;
+  color: #ffffff;
 }
 
 .people-card p {
   font-family: "Poppins", sans-serif;
-  font-size: 0.95rem;
-  color: #666666;
+  font-size: 0.9rem;
+  color: #cccccc;
 }
 
 .cta-section {
@@ -80,4 +86,14 @@
   cursor: pointer;
   color: #3a0ca3; /* Royal blue */
   text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .people-cards-section {
+    padding: 1rem; /* Reduce padding for smaller screens */
+  }
+
+  .people-card {
+    width: 200px; /* Adjust card width for smaller screens */
+  }
 }
