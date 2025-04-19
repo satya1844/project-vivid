@@ -1,5 +1,13 @@
 .App {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+}
+
+.auth-pages {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4rem; /* Space between SignUp and LoginPage */
+  margin-top: 2rem;
 }

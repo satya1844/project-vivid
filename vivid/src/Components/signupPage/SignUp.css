@@ -12,6 +12,18 @@ body {
   align-items: center;
 }
 
+.signup-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.signup-image img {
+  width: 300px;
+  height: auto;
+}
+
 .form-box {
   background-color: #2a2a2a;
   padding: 40px;
@@ -35,7 +47,7 @@ body {
   text-decoration: none;
 }
 
-.google-btn, .github-btn {
+.google-btn, .signup-btn {
   width: 100%;
   padding: 12px;
   margin-top: 20px;
@@ -50,7 +62,7 @@ body {
   color: white;
 }
 
-.github-btn {
+.signup-btn {
   background-color: #333;
   color: white;
   margin-top: 10px;

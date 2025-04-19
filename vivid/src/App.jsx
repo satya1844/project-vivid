@@ -5,9 +5,7 @@ import PeopleCardsContainer from "./Components/PeopleCardContainerfolder/PeopleC
 import { Content } from "./Components/CAT/cat";
 import CommunityCardsSection from "./Components/CommunityCards/CommunityCardsSection";
 import SignUp from "./Components/signupPage/SignUp";
-import { LoginPage } from "./Components/LoginPage/LoginPage";
-
-
+import LoginPage from "./Components/LoginPage/LoginPage";
 
 function App() {
   return (
@@ -16,8 +14,10 @@ function App() {
       <MainSection />
       <PeopleCardsContainer />
       <Content />
-      <SignUp />
-      <LoginPage />
+      <div className="auth-pages">
+        <SignUp />
+        <LoginPage />
+      </div>
     </div>
   );
 }
