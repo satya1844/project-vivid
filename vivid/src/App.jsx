@@ -11,7 +11,6 @@ function App() {
       <NavBar />
       <MainSection />
       <PeopleCardsContainer />
-      <CommunityCardsSection />
       <Content />
     </div>
   );
