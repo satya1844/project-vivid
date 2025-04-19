@@ -11,3 +11,10 @@
   gap: 4rem; /* Space between SignUp and LoginPage */
   margin-top: 2rem;
 }
+
+.community-section-wrapper {
+  margin-top: 2rem; /* Add spacing between Content and CommunityCardsSection */
+  width: 100%; /* Ensure it spans the full width */
+  display: flex;
+  justify-content: center;
+}
