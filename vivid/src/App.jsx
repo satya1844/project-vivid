@@ -4,6 +4,10 @@ import MainSection from "./Components/MainSection/MainSection";
 import PeopleCardsContainer from "./Components/PeopleCardContainerfolder/PeopleCardsContainer";
 import { Content } from "./Components/CAT/cat";
 import CommunityCardsSection from "./Components/CommunityCards/CommunityCardsSection";
+import SignUp from "./Components/signupPage/SignUp";
+import { LoginPage } from "./Components/LoginPage/LoginPage";
+
+
 
 function App() {
   return (
@@ -12,6 +16,8 @@ function App() {
       <MainSection />
       <PeopleCardsContainer />
       <Content />
+      <SignUp />
+      <LoginPage />
     </div>
   );
 }
