@@ -4,8 +4,8 @@ import MainSection from "./Components/MainSection/MainSection";
 import PeopleCardsContainer from "./Components/PeopleCardContainerfolder/PeopleCardsContainer";
 import { Content } from "./Components/CAT/cat";
 import CommunityCardsSection from "./Components/CommunityCards/CommunityCardsSection";
-// import SignUp from "./Components/signupPage/SignUp";
-// import LoginPage from "./Components/LoginPage/LoginPage";
+import UserdashBoard from "../pages/UserdashBoard/UserdashBoard";
+
 
 function App() {
   return (
@@ -15,6 +15,8 @@ function App() {
       <PeopleCardsContainer />
       <Content />
       <CommunityCardsSection />
+
+      < UserdashBoard />
       
     </div>
   );
