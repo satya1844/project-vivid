@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import "./SignUp.css";
-import SignUpImage from "../../assets/signup.svg";
+import SignUpImage from "../../src/assets/signup.svg";
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);

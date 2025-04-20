@@ -3,6 +3,10 @@
   width: 100%;
   margin-top: 0px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: sticky; /* Make the navbar sticky */
+  top: 0; /* Stick it to the top */
+  background-color: rgba(251, 255, 31, 0.8); /* Transparent Yellow */
+  z-index: 100; /* Ensure it stays on top of other content */
 }
 
 .navBar-container {
@@ -12,8 +16,9 @@
   padding: 12px 32px; /* Adjusted padding for better scaling */
   max-width: 1280px;
   margin: 0 auto;
-  background-color: #FBFF1F;
-  border: #000000 solid 1px; 
+  background: transparent;
+  
+   
 }
 
 /* Logo styles */

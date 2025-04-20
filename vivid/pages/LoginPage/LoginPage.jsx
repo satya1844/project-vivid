@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import "./LoginPage.css";
 // Ensure the file exists or replace with an existing image
-import LoginImage from "../../assets/signup.svg"; // Replace with a valid image path
+import LoginImage from "../../src/assets/signup.svg"; // Replace with a valid image path
 
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);

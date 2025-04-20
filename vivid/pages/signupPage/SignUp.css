@@ -1,18 +1,19 @@
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background-color: #1e1e1e;
-  color: #fff;
+  background-color: #2D2D2D;
+  color: #000000;
 }
 
 .signup-container {
-  height: 100vh;
+  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .signup-content {
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,7 +21,7 @@ body {
 }
 
 .signup-image img {
-  width: 300px;
+  width: 500px;
   height: auto;
 }
 
