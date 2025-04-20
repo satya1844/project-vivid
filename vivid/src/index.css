@@ -7,8 +7,36 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif; /* Default font */
-  font-weight: 400; /* Default weight */
-  color: #333; /* Default text color */
-  line-height: 1.6; /* Default line height */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  color: #333;
+  line-height: 1.6;
+  /* We remove background-color from here to avoid interference */
+}
+
+/* A container that changes background based on the route */
+.page-wrapper {
+  min-height: 100vh;
+  transition: background-color 0.3s ease;
+}
+
+/* Specific background colors per route */
+.signup-page {
+  background-color: #1e1e1e;
+  color: white;
+}
+
+.login-page {
+  background-color: #121212;
+  color: white;
+}
+
+.dashboard-page {
+  background-color: #f5f5f5;
+  color: #222;
+}
+
+.home-page {
+  background-color: #ffffff;
+  color: #333;
 }

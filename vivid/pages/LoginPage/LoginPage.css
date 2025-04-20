@@ -1,36 +1,41 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   font-family: 'Inter', sans-serif;
-  background-color: #2D2D2D; /* Changed background color */
   color: #fff;
 }
 
-.signup-container {
-  height: 100vh;
+/* Dynamic dark backgrounds for login/signup */
+.signup-page, .login-page {
+  background-color: #2D2D2D;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.login-container {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-content {
+/* Content containers */
+.signup-content, .login-content {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2rem;
+  margin-top: 20px;
 }
 
-.login-image img {
-  width: 300px;
+/* Images */
+.signup-image img, .login-image img {
+  width: 400px;
   height: auto;
 }
 
+/* Common Form Box */
 .form-box {
   background-color: #2a2a2a;
   padding: 40px;
@@ -42,6 +47,7 @@ body {
 
 .form-box h1 {
   margin-bottom: 10px;
+  color: #FFFFFF;
 }
 
 .form-box p {
@@ -69,18 +75,14 @@ body {
   color: white;
 }
 
-.signup-btn {
-  background-color: #333;
-  color: white;
-  margin-top: 10px;
-}
-
+.signup-btn,
 .login-btn {
   background-color: #333;
   color: white;
   margin-top: 10px;
 }
 
+/* Divider Line */
 .divider {
   margin: 20px 0;
   position: relative;
@@ -109,6 +111,8 @@ body {
   padding: 0 10px;
 }
 
+/* Input styles */
+input[type="text"],
 input[type="email"],
 .password-box input {
   width: 100%;

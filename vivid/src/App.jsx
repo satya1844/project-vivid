@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+
 import MainSection from './Components/MainSection/MainSection';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import SignUpPage from '../pages/signupPage/SignUp';
@@ -12,27 +13,36 @@ import NavBar from '../src/Components/NavBar/NavBar';
 
 function Layout() {
   const location = useLocation();
+
+  const getPageClass = () => {
+    if (location.pathname === '/signup') return 'signup-page';
+    if (location.pathname === '/login') return 'login-page';
+    if (location.pathname === '/userdashboard') return 'dashboard-page';
+    return 'home-page';
+  };
+
   return (
-    <>
-      {/* Render NavBar only if the current path is not "/signup" */}
-      {location.pathname !== '/signup' && <NavBar />}
+    <div className={`page-wrapper ${getPageClass()}`}>
+      {/* Only show NavBar when not on login or signup pages */}
+      {location.pathname !== '/signup' && location.pathname !== '/login' && <NavBar />}
+
       <Routes>
-        <Route path="/" element={
-          <>
-            <MainSection />
-            <PeopleCardsContainer />
-            <CommunityCardsSection />
-            <div style={{ textAlign: 'center', padding: '20px' }}>
-              <Link to="/login">Login</Link> | <Link to="/signup">Sign Up</Link> | <Link to="/userdashboard">User Dashboard</Link>
-            </div>
-            <Ribbons />
-          </>
-        } />
+        <Route
+          path="/"
+          element={
+            <>
+              <MainSection />
+              <PeopleCardsContainer />
+              <CommunityCardsSection />
+              <Ribbons />
+            </>
+          }
+        />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/userdashboard" element={<UserdashBoard />} />
       </Routes>
-    </>
+    </div>
   );
 }
 

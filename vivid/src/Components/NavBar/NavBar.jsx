@@ -1,8 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/Logo.svg";
 import "./NavBar.css";
 
 const Navbar = () => {
+  const navigate = useNavigate(); // React Router's navigation function
+
+  const handleLoginClick = () => {
+    navigate("/login"); // Redirects to login page
+  };
+
   return (
     <nav className="navBar">
       <div className="navBar-container">
@@ -29,7 +36,9 @@ const Navbar = () => {
               </li>
             </ul>
           </nav>
-          <button className="navBar-loginButton">Login</button>
+          <button className="navBar-loginButton" onClick={handleLoginClick}>
+            Login
+          </button>
         </div>
       </div>
     </nav>

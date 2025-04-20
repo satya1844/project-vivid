@@ -1,30 +1,41 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
   margin: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: #2D2D2D;
-  color: #000000;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.signup-container {
-  height: 80vh;
+body {
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+}
+
+/* Dynamic dark backgrounds for login/signup */
+.signup-page, .login-page {
+  background-color: #2D2D2D;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.signup-content {
-  margin-top: 20px;
+/* Content containers */
+.signup-content, .login-content {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2rem;
+  margin-top: 20px;
 }
 
-.signup-image img {
-  width: 500px;
+/* Images */
+.signup-image img, .login-image img {
+  width: 400px;
   height: auto;
 }
 
+/* Common Form Box */
 .form-box {
   background-color: #2a2a2a;
   padding: 40px;
@@ -36,6 +47,7 @@ body {
 
 .form-box h1 {
   margin-bottom: 10px;
+  color: #FFFFFF;
 }
 
 .form-box p {
@@ -48,7 +60,7 @@ body {
   text-decoration: none;
 }
 
-.google-btn, .signup-btn {
+.google-btn, .signup-btn, .login-btn {
   width: 100%;
   padding: 12px;
   margin-top: 20px;
@@ -63,12 +75,14 @@ body {
   color: white;
 }
 
-.signup-btn {
+.signup-btn,
+.login-btn {
   background-color: #333;
   color: white;
   margin-top: 10px;
 }
 
+/* Divider Line */
 .divider {
   margin: 20px 0;
   position: relative;
@@ -97,6 +111,7 @@ body {
   padding: 0 10px;
 }
 
+/* Input styles */
 input[type="text"],
 input[type="email"],
 .password-box input {

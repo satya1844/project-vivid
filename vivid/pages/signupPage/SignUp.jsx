@@ -9,11 +9,6 @@ function SignUp() {
   return (
     <div className="signup-container">
       <div className="signup-content">
-        {/* Signup Image */}
-        <div className="signup-image">
-          <img src={SignUpImage} alt="Sign Up" />
-        </div>
-
         {/* Signup Form */}
         <div className="form-box">
           <h1>Sign Up for Vivid</h1>
@@ -51,6 +46,10 @@ function SignUp() {
           </div>
 
           <button className="signup-btn">Sign Up</button>
+        </div>
+        {/* Signup Image */}
+        <div className="signup-image">
+          <img src={SignUpImage} alt="Sign Up" />
         </div>
       </div>
     </div>
