@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import MainSection from './Components/MainSection/MainSection';
 import LoginPage from '../pages/LoginPage/LoginPage';
@@ -10,6 +10,16 @@ import FollowCursor from './assets/Cursor';
 import PeopleCardsContainer from '../src/Components/PeopleCardContainerfolder/PeopleCardsContainer';
 import CommunityCardsSection from '../src/Components/CommunityCards/CommunityCardsSection';
 import NavBar from '../src/Components/NavBar/NavBar';
+
+function LoginPageWithRedirect() {
+  const navigate = useNavigate();
+
+  const handleLoginSuccess = () => {
+    navigate('/userdashboard'); // Redirect to user dashboard after login
+  };
+
+  return <LoginPage onLoginSuccess={handleLoginSuccess} />;
+}
 
 function Layout() {
   const location = useLocation();
@@ -34,11 +44,11 @@ function Layout() {
               <MainSection />
               <PeopleCardsContainer />
               <CommunityCardsSection />
-              <Ribbons />
+              
             </>
           }
         />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPageWithRedirect />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/userdashboard" element={<UserdashBoard />} />
       </Routes>

@@ -1,13 +1,18 @@
 .community-card {
   background-color: #ffffff;
   border-radius: 1rem;
-  padding: 0.75rem; /* Reduced padding */
+  padding: 0.75rem;
   width: 250px;
   text-align: center;
   flex: 0 0 auto;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   color: #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden; /* Ensure content doesn't overflow */
+  position: relative;
 }
 
 .community-card:hover {
@@ -17,39 +22,41 @@
 
 .community-card-image {
   width: 100%;
-  height: 120px; /* Reduced height */
+  height: 120px;
   object-fit: cover;
   border-radius: 0.75rem;
-  margin-bottom: 0.5rem; /* Reduced margin */
+  margin-bottom: 0.5rem;
 }
 
 .community-card-title {
   font-family: "Poppins", sans-serif;
-  font-size: 1rem; /* Reduced font size */
-  margin: 0.25rem 0; /* Reduced margin */
+  font-size: 1rem;
+  margin: 0.25rem 0;
   font-weight: bold;
+  z-index: 2; /* Ensure the title is always visible */
 }
 
 .community-card-info,
 .community-card-admin,
-.community-card-members {
-  font-family: "Poppins", sans-serif;
-  font-size: 0.8rem; /* Reduced font size */
-  margin: 0.2rem 0; /* Reduced margin */
-  color: #333;
+.community-card-members,
+.community-card-tags {
+  opacity: 1; /* Ensure details are visible by default */
+  transform: translateY(0); /* Reset position */
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .community-card-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem; /* Reduced gap */
+  gap: 0.25rem;
   margin-top: 0.5rem;
+  justify-content: center;
 }
 
 .community-card-tag {
   background-color: #f5f5f5;
   color: #555;
-  padding: 0.2rem 0.4rem; /* Reduced padding */
+  padding: 0.2rem 0.4rem;
   border-radius: 0.5rem;
-  font-size: 0.7rem; /* Reduced font size */
+  font-size: 0.7rem;
 }

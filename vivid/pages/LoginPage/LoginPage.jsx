@@ -1,14 +1,24 @@
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import "./LoginPage.css";
+import FollowCursor from '../../src/assets/Cursor';
 // Ensure the file exists or replace with an existing image
 import LoginImage from "../../src/assets/signup.svg"; // Replace with a valid image path
 
-function LoginPage() {
+function LoginPage({ onLoginSuccess }) {
   const [showPassword, setShowPassword] = useState(false);
 
+  const handleLogin = () => {
+    // Simulate login success
+    if (onLoginSuccess) {
+      onLoginSuccess();
+    }
+  };
+
   return (
+
     <div className="login-container">
+      <FollowCursor color="#DEDEDE" />
       <div className="login-content">
         {/* Login Image */}
         <div className="login-image">
@@ -40,7 +50,7 @@ function LoginPage() {
             <span>Or</span>
           </div>
 
-          <button className="login-btn">Log In</button>
+          <button className="login-btn" onClick={handleLogin}>Log In</button>
 
           <div className="extra-links">
             <a href="#">Forgot password?</a>
