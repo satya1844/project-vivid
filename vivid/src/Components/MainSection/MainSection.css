@@ -1,6 +1,6 @@
 .main-section {
-  padding: 2rem 1rem 4rem; /* Reduced top padding to bring section closer to navbar */
-  background: #f5f5f5;
+  padding: 0rem 0rem 4rem; /* Reduced top padding to bring section closer to navbar */
+  background: white;
 }
 
 .container {
@@ -15,30 +15,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1000px;
-   /* A little breathing room between image and text */
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0; /* Ensure no space between hero content and image */
 }
 
 @media (min-width: 768px) {
   .hero-row {
     flex-direction: row;
-    justify-content: space-between;
-    gap: 2rem; /* More natural spacing on larger screens */
-    align-items: center;
+    /* justify-content: space-between; */
+    /* gap: 2rem; */
+    /* align-items: center; */
   }
 }
 
 .hero-text {
+  position: static; /* Revert to default positioning */
+  color: black; /* Restore original text color */
+  text-align: left; /* Restore original alignment */
   flex: 1;
-  max-width: 500px;
+  max-width: 1000px;
   padding-top: 0.5rem;
-  padding-left: 5rem; /* Slight vertical alignment fix */
 }
 
 .hero-text h1 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'brush', sans-serif;
   font-weight: 800;
-  font-size: 2.8rem;
+  font-size: 4rem;
   line-height: 1.2;
   margin-bottom: 0.5rem;
 }
@@ -63,15 +66,17 @@
 
 .hero-image {
   flex: 1;
-  max-width: 400px;
-  margin-top: -0.5rem; /* Pull image slightly up */
+  width: 100%; /* Revert to full width */
+  height: 100%;
+  margin-top: 0; /* Removed space above the image */
+  margin-left: 0;
 }
 
 .hero-image img {
-  width: 100%;
+  width: 100%; /* Revert to full width */
   height: auto;
   object-fit: cover;
-  border-radius: 12px;
+  position: static; /* Revert to default positioning */
 }
 
 .cta-section {

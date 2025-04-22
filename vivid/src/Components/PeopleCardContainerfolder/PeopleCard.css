@@ -38,3 +38,22 @@
   font-family: "Poppins", sans-serif;
   font-size: 0.95rem;
 }
+
+/* Add a container for auto-scrolling */
+.people-card-container {
+  display: flex;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  gap: 1rem; /* Add spacing between cards */
+  padding: 1rem;
+  scroll-behavior: smooth; /* Smooth scrolling effect */
+}
+
+/* Hide scrollbar for a cleaner look */
+.people-card-container::-webkit-scrollbar {
+  display: none;
+}
+
+.people-card-container {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}

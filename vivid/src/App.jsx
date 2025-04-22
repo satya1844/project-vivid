@@ -10,6 +10,7 @@ import FollowCursor from './assets/Cursor';
 import PeopleCardsContainer from '../src/Components/PeopleCardContainerfolder/PeopleCardsContainer';
 import CommunityCardsSection from '../src/Components/CommunityCards/CommunityCardsSection';
 import NavBar from '../src/Components/NavBar/NavBar';
+import Footer from '../src/Components/Footer/footer';
 
 function LoginPageWithRedirect() {
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ function Layout() {
               <MainSection />
               <PeopleCardsContainer />
               <CommunityCardsSection />
+              < Footer />
               
             </>
           }

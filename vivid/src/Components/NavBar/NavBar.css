@@ -2,10 +2,10 @@
 .navBar{
   width: 100%;
   margin-top: 0px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
   position: sticky; /* Make the navbar sticky */
   top: 0; /* Stick it to the top */
-  background-color: rgba(251, 255, 31, 0.8); /* Transparent Yellow */
+  background-color: transparent; /* Transparent Yellow */
   z-index: 100; /* Ensure it stays on top of other content */
 }
 

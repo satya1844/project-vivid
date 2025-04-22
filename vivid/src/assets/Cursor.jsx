@@ -36,7 +36,7 @@ const FollowCursor = ({ color = '#1E1E1E' }) => {
         context.closePath();
       }
     }
-    const dot = new Dot(width / 2, height / 2, 10, 10);
+    const dot = new Dot(width / 2, height / 2, 10, 2); // Reduced lag value for faster movement
     const onMouseMove = (e) => {
       cursor.x = e.clientX;
       cursor.y = e.clientY;

@@ -1,20 +1,44 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import peopleData from "./peopleData";
 import PeopleCard from "./PeopleCard";
 import "./PeopleCardsContainer.css";
 
 const PeopleCardsContainer = () => {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+
+    const scrollInterval = setInterval(() => {
+      if (container) {
+        container.scrollBy({
+          left: 1, // Scroll 1 pixel at a time
+          behavior: 'smooth', // Smooth scrolling behavior
+        });
+
+        // Reset scroll when reaching the end
+        if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
+          container.scrollLeft = 0;
+        }
+      }
+    }, 100); // Adjust speed by changing the interval time
+
+    return () => clearInterval(scrollInterval);
+  }, []);
+
   return (
     <div className="people-cards-section">
       <div className="cards-scroll">
-        {peopleData.map((person, index) => (
-          <PeopleCard
-            key={index}
-            name={person.name}
-            image={person.image}
-            description={person.description}
-          />
-        ))}
+        <div className="people-card-container" ref={containerRef}> {/* Added ref for auto-scrolling */}
+          {peopleData.map((person, index) => (
+            <PeopleCard
+              key={index}
+              name={person.name}
+              image={person.image}
+              description={person.description}
+            />
+          ))}
+        </div>
       </div>
       <div className="cta-section reduced-width">
         <p>
