@@ -27,25 +27,31 @@ const PeopleCardsContainer = () => {
   }, []);
 
   return (
-    <div className="people-cards-section">
-      <div className="cards-scroll">
-        <div className="people-card-container" ref={containerRef}> {/* Added ref for auto-scrolling */}
-          {peopleData.map((person, index) => (
-            <PeopleCard
-              key={index}
-              name={person.name}
-              image={person.image}
-              description={person.description}
-            />
-          ))}
-        </div>
-      </div>
-      <div className="cta-section reduced-width">
+    <div className="people-cards-container">
+      <div className="people-cards-matter">
+        <h2>Find your Buddy</h2>
         <p>
-          Discover new passions and connect with like-minded people! Every hobby opens the door to a
-          community waiting to welcome you.
+            Discover new passions and connect with like-minded people! Every hobby opens the door to a
+            community waiting to welcome you.
         </p>
-        
+      </div>
+      <div className="people-cards-section">
+        <div className="cards-scroll">
+          <div className="people-card-container" ref={containerRef}> {/* Added ref for auto-scrolling */}
+            {peopleData.map((person, index) => (
+              <PeopleCard
+                key={index}
+                name={person.name}
+                image={person.image}
+                description={person.description}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="cta-section reduced-width">
+          
+          
+        </div>
       </div>
     </div>
   );

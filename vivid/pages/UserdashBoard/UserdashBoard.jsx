@@ -1,12 +1,22 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './UserdashBoard.css';
 import profileBanner from '../../src/assets/ProfileBanner.png';
 import profilePic from '../../src/assets/ProfilePic.png';
 import editPen from '../../src/assets/editPen.svg';
+import DotOrnament from '../../src/assets/DotOrnament.svg';
 
 function UserdashBoard() {
+  const navigate = useNavigate();
+
+  const handleEditClick = () => {
+    navigate('/editProfile'); // Redirect to the edit profile page
+  };
+
   return (
     <div className="user-dash-board">
+      <img src={DotOrnament} alt="Dot Ornament" className="DotOrnament" /> 
+      <div className="bio-yellow-box">
       <div className="profile-header">
         <img className="banner-image" src={profileBanner} alt="Banner" />
         <div className="profile-picture-wrapper">
@@ -16,11 +26,11 @@ function UserdashBoard() {
       <div className="dashboard-main-content">
         <div className="dashboard-header-row">
           <h2 className="username">Vinay Damarasing</h2>
-          <button className="edit-icon-btn" aria-label="Edit profile">
+          <button className="edit-icon-btn" aria-label="Edit profile" onClick={handleEditClick}>
             <img src={editPen} alt="Edit" className="edit-icon-img" />
           </button>
         </div>
-        <div className="bio-yellow-box">
+        
           <b>
             Blending soul with sound, rhythm with reality.”<br />
             I’m Vinay, a self-taught musician and sound explorer from Hyderabad. Whether it’s late-night lo-fi loops, lyrical storytelling, or heart-thumping beats — I create music that speaks to moments.<br />
@@ -41,9 +51,9 @@ function UserdashBoard() {
               <span className="hobbies-title">Hobbies | Interests</span>
             </div>
             <ul className="hobby-list">
-              <li><span role="img" aria-label="guitar">🎸</span> Playing Guitar</li>
-              <li><span role="img" aria-label="camera">📷</span> Photography</li>
-              <li><span role="img" aria-label="ai">✨</span> Learning AI Stuff</li>
+              <li><span role="img" aria-label="guitar"></span> Playing Guitar</li>
+              <li><span role="img" aria-label="camera"></span> Photography</li>
+              <li><span role="img" aria-label="ai"></span> Learning AI Stuff</li>
             </ul>
             <div className="mood-header">Current Mood</div>
             <ul className="mood-list">

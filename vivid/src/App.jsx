@@ -12,6 +12,10 @@ import CommunityCardsSection from '../src/Components/CommunityCards/CommunityCar
 import NavBar from '../src/Components/NavBar/NavBar';
 import Footer from '../src/Components/Footer/footer';
 
+import EditProfile from '../../vivid/pages/editProfile/editProfile';
+
+
+
 function LoginPageWithRedirect() {
   const navigate = useNavigate();
 
@@ -53,6 +57,7 @@ function Layout() {
         <Route path="/login" element={<LoginPageWithRedirect />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/userdashboard" element={<UserdashBoard />} />
+        <Route path="/editProfile" element={<EditProfile />} />
       </Routes>
     </div>
   );

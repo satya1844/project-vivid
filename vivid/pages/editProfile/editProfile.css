@@ -1,0 +1,120 @@
+/* Styles for the profile setup container */
+
+
+
+
+.profile-setup-container {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  flex-wrap: wrap;
+  font-family: 'Poppins', sans-serif;
+  background-color: #2d2d2d;
+}
+
+/* Styles for the preview card */
+.preview-card {
+  flex: 1;
+  padding: 1.5rem;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  background: #fdfdfd;
+  max-width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.preview-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.preview-card h3 {
+  margin: 0.5rem 0;
+}
+
+.preview-card .mood {
+  font-style: italic;
+  color: #555;
+}
+
+.preview-card .tags {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.tag {
+  background-color: #e0e0e0;
+  border-radius: 16px;
+  padding: 5px 10px;
+  font-size: 0.85rem;
+}
+
+/* Styles for the profile form */
+.profile-form {
+  color: #f0f0f0;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+}
+
+.profile-form .checkbox-item {
+  color: black;
+  font-size: 0.8rem;
+  
+}
+
+.profile-form input[type="text"],
+.profile-form textarea,
+.profile-form select {
+  padding: 8px;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+}
+
+/* Styles for the checkbox group */
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+/* Styles for buttons */
+button {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #43a047;
+}
+
+/* Change the background color of the edit profile page */
+.edit-profile {
+  background-color: #2D2D2D;
+  color: white; /* Optional: Adjust text color for better contrast */
+  min-height: 100vh; /* Ensure it covers the full viewport height */
+}
+

@@ -3,7 +3,8 @@
   background-color: #ffffff; /* Ensure card background is white */
   border-radius: 12px;
   padding: 1rem;
-  width: 260px; /* Slightly scaled down width */
+  width: 260px;
+  height: 330px;
   text-align: center;
   flex: 0 0 auto;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

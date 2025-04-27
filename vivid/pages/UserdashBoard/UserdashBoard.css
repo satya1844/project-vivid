@@ -91,6 +91,8 @@
 .dashboard-main-content {
   padding: 40px 32px 32px 32px;
   position: relative;
+  /* background-color: #fbff1f;
+  border-radius: 50px; */
 }
 
 .dashboard-header-row {
@@ -135,7 +137,7 @@
 }
 
 .bio-yellow-box {
-  background: #fbff1f;
+  background: #fff;
   border-radius: 40px;
   padding: 28px 32px 24px 32px;
   margin-bottom: 24px;
@@ -146,6 +148,16 @@
   color: #181818;
   line-height: 1.5;
   box-sizing: border-box;
+}
+
+.DotOrnament {
+  position: absolute;
+  top: 20px; /* Adjust as needed */
+  left: 20px; /* Adjust as needed */
+  width: 400px; /* Adjust size as needed */
+  height: auto;
+  z-index: 0; /* Ensure it stays behind the main content */
+  opacity: 0.8; /* Optional: Add transparency for subtle effect */
 }
 
 .meta-info {

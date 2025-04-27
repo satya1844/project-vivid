@@ -1,11 +1,60 @@
-.people-cards-section {
-  background-color :#FBFF1F;
-  border-radius: 21px;
+
+.people-cards-container {
+  display: flex;
+  flex-direction: row;
+  border:  solid 2px;
+  align-items: center;
+  justify-content: center;
   padding: 2rem;
-  margin: 0 auto; /* This centers the block horizontally */
-  max-width: 80%;
-  overflow: visible;
+  background-color: #ffffff;
+  border-radius: 100px 30px 30px 30px;
+  margin: 0 auto;
+  max-width: 100%;
 }
+
+.people-cards-container{
+  border: none;
+}
+
+.people-card-container{
+  /* border: green solid 2px; */
+  margin-top: 5rem;
+  margin-left: 10%;
+}
+
+
+.people-cards-matter{
+  font-family: "Poppins", sans-serif;
+}
+
+.people-cards-matter h2{
+ font-size: 40px;  /* border: red solid 2px; */
+
+
+}
+
+.people-cards-section {
+  background-color: #e7e7f1;
+  border-radius: 250px 30px 30px 30px;
+  /* border: #000000 solid 2px; */
+  /* padding: 2rem; */
+  margin: 0 auto;
+  max-width: 850px;
+  max-height: 600px;
+  overflow: visible;
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center; 
+  gap: 2rem; 
+}
+.people-card:nth-child(odd) {
+  margin-top: 4rem; /* Push odd cards down */
+}
+
+.people-card:nth-child(even) {
+  margin-top: 0; /* Keep even cards at the top */
+}
+
 
 .cards-scroll {
   display: flex;

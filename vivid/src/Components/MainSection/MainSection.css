@@ -1,5 +1,6 @@
 .main-section {
-  padding: 0rem 0rem 4rem; /* Reduced top padding to bring section closer to navbar */
+  position: relative; /* Ensure the .DotOrnament is positioned relative to this container */
+  padding: 0rem 0rem 4rem;
   background: white;
 }
 
@@ -9,6 +10,7 @@
   display: flex;
   flex-direction: column;
   gap: 3rem; /* Reduced gap between elements */
+  z-index: 1; /* Ensure it stays above the background image */
 }
 
 .hero-row {
@@ -36,6 +38,26 @@
   flex: 1;
   max-width: 1000px;
   padding-top: 0.5rem;
+  z-index: 1; /* Ensure it stays above the background image */
+}
+
+.DotOrnament {
+  position: absolute; /* Ensure it is positioned relative to the container */
+  top: 20px; /* Adjust as needed */
+  left: 20px; /* Adjust as needed */
+  width: 384px; /* Match the provided width */
+  height: auto; /* Maintain aspect ratio */
+  max-width: 100%; /* Ensure it scales responsively */
+  color: rgb(29, 29, 27); /* Apply the provided color */
+  display: inline-block; /* Ensure it behaves like an inline element */
+  font-family: "Visuelt Pro Regular", sans-serif; /* Use the specified font */
+  font-size: 16.3px; /* Match the provided font size */
+  font-weight: 400; /* Match the provided font weight */
+  line-height: 24.45px; /* Match the provided line height */
+  text-align: center; /* Center-align the content */
+  vertical-align: middle; /* Align vertically */
+  z-index: 0; /* Ensure it stays behind the main content */
+  opacity: 0.8; /* Optional: Add transparency for subtle effect */
 }
 
 .hero-text h1 {

@@ -3,16 +3,22 @@ import { useRef } from 'react';
 import './MainSection.css';
 import heroImage from '../../assets/hero-image.png';
 import VariableProximity from '../../assets/VariableProximity/VariableProximity';
+import DotOrnament from '../../assets/DotOrnament.svg';
 
 function MainSection() {
   const containerRef = useRef(null);
 
   return (
     <section className="main-section">
+  
       <div className="container">
         {/* Text + Image Flex Row */}
         <div className="hero-row">
+          <div className="hero-dot-ornament">
+          <img src={DotOrnament} alt="Dot Ornament" className="DotOrnament" />
+          </div>
           <div className="hero-text">
+            
             <h1>
               <span className="black-text">Trade Skills, Share Passions, </span>
               <span className="highlight">Find Your Tribe</span>
