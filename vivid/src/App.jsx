@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import { ProtectedRoute } from './ProtectedRouteComponent';
 
 import MainSection from './Components/MainSection/MainSection';
 import LoginPage from '../pages/LoginPage/LoginPage';
@@ -15,8 +17,7 @@ import Footer from '../src/Components/Footer/footer';
 import EditProfile from '../../vivid/pages/editProfile/editProfile';
 import Explore from '../pages/Explore/Explore';
 import CommunityDetailPage from '../pages/CommunityDetailPage/CommunityDetailPage';
-
-
+import { Toaster } from 'react-hot-toast';
 
 function LoginPageWithRedirect() {
   const navigate = useNavigate();
@@ -70,8 +71,11 @@ function Layout() {
 function App() {
   return (
     <Router>
-      <FollowCursor />
-      <Layout />
+      <AuthProvider>
+        <Toaster position="top-right" />
+        <FollowCursor />
+        <Layout />
+      </AuthProvider>
     </Router>
   );
 }

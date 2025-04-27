@@ -1,60 +1,75 @@
-import React, { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
-import "./LoginPage.css";
-import FollowCursor from '../../src/assets/Cursor';
-// Ensure the file exists or replace with an existing image
-import LoginImage from "../../src/assets/signup.svg"; // Replace with a valid image path
+import React, { useState } from 'react';
+import { useAuth } from '../../src/context/AuthContext';
+import { Eye, EyeOff } from 'lucide-react';
+import './LoginPage.css';
 
 function LoginPage({ onLoginSuccess }) {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const { login, googleLogin } = useAuth();
 
-  const handleLogin = () => {
-    // Simulate login success
-    if (onLoginSuccess) {
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      setError('');
+      await login(email, password);
       onLoginSuccess();
+    } catch (err) {
+      setError('Failed to sign in: ' + err.message);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      setError('');
+      await googleLogin();
+      onLoginSuccess();
+    } catch (err) {
+      setError('Failed to sign in with Google: ' + err.message);
     }
   };
 
   return (
-
     <div className="login-container">
-      <FollowCursor color="#DEDEDE" />
       <div className="login-content">
-        {/* Login Image */}
-        <div className="login-image">
-          <img src={LoginImage} alt="Log In" />
-        </div>
-
-        {/* Login Form */}
+        {/* ...existing image code... */}
         <div className="form-box">
           <h1>Log in to Vivid</h1>
-          <p>
-            Don't have an account yet? <a href="/signup">Sign up for free</a>
-          </p>
+          {error && <div className="error-message">{error}</div>}
+          <p>Don't have an account yet? <a href="/signup">Sign up for free</a></p>
 
-          <input type="email" placeholder="Email Address" />
+          <input 
+            type="email" 
+            placeholder="Email Address" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
           <div className="password-box">
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <span onClick={() => setShowPassword(!showPassword)}>
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </span>
           </div>
 
-          <button className="google-btn">Log in with Google</button>
+          <button className="google-btn" onClick={handleGoogleLogin}>
+            Log in with Google
+          </button>
 
           <div className="divider">
             <span>Or</span>
           </div>
 
-          <button className="login-btn" onClick={handleLogin}>Log In</button>
-
-          <div className="extra-links">
-            <a href="#">Forgot password?</a>
-          </div>
+          <button className="login-btn" onClick={handleLogin}>
+            Log In
+          </button>
         </div>
       </div>
     </div>

@@ -97,12 +97,12 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
+  min-width: 80px; /* Ensure consistent width for login/logout */
 }
 
 .navBar-loginButton:hover {
   background-color: #000000;
   color: #ffffff;
-  border-color: #000000;
 }
 
 /* Responsive adjustments */
