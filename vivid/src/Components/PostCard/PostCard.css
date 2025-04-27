@@ -1,0 +1,78 @@
+/* src/Components/PostCard/PostCard.css */
+
+.postcard {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.postcard-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.postcard-userinfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.post-time {
+  font-size: 12px;
+  color: gray;
+}
+
+.postcard-content {
+  margin-bottom: 15px;
+}
+
+.post-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.post-image {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.post-text {
+  font-size: 16px;
+  color: #333;
+}
+
+.postcard-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.postcard-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #555;
+  transition: all 0.2s ease;
+}
+
+.postcard-actions button:hover {
+  color: #7b2cbf;
+}

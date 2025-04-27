@@ -14,6 +14,7 @@ import Footer from '../src/Components/Footer/footer';
 
 import EditProfile from '../../vivid/pages/editProfile/editProfile';
 import Explore from '../pages/Explore/Explore';
+import CommunityDetailPage from '../pages/CommunityDetailPage/CommunityDetailPage';
 
 
 
@@ -60,6 +61,7 @@ function Layout() {
         <Route path="/userdashboard" element={<UserdashBoard />} />
         <Route path="/editProfile" element={<EditProfile />} />
         <Route path="/explore" element={<Explore />} />
+        <Route path="/community/:id" element={<CommunityDetailPage />} />
       </Routes>
     </div>
   );
