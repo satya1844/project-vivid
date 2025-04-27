@@ -13,6 +13,7 @@ import NavBar from '../src/Components/NavBar/NavBar';
 import Footer from '../src/Components/Footer/footer';
 
 import EditProfile from '../../vivid/pages/editProfile/editProfile';
+import Explore from '../pages/Explore/Explore';
 
 
 
@@ -58,6 +59,7 @@ function Layout() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/userdashboard" element={<UserdashBoard />} />
         <Route path="/editProfile" element={<EditProfile />} />
+        <Route path="/explore" element={<Explore />} />
       </Routes>
     </div>
   );

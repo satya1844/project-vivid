@@ -1,0 +1,39 @@
+/* src/Components/Sidebar/Sidebar.css */
+
+.sidebar {
+  font-family: "poppins", sans-serif;
+  margin-top: 10%;
+  width: 250px;
+  height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.sidebar-logo {
+  font-weight: bold;
+  font-size: 24px;
+  color: #7b2cbf;
+  margin-bottom: 40px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sidebar-link {
+  text-decoration: none;
+  font-size: 18px;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.sidebar-link:hover {
+  color: #7b2cbf;
+  transform: translateX(5px);
+}

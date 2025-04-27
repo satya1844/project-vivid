@@ -4,10 +4,14 @@ import logo from "../../assets/Logo.svg";
 import "./NavBar.css";
 
 const Navbar = () => {
-  const navigate = useNavigate(); // React Router's navigation function
+  const navigate = useNavigate();
 
   const handleLoginClick = () => {
-    navigate("/login"); // Redirects to login page
+    navigate("/login");
+  };
+
+  const handleExploreClick = () => {
+    navigate("/explore");
   };
 
   return (
@@ -26,7 +30,9 @@ const Navbar = () => {
                 <a href="#" className="navBar-link">Home</a>
               </li>
               <li className="navBar-item">
-                <a href="#" className="navBar-link">Communities</a>
+                <a href="#" 
+                   className="navBar-link" 
+                   onClick={handleExploreClick}>Explore</a>
               </li>
               <li className="navBar-item">
                 <a href="#" className="navBar-link">People</a>
