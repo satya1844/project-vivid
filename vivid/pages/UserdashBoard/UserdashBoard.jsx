@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../src/context/AuthContext';
 import './UserdashBoard.css';
 import profileBanner from '../../src/assets/ProfileBanner.png';
 import profilePic from '../../src/assets/ProfilePic.png';
@@ -8,61 +9,74 @@ import DotOrnament from '../../src/assets/DotOrnament.svg';
 
 function UserdashBoard() {
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
+  const [posts, setPosts] = useState([]);
+  
+  // Add this if you want some sample posts
+  const [samplePosts] = useState([
+    {
+      image: 'https://via.placeholder.com/300',
+      caption: 'My first music composition!'
+    },
+    {
+      image: 'https://via.placeholder.com/300',
+      caption: 'Jamming with friends'
+    }
+  ]);
 
   const handleEditClick = () => {
-    navigate('/editProfile'); // Redirect to the edit profile page
+    navigate('/editProfile');
+  };
+
+  const handleConnectClick = () => {
+    // Add connect functionality here
+    console.log('Connect clicked');
   };
 
   return (
     <div className="user-dash-board">
       <img src={DotOrnament} alt="Dot Ornament" className="DotOrnament" /> 
       <div className="bio-yellow-box">
-      <div className="profile-header">
-        <img className="banner-image" src={profileBanner} alt="Banner" />
-        <div className="profile-picture-wrapper">
-          <img className="profile-picture" src={profilePic} alt="Profile" />
-        </div>
+        {/* ...existing profile header code... */}
       </div>
       <div className="dashboard-main-content">
         <div className="dashboard-header-row">
-          <h2 className="username">Vinay Damarasing</h2>
+          <h2 className="username">{currentUser?.displayName || 'User'}</h2>
           <button className="edit-icon-btn" aria-label="Edit profile" onClick={handleEditClick}>
             <img src={editPen} alt="Edit" className="edit-icon-img" />
           </button>
         </div>
         
-          <b>
-            Blending soul with sound, rhythm with reality.”<br />
-            I’m Vinay, a self-taught musician and sound explorer from Hyderabad. Whether it’s late-night lo-fi loops, lyrical storytelling, or heart-thumping beats — I create music that speaks to moments.<br />
-            From studio sessions to open mic nights, I believe in music that feels — not just sounds.
-          </b>
-        </div>
-        <div className="meta-info">
-          <span><b>Genre:</b> Indie Pop | Lo-fi | Hip-Hop |<br />Classical Fusion</span><br />
-          <span><b>Based in:</b> Hyderabad</span><br />
-          <span><b>Let’s jam or collab:</b> vinay@gmail.com</span>
-        </div>
+        {/* ...existing bio and meta info... */}
+        
         <div className="hobbies-card">
           <button className="edit-icon-btn hobbies-edit" aria-label="Edit hobbies">
             <img src={editPen} alt="Edit" className="edit-icon-img" />
           </button>
           <div className="hobbies-section">
-            <div className="hobbies-header">
-              <span className="hobbies-title">Hobbies | Interests</span>
-            </div>
-            <ul className="hobby-list">
-              <li><span role="img" aria-label="guitar"></span> Playing Guitar</li>
-              <li><span role="img" aria-label="camera"></span> Photography</li>
-              <li><span role="img" aria-label="ai"></span> Learning AI Stuff</li>
-            </ul>
-            <div className="mood-header">Current Mood</div>
-            <ul className="mood-list">
-              <li>Looking to learn Baking</li>
-              <li>Ready to teach Music</li>
-            </ul>
+            {/* ...existing hobbies section... */}
           </div>
-          <button className="lets-connect-btn">Lets Connect !</button>
+          <button className="lets-connect-btn" onClick={handleConnectClick}>
+            Lets Connect !
+          </button>
         </div>
+      </div>
+      <div className="posts-section">
+        <h3 className="posts-title">Posts</h3>
+        {samplePosts.length === 0 ? (
+          <div className="no-posts-message">
+            No posts yet. Time to drop your first masterpiece! 🎶
+          </div>
+        ) : (
+          <div className="posts-grid">
+            {samplePosts.map((post, index) => (
+              <div className="post-card" key={index}>
+                <img src={post.image} alt="Post" className="post-image" />
+                <p className="post-caption">{post.caption}</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

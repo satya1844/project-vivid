@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../src/context/AuthContext';
 import { Eye, EyeOff } from 'lucide-react';
 import './SignUp.css';
+import SignUpImage from '../../src/assets/signup.svg'; 
 
 function SignUp() {
   const navigate = useNavigate();

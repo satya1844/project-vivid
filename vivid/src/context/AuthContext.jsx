@@ -5,7 +5,8 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 import { auth } from '../config/authConfig';
 
@@ -31,7 +32,7 @@ export function AuthProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password)
       .catch((error) => {
         console.error('Auth error:', error);
-        throw error;
+        throw error; // Important: Throw the error to be caught in the component
       });
   }
 
@@ -42,6 +43,17 @@ export function AuthProvider({ children }) {
 
   function logout() {
     return signOut(auth);
+  }
+
+  function resetPassword(email) {
+    return sendPasswordResetEmail(auth, email)
+      .then(() => {
+        return true;
+      })
+      .catch((error) => {
+        console.error('Password reset error:', error);
+        throw error;
+      });
   }
 
   useEffect(() => {
@@ -58,7 +70,8 @@ export function AuthProvider({ children }) {
     signup,
     login,
     googleLogin,
-    logout
+    logout,
+    resetPassword // Add this to the context value
   };
 
   return (
