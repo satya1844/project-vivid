@@ -2,84 +2,111 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../src/context/AuthContext';
 import './UserdashBoard.css';
+
 import profileBanner from '../../src/assets/ProfileBanner.png';
 import profilePic from '../../src/assets/ProfilePic.png';
 import editPen from '../../src/assets/editPen.svg';
 import DotOrnament from '../../src/assets/DotOrnament.svg';
 
-function UserdashBoard() {
+function UserDashBoard() {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
-  const [posts, setPosts] = useState([]);
   
-  // Add this if you want some sample posts
   const [samplePosts] = useState([
-    {
-      image: 'https://via.placeholder.com/300',
-      caption: 'My first music composition!'
-    },
-    {
-      image: 'https://via.placeholder.com/300',
-      caption: 'Jamming with friends'
-    }
+    { image: 'https://via.placeholder.com/300', caption: 'My first music composition!' },
+    { image: 'https://via.placeholder.com/300', caption: 'Jamming with friends' },
   ]);
 
   const handleEditClick = () => {
     navigate('/editProfile');
   };
 
-  const handleConnectClick = () => {
-    // Add connect functionality here
-    console.log('Connect clicked');
-  };
-
   return (
     <div className="user-dash-board">
-      <img src={DotOrnament} alt="Dot Ornament" className="DotOrnament" /> 
-      <div className="bio-yellow-box">
-        {/* ...existing profile header code... */}
+      {/* Dot Ornament */}
+      <img src={DotOrnament} alt="Dot Ornament" className="dot-ornament" />
+
+      {/* Profile Banner */}
+      <div className="profile-banner">
+        <img src={profileBanner} alt="Profile Banner" className="banner-img" />
+        <img src={profilePic} alt="Profile" className="profile-pic" />
+        <button className="edit-btn banner-edit" onClick={handleEditClick}>
+          <img src={editPen} alt="Edit" />
+        </button>
       </div>
-      <div className="dashboard-main-content">
-        <div className="dashboard-header-row">
-          <h2 className="username">{currentUser?.displayName || 'User'}</h2>
-          <button className="edit-icon-btn" aria-label="Edit profile" onClick={handleEditClick}>
-            <img src={editPen} alt="Edit" className="edit-icon-img" />
+
+      {/* Main Dashboard Content */}
+      <div className="dashboard-content">
+        
+        {/* User Info */}
+        <div className="user-info-section">
+          <h2 className="username">{currentUser?.displayName || 'Vinay Damarasing'}</h2>
+          <p className="user-bio">
+            "Blending soul with sound, rhythm with reality."
+            <br />
+            I’m Vinay, a self-taught musician and sound explorer from Hyderabad.
+            <br />
+            From late-night lo-fi loops to heart-thumping beats — I create music that speaks to moments.
+          </p>
+
+          <div className="user-meta">
+            <p><strong>Genre:</strong> Indie Pop | Lo-fi | Hip-Hop | Classical Fusion</p>
+            <p><strong>Based in:</strong> Hyderabad</p>
+            <p><strong>Let’s jam or collab:</strong> vinay@gmail.com</p>
+          </div>
+
+          <button className="connect-btn" onClick={() => console.log('Connect clicked')}>
+            Let's Connect!
           </button>
         </div>
-        
-        {/* ...existing bio and meta info... */}
-        
-        <div className="hobbies-card">
-          <button className="edit-icon-btn hobbies-edit" aria-label="Edit hobbies">
-            <img src={editPen} alt="Edit" className="edit-icon-img" />
-          </button>
-          <div className="hobbies-section">
-            {/* ...existing hobbies section... */}
+
+        {/* Hobbies Section */}
+        <div className="hobbies-section">
+          <div className="section-header">
+            <h3>Hobbies | Interests</h3>
+            <button className="edit-btn" onClick={handleEditClick}>
+              <img src={editPen} alt="Edit" />
+            </button>
           </div>
-          <button className="lets-connect-btn" onClick={handleConnectClick}>
-            Lets Connect !
-          </button>
+
+          <ul className="hobbies-list">
+            <li>🎸 Playing Guitar</li>
+            <li>📸 Photography</li>
+            <li>🤖 Learning AI Stuff</li>
+            <li>🍰 Looking to Learn Baking</li>
+            <li>🎶 Ready to Teach Music</li>
+          </ul>
         </div>
-      </div>
-      <div className="posts-section">
-        <h3 className="posts-title">Posts</h3>
-        {samplePosts.length === 0 ? (
-          <div className="no-posts-message">
-            No posts yet. Time to drop your first masterpiece! 🎶
-          </div>
-        ) : (
-          <div className="posts-grid">
-            {samplePosts.map((post, index) => (
-              <div className="post-card" key={index}>
-                <img src={post.image} alt="Post" className="post-image" />
-                <p className="post-caption">{post.caption}</p>
-              </div>
-            ))}
-          </div>
-        )}
+
+        {/* Current Mood */}
+        <div className="mood-section">
+          <h3>Current Mood</h3>
+          <p>🎵 Feeling chill and creative</p>
+        </div>
+
+        {/* Posts Section */}
+        <div className="posts-section">
+          <h3 className="posts-title">Posts</h3>
+
+          {samplePosts.length === 0 ? (
+            <div className="no-posts">
+              No posts yet. Time to drop your first masterpiece! 🎶
+            </div>
+          ) : (
+            <div className="posts-grid">
+              {samplePosts.map((post, index) => (
+                <div key={index} className="post-card">
+                  <img src={post.image} alt="Post" className="post-img" />
+                  <p className="post-caption">{post.caption}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
       </div>
     </div>
   );
 }
 
-export default UserdashBoard;
+export default UserDashBoard;

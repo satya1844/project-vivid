@@ -1,45 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../src/context/AuthContext";
-import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
-import "./EditProfile.css";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
+import "./ProfileSetup.css";
 import placeholderProfilePic from "../../src/assets/ProfilePic.png";
 
-const EditProfile = () => {
+const ProfileSetup = () => {
   const { currentUser } = useAuth();
   const [profilePic, setProfilePic] = useState(null);
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [mood, setMood] = useState("");
   const [interests, setInterests] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const db = getFirestore();
-
-  useEffect(() => {
-    const fetchProfileData = async () => {
-      if (!currentUser) return;
-
-      try {
-        const userDocRef = doc(db, "users", currentUser.uid);
-        const userDoc = await getDoc(userDocRef);
-
-        if (userDoc.exists()) {
-          const data = userDoc.data();
-          setProfilePic(data.profilePic || placeholderProfilePic);
-          setName(data.name || "");
-          setBio(data.bio || "");
-          setMood(data.mood || "");
-          setInterests(data.interests || []);
-        }
-      } catch (error) {
-        console.error("Error fetching profile data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProfileData();
-  }, [currentUser, db]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -54,36 +27,33 @@ const EditProfile = () => {
 
   const handleSave = async () => {
     if (!currentUser) {
-      alert("You must be logged in to edit your profile.");
+      alert("You must be logged in to set up your profile.");
       return;
     }
 
     setIsSaving(true);
     try {
       const userDocRef = doc(db, "users", currentUser.uid);
-      await updateDoc(userDocRef, {
+      await setDoc(userDocRef, {
+        uid: currentUser.uid,
         name,
         bio,
         mood,
         interests,
-        profilePic,
+        profilePic: profilePic || placeholderProfilePic,
       });
-      alert("Profile updated successfully!");
+      alert("Profile setup complete!");
     } catch (error) {
-      console.error("Error updating profile data:", error);
-      alert("Failed to update profile. Please try again.");
+      console.error("Error saving profile data:", error);
+      alert("Failed to save profile. Please try again.");
     } finally {
       setIsSaving(false);
     }
   };
 
-  if (loading) {
-    return <p>Loading profile...</p>;
-  }
-
   return (
-    <div className="edit-profile-container">
-      <h2>Edit Your Profile</h2>
+    <div className="profile-setup-container">
+      <h2>Set Up Your Profile</h2>
       <form className="profile-form">
         <label>Upload Profile Picture</label>
         <input type="file" accept="image/*" onChange={handleFileChange} />
@@ -132,11 +102,11 @@ const EditProfile = () => {
         </div>
 
         <button type="button" onClick={handleSave} disabled={isSaving}>
-          {isSaving ? "Saving..." : "Save Changes"}
+          {isSaving ? "Saving..." : "Save Profile"}
         </button>
       </form>
     </div>
   );
 };
 
-export default EditProfile;
+export default ProfileSetup;

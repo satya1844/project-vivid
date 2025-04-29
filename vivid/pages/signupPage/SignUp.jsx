@@ -4,6 +4,7 @@ import { useAuth } from '../../src/context/AuthContext';
 import { Eye, EyeOff } from 'lucide-react';
 import './SignUp.css';
 import SignUpImage from '../../src/assets/signup.svg'; 
+import { toast } from 'react-hot-toast';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -23,12 +24,22 @@ function SignUp() {
       return setError('Passwords do not match');
     }
 
+    if (!isValidPassword(formData.password)) {
+      toast.error('Password must be at least 8 characters, include a number and a special character.');
+      return;
+    }
+
     try {
       setError('');
       await signup(formData.email, formData.password);
-      navigate('/userdashboard');
+      navigate("/login"); // Redirect to login page after successful signup
     } catch (err) {
-      setError('Failed to create an account: ' + err.message);
+      // Show custom message if email is already registered
+      if (err.code === 'auth/email-already-in-use') {
+        setError('You are already signed up. Please try to log in instead.');
+      } else {
+        setError('Failed to create an account: ' + err.message);
+      }
     }
   };
 
@@ -98,15 +109,16 @@ function SignUp() {
               </span>
             </div>
 
-            <button className="google-btn" onClick={handleGoogleSignup}>
-              Sign up with Google
-            </button>
+            <button type="submit" className="signup-btn">Sign Up</button>
 
             <div className="divider">
               <span>Or</span>
             </div>
 
-            <button className="signup-btn">Sign Up</button>
+            
+            <button type="button" className="google-btn" onClick={handleGoogleSignup}>
+              Sign up with Google
+            </button>
           </form>
         </div>
         {/* Signup Image */}
