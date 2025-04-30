@@ -37,7 +37,7 @@ function LoginPage() {
       }
 
       // Redirect to Edit Profile page after login
-      navigate("/profileSetup");
+      navigate("/userdashboard");
     } catch (err) {
       console.error("Login error:", err);
 
@@ -73,7 +73,7 @@ function LoginPage() {
       console.log("User Display Name:", user?.displayName);
 
       // Redirect to Edit Profile page after Google login
-      navigate("/editProfile");
+      navigate("/userdashboard");
     } catch (err) {
       console.error("Google login error:", err);
       switch (err.code) {

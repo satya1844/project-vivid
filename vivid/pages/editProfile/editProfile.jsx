@@ -1,140 +1,93 @@
-import React, { useState, useEffect } from "react";
-import { useAuth } from "../../src/context/AuthContext";
-import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
-import "./EditProfile.css";
-import placeholderProfilePic from "../../src/assets/ProfilePic.png";
+import React, { useState } from "react";
+import "./editProfile.css";
 
-const EditProfile = () => {
-  const { currentUser } = useAuth();
-  const [profilePic, setProfilePic] = useState(null);
-  const [name, setName] = useState("");
+const EditProfile = ({ onClose }) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [bio, setBio] = useState("");
   const [mood, setMood] = useState("");
   const [interests, setInterests] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [isSaving, setIsSaving] = useState(false);
-  const db = getFirestore();
 
-  useEffect(() => {
-    const fetchProfileData = async () => {
-      if (!currentUser) return;
-
-      try {
-        const userDocRef = doc(db, "users", currentUser.uid);
-        const userDoc = await getDoc(userDocRef);
-
-        if (userDoc.exists()) {
-          const data = userDoc.data();
-          setProfilePic(data.profilePic || placeholderProfilePic);
-          setName(data.name || "");
-          setBio(data.bio || "");
-          setMood(data.mood || "");
-          setInterests(data.interests || []);
-        }
-      } catch (error) {
-        console.error("Error fetching profile data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProfileData();
-  }, [currentUser, db]);
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setProfilePic(event.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
+  const handleSave = () => {
+    // Save logic here
+    alert("Profile updated!");
+    onClose(); // Close the modal
   };
-
-  const handleSave = async () => {
-    if (!currentUser) {
-      alert("You must be logged in to edit your profile.");
-      return;
-    }
-
-    setIsSaving(true);
-    try {
-      const userDocRef = doc(db, "users", currentUser.uid);
-      await updateDoc(userDocRef, {
-        name,
-        bio,
-        mood,
-        interests,
-        profilePic,
-      });
-      alert("Profile updated successfully!");
-    } catch (error) {
-      console.error("Error updating profile data:", error);
-      alert("Failed to update profile. Please try again.");
-    } finally {
-      setIsSaving(false);
-    }
-  };
-
-  if (loading) {
-    return <p>Loading profile...</p>;
-  }
 
   return (
-    <div className="edit-profile-container">
-      <h2>Edit Your Profile</h2>
-      <form className="profile-form">
-        <label>Upload Profile Picture</label>
-        <input type="file" accept="image/*" onChange={handleFileChange} />
-
-        <label>Name</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-
-        <label>Short Bio</label>
-        <textarea
-          value={bio}
-          onChange={(e) => setBio(e.target.value)}
-          rows="3"
-        />
-
-        <label>Select Mood</label>
-        <select value={mood} onChange={(e) => setMood(e.target.value)}>
-          <option value="">-- Select Mood --</option>
-          <option value="Ready to Learn">Ready to Learn</option>
-          <option value="Open to Connect">Open to Connect</option>
-          <option value="Chilling Today">Chilling Today</option>
-          <option value="Looking for Ideas">Looking for Ideas</option>
-        </select>
-
-        <label>Choose Interests</label>
-        <div className="checkbox-group">
-          {["🎨 Art", "🎶 Music", "📚 Reading", "💻 Coding"].map((interest) => (
-            <label key={interest}>
-              <input
-                type="checkbox"
-                checked={interests.includes(interest)}
-                onChange={() =>
-                  setInterests((prev) =>
-                    prev.includes(interest)
-                      ? prev.filter((i) => i !== interest)
-                      : [...prev, interest]
-                  )
-                }
-              />
-              {interest}
-            </label>
-          ))}
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        {/* Modal Header */}
+        <div className="modal-header">
+          <h2>Edit Intro</h2>
+          <button className="modal-close-btn" onClick={onClose}>
+            &times;
+          </button>
         </div>
 
-        <button type="button" onClick={handleSave} disabled={isSaving}>
-          {isSaving ? "Saving..." : "Save Changes"}
-        </button>
-      </form>
+        {/* Modal Body */}
+        <div className="modal-body">
+          <label htmlFor="firstName">First name*</label>
+          <input
+            id="firstName"
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+
+          <label htmlFor="lastName">Last name*</label>
+          <input
+            id="lastName"
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+
+        
+
+          <label htmlFor="bio">Short Bio</label>
+          <textarea
+            id="bio"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            rows="3"
+          />
+
+          <label htmlFor="mood">Select Mood</label>
+          <select id="mood" value={mood} onChange={(e) => setMood(e.target.value)}>
+            <option value="">-- Select Mood --</option>
+            <option value="Ready to Learn">Ready to Learn</option>
+            <option value="Open to Connect">Open to Connect</option>
+            <option value="Chilling Today">Chilling Today</option>
+            <option value="Looking for Ideas">Looking for Ideas</option>
+          </select>
+
+          <label>Choose Interests</label>
+          <div className="checkbox-group">
+            {["🎨 Art", "🎶 Music", "📚 Reading", "💻 Coding"].map((interest) => (
+              <label key={interest}>
+                <input
+                  type="checkbox"
+                  checked={interests.includes(interest)}
+                  onChange={() =>
+                    setInterests((prev) =>
+                      prev.includes(interest)
+                        ? prev.filter((i) => i !== interest)
+                        : [...prev, interest]
+                    )
+                  }
+                />
+                {interest}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* Modal Footer */}
+        <div className="modal-footer">
+          <button onClick={handleSave}>Save</button>
+        </div>
+      </div>
     </div>
   );
 };

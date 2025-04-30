@@ -68,6 +68,17 @@
   margin-bottom: 0.5rem;
 }
 
+.typed-cursor {
+  font-weight: 600;
+  color: #5c415d;
+  animation: blink 0.7s infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+
 .black-text {
   color: black;
   font-weight: 800;
@@ -75,7 +86,7 @@
 
 .highlight {
   color: #5c415d;
-  font-weight: 700;
+  font-weight: 1000;
 }
 
 .hero-text p {

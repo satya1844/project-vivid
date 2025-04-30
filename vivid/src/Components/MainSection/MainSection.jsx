@@ -1,5 +1,5 @@
-import React from 'react';
-import { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
+import Typed from 'typed.js';
 import './MainSection.css';
 import heroImage from '../../assets/hero-image.png';
 import VariableProximity from '../../assets/VariableProximity/VariableProximity';
@@ -7,21 +7,43 @@ import DotOrnament from '../../assets/DotOrnament.svg';
 
 function MainSection() {
   const containerRef = useRef(null);
+  const typedH1Ref = useRef(null);
+
+  useEffect(() => {
+    const typed = new Typed(typedH1Ref.current, {
+      strings: [
+        "Trade Skills, Share Passions, <span class='highlight'>Find Your Tribe</span>"
+      ],
+      typeSpeed: 30,
+      backSpeed: 30,
+      backDelay: 10000,
+      loop: true,
+      showCursor: true,
+      cursorChar: '|',
+      onComplete: () => {
+        const cursor = document.querySelector('.typed-cursor');
+        if (cursor) {
+          cursor.style.display = 'none'; // Hide the cursor after typing
+        }
+      },
+    });
+
+    return () => {
+      typed.destroy(); // Cleanup to avoid memory leaks
+    };
+  }, []);
 
   return (
     <section className="main-section">
-  
       <div className="container">
         {/* Text + Image Flex Row */}
         <div className="hero-row">
           <div className="hero-dot-ornament">
-          <img src={DotOrnament} alt="Dot Ornament" className="DotOrnament" />
+            <img src={DotOrnament} alt="Dot Ornament" className="DotOrnament" />
           </div>
           <div className="hero-text">
-            
-            <h1>
-              <span className="black-text">Trade Skills, Share Passions, </span>
-              <span className="highlight">Find Your Tribe</span>
+            <h1 className="typewriter">
+              <span ref={typedH1Ref} />
             </h1>
             <p>
               Discover new hobbies, connect with fellow enthusiasts, and grow
