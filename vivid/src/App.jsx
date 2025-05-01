@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ProtectedRoute } from './ProtectedRouteComponent';
@@ -18,6 +18,7 @@ import ProfileSetup from "../pages/ProfileSetup/ProfileSetup";
 
 import CommunityDetailPage from '../pages/CommunityDetailPage/CommunityDetailPage';
 import { Toaster } from 'react-hot-toast';
+import Loader from './assets/Loader'; // Import the Loader component
 
 function LoginPageWithRedirect() {
   const navigate = useNavigate();
@@ -68,26 +69,41 @@ function Layout() {
 
 function App() {
   return (
-    <Router>
-      <AuthProvider>
-        <Toaster
-          position="top-center" // Position the toast in the center at the top
-          toastOptions={{
-            style: {
-              background: '#333', // Dark background
-              color: '#fff', // White text
-              fontFamily: 'Poppins, sans-serif',
-              fontSize: '14px',
-              borderRadius: '8px',
-              padding: '12px 16px',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
-            },
-            duration: 4000, // Toast will disappear after 4 seconds
-          }}
-        />
-        <Layout />
-      </AuthProvider>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AuthProvider>
+  );
+}
+
+// Separate component to use hooks after AuthProvider is mounted
+function AppContent() {
+  const { currentUser, isLoading } = useAuth();
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  return (
+    <>
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          style: {
+            background: '#333',
+            color: '#fff',
+            fontFamily: 'Poppins, sans-serif',
+            fontSize: '14px',
+            borderRadius: '8px',
+            padding: '12px 16px',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
+          },
+          duration: 4000,
+        }}
+      />
+      <Layout />
+    </>
   );
 }
 

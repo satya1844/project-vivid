@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../src/context/AuthContext";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "react-hot-toast";
-import { auth } from "../../src/config/authConfig"; // Ensure auth is imported
+import { auth, signInWithGoogle } from "../../src/config/authConfig"; // Ensure auth and signInWithGoogle are imported
+import Loader from "../../src/assets/Loader"; // Import the Loader component
 import "./LoginPage.css";
 import LoginImage from '../../src/assets/login.svg';
 
@@ -14,6 +15,7 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -59,30 +61,15 @@ function LoginPage() {
   };
 
   const handleGoogleLogin = async () => {
+    setIsLoading(true); // Show the loader
     try {
-      const result = await googleLogin();
-      const user = result.user;
-      console.log("Google Login successful:");
-      console.log("User UID:", user?.uid);
-      console.log("User Email:", user?.email);
-      console.log("User Display Name:", user?.displayName);
-
-      // Only navigate if we're not already on the dashboard
-      if (window.location.pathname !== '/userdashboard') {
-        navigate("/userdashboard");
-      }
-    } catch (err) {
-      console.error("Google login error:", err);
-      switch (err.code) {
-        case "auth/popup-closed-by-user":
-          toast.error("Login cancelled. Please try again.");
-          break;
-        case "auth/account-exists-with-different-credential":
-          toast.error("Account exists with a different sign-in method.");
-          break;
-        default:
-          toast.error("Failed to sign in with Google. 😞");
-      }
+      const user = await signInWithGoogle();
+      console.log("Google Login successful:", user);
+      navigate("/userdashboard");
+    } catch (error) {
+      console.error("Error during Google login:", error);
+    } finally {
+      setIsLoading(false); // Hide the loader
     }
   };
 
@@ -109,6 +96,10 @@ function LoginPage() {
       }
     }
   };
+
+  if (isLoading) {
+    return <Loader />; // Show the Loader during login
+  }
 
   return (
     <>
