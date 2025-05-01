@@ -1,23 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { doc, setDoc } from "firebase/firestore"; // Use setDoc for updating
+import { db } from "../../src/config/authConfig";
 import "./editProfile.css";
 
-const EditProfile = ({ onClose }) => {
+const EditProfile = ({ onClose, userData, userId, onProfileUpdate }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [bio, setBio] = useState("");
   const [mood, setMood] = useState("");
   const [interests, setInterests] = useState([]);
 
-  const handleSave = () => {
-    // Save logic here
-    alert("Profile updated!");
-    onClose(); // Close the modal
+  // Populate fields with user data when the component mounts
+  useEffect(() => {
+    if (userData) {
+      setFirstName(userData.firstName || "");
+      setLastName(userData.lastName || "");
+      setBio(userData.bio || "");
+      setMood(userData.mood || "");
+      setInterests(userData.interests || []);
+    }
+  }, [userData]);
+
+  const handleSave = async () => {
+    try {
+      // Update the user's document in Firestore
+      const userDoc = doc(db, "users", userId); // Use the user's UID as the document ID
+      const updatedData = {
+        firstName,
+        lastName,
+        bio,
+        mood,
+        interests,
+        timestamp: new Date(),
+      };
+      await setDoc(userDoc, updatedData);
+
+      // Call the callback to update the parent component's state
+      onProfileUpdate(updatedData);
+
+      alert("Profile updated!");
+      onClose(); // Close the modal
+    } catch (error) {
+      console.error("Error updating profile: ", error);
+      alert("Failed to update profile. Please try again.");
+    }
   };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        {/* Modal Header */}
         <div className="modal-header">
           <h2>Edit Intro</h2>
           <button className="modal-close-btn" onClick={onClose}>
@@ -25,7 +56,6 @@ const EditProfile = ({ onClose }) => {
           </button>
         </div>
 
-        {/* Modal Body */}
         <div className="modal-body">
           <label htmlFor="firstName">First name*</label>
           <input
@@ -42,8 +72,6 @@ const EditProfile = ({ onClose }) => {
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
-
-        
 
           <label htmlFor="bio">Short Bio</label>
           <textarea
@@ -83,7 +111,6 @@ const EditProfile = ({ onClose }) => {
           </div>
         </div>
 
-        {/* Modal Footer */}
         <div className="modal-footer">
           <button onClick={handleSave}>Save</button>
         </div>

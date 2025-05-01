@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../src/context/AuthContext';
+import { doc, getDoc } from "firebase/firestore"; // Import Firestore functions
+import { db } from "../../src/config/authConfig"; // Firestore instance
 import './UserDashBoard.css';
 
 import profileBanner from '../../src/assets/placeholder-banner.png';
@@ -10,6 +12,29 @@ import EditProfile from '../editProfile/EditProfile'; // Import the EditProfile 
 function UserDashBoard() {
   const { currentUser } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
+  const [userData, setUserData] = useState(null); // State to store user data
+
+  // Fetch user data from Firestore
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        if (currentUser?.uid) {
+          const userDoc = doc(db, "users", currentUser.uid); // Assuming `uid` is the document ID
+          const userSnapshot = await getDoc(userDoc);
+
+          if (userSnapshot.exists()) {
+            setUserData(userSnapshot.data()); // Set the fetched data
+          } else {
+            console.log("No such document!");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching user data: ", error);
+      }
+    };
+
+    fetchUserData();
+  }, [currentUser]);
 
   const handleEditClick = () => {
     setIsModalOpen(true); // Open the modal
@@ -17,6 +42,10 @@ function UserDashBoard() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false); // Close the modal
+  };
+
+  const handleProfileUpdate = (updatedData) => {
+    setUserData(updatedData); // Update the userData state with the new data
   };
 
   return (
@@ -42,14 +71,8 @@ function UserDashBoard() {
 
       {/* User Info Section */}
       <div className="user-info-section">
-        <h2 className="username">{currentUser?.displayName || 'Vinay Damarasing'}</h2>
-        <p className="user-bio">
-          Blending soul with sound, rhythm with reality.
-          <br />
-          I’m Vinay, a self-taught musician and sound explorer from Hyderabad.
-          <br />
-          From studio sessions to open mic nights, I believe in music that feels — not just sounds.
-        </p>
+        <h2 className="username">{userData?.firstName} {userData?.lastName}</h2>
+        <p className="user-bio">{userData?.bio || "No bio available."}</p>
         <div className="user-meta">
           <p><strong>Genre:</strong> Indie Pop | Lo-fi | Hip-Hop | Classical Fusion</p>
           <p><strong>Based in:</strong> Hyderabad</p>
@@ -66,22 +89,29 @@ function UserDashBoard() {
           </button>
         </div>
         <ul className="hobbies-list">
-          <li>🎸 Playing Guitar</li>
-          <li>📸 Photography</li>
-          <li>🤖 Learning AI Stuff</li>
-          <li>🍰 Looking to learn Baking</li>
-          <li>🎶 Ready to teach Music</li>
+          {userData?.interests?.length > 0 ? (
+            userData.interests.map((interest, index) => <li key={index}>{interest}</li>)
+          ) : (
+            <li>No hobbies or interests added yet.</li>
+          )}
         </ul>
       </div>
 
       {/* Current Mood Section */}
       <div className="mood-section">
         <h3>Current Mood</h3>
-        <p>🎵 Feeling chill and creative</p>
+        <p>{userData?.mood || "No mood selected."}</p>
       </div>
 
       {/* Edit Profile Modal */}
-      {isModalOpen && <EditProfile onClose={handleCloseModal} />}
+      {isModalOpen && (
+        <EditProfile
+          onClose={handleCloseModal}
+          userData={userData}
+          userId={currentUser?.uid} // Pass the user's UID
+          onProfileUpdate={handleProfileUpdate} // Pass the callback
+        />
+      )}
     </div>
   );
 }

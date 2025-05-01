@@ -5,11 +5,11 @@ import { Eye, EyeOff } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { auth } from "../../src/config/authConfig"; // Ensure auth is imported
 import "./LoginPage.css";
+import LoginImage from '../../src/assets/login.svg';
 
 function LoginPage() {
   const navigate = useNavigate();
   const { login, googleLogin, resetPassword } = useAuth();
-
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,12 +21,10 @@ function LoginPage() {
       setError("");
       console.log("Attempting to log in with email:", email);
 
-      // Attempt to log in
       await login(email, password);
       toast.success("Successfully logged in! 🚀");
 
-      // Get current logged-in user details
-      const user = auth.currentUser; // Ensure `auth` is imported from Firebase config
+      const user = auth.currentUser;
       if (user) {
         console.log("Login successful:");
         console.log("User UID:", user.uid);
@@ -36,16 +34,14 @@ function LoginPage() {
         console.warn("No user found after login. Something might be wrong.");
       }
 
-      // Redirect to Edit Profile page after login
       navigate("/userdashboard");
     } catch (err) {
       console.error("Login error:", err);
 
-      // Handle specific Firebase error codes
       switch (err.code) {
         case "auth/user-not-found":
           toast.error("Account not found. Please sign up first! ✨");
-          navigate("/signup"); // Redirect to signup page
+          navigate("/signup");
           break;
         case "auth/wrong-password":
           toast.error("Incorrect password. Please try again! 🔑");
@@ -65,15 +61,16 @@ function LoginPage() {
   const handleGoogleLogin = async () => {
     try {
       const result = await googleLogin();
-      const user = result.user; // Extract user details from the result
-      toast.success("Logged in with Google! 🎉");
+      const user = result.user;
       console.log("Google Login successful:");
       console.log("User UID:", user?.uid);
       console.log("User Email:", user?.email);
       console.log("User Display Name:", user?.displayName);
 
-      // Redirect to Edit Profile page after Google login
-      navigate("/userdashboard");
+      // Only navigate if we're not already on the dashboard
+      if (window.location.pathname !== '/userdashboard') {
+        navigate("/userdashboard");
+      }
     } catch (err) {
       console.error("Google login error:", err);
       switch (err.code) {
@@ -91,7 +88,7 @@ function LoginPage() {
 
   const handleForgotPassword = async () => {
     if (!email) {
-      toast.error("Please enter your email address first 📧");
+      toast.error("Please enter your email address first ");
       return;
     }
 
@@ -114,64 +111,73 @@ function LoginPage() {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-content">
-        <div className="form-box">
-          <h1>
-            Log in to <span>Vivid</span>
-          </h1>
+    <>
+      <div className="particles-background">
+        {/* <Particles /> */}
+          <div className="login-container">
+            <div className="login-content">
+              <div className="form-box">
+                <h1>
+                  Log in to <span>Vivid</span>
+                </h1>
 
-          {error && <div className="error-message">{error}</div>}
+                {error && <div className="error-message">{error}</div>}
 
-          <p>
-            Don't have an account? <a href="/signup">Sign up for free</a>
-          </p>
+                <p>
+                  Don't have an account? <a href="/signup">Sign up for free</a>
+                </p>
 
-          <form onSubmit={handleLogin}>
-            <input
-              type="email"
-              placeholder="Email Address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+                <form onSubmit={handleLogin}>
+                  <input
+                    type="email"
+                    placeholder="Email Address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
 
-            <div className="password-box">
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <span onClick={() => setShowPassword(!showPassword)}>
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-              </span>
+                  <div className="password-box">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                    <span onClick={() => setShowPassword(!showPassword)}>
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </span>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="forgot-password-btn"
+                    onClick={handleForgotPassword}
+                  >
+                    Forgot Password?
+                  </button>
+
+                  <button type="submit" className="login-btn">
+                    Log In
+                  </button>
+                </form>
+
+                <div className="divider">
+                  <span>Or</span>
+                </div>
+
+                <button className="google-btn" onClick={handleGoogleLogin}>
+                  Log in with Google
+                </button>
+              </div>
+              <div className="login-image">
+                        <img src={LoginImage} alt="Sign Up" />
+                      </div>
+                    
             </div>
-
-            <button
-              type="button"
-              className="forgot-password-btn"
-              onClick={handleForgotPassword}
-            >
-              Forgot Password?
-            </button>
-
-            <button type="submit" className="login-btn">
-              Log In
-            </button>
-          </form>
-
-          <div className="divider">
-            <span>Or</span>
           </div>
-
-          <button className="google-btn" onClick={handleGoogleLogin}>
-            Log in with Google
-          </button>
-        </div>
       </div>
-    </div>
+    </>
   );
 }
 

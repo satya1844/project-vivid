@@ -11,9 +11,13 @@ body {
   color: #fff;
 }
 
+
+
+
 /* Dynamic dark backgrounds for login/signup */
 .signup-page, .login-page {
   background-color: #2D2D2D;
+  
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -21,12 +25,13 @@ body {
 }
 
 /* Content containers */
-.signup-content, .login-content {
+.login-content {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2rem;
   margin-top: 20px;
+  flex-direction: row-reverse;
 }
 
 /* Target all toasts */
@@ -61,11 +66,15 @@ body {
 .signup-image img, .login-image img {
   width: 400px;
   height: auto;
+  z-index: 1;
 }
 
 /* Common Form Box */
 .form-box {
-  background-color: #2a2a2a;
+  position: relative;
+  bottom: 100px ;
+  top: 10px;
+  background-color: #000;
   padding: 40px;
   border-radius: 16px;
   width: 380px;
@@ -154,6 +163,10 @@ body {
   outline: none;
   box-sizing: border-box;
 }
+
+
+
+
 
 .password-box span {
   position: absolute;

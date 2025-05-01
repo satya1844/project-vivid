@@ -1,0 +1,10 @@
+.particles-container {
+  position: fixed; /* Fix it to the viewport */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Full width of the viewport */
+  height: 100vh; /* Full height of the viewport */
+  z-index: 0; /* Place it behind other content */
+  background-color: #000; /* Optional fallback background color */
+  overflow: hidden; /* Prevent scrollbars */
+}

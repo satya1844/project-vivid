@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { ProtectedRoute } from './ProtectedRouteComponent';
 import MainSection from './Components/MainSection/MainSection';
 import LoginPage from '../pages/LoginPage/LoginPage';
@@ -21,12 +21,9 @@ import { Toaster } from 'react-hot-toast';
 
 function LoginPageWithRedirect() {
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
 
-  const handleLoginSuccess = () => {
-    navigate('/userdashboard'); // Redirect to user dashboard after login
-  };
-
-  return <LoginPage onLoginSuccess={handleLoginSuccess} />;
+  return <LoginPage />;
 }
 
 function Layout() {
