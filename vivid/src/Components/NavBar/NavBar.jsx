@@ -32,12 +32,7 @@ const Navbar = () => {
     navigate(path);
   };
 
-  // Show welcome toast when user logs in
-  React.useEffect(() => {
-    if (currentUser) {
-      toast.success(`Welcome, ${currentUser.displayName || 'User'}!`);
-    }
-  }, [currentUser]);
+  // Remove the useEffect block that shows welcome message
 
   return (
     <nav className="navBar">

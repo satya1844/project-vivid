@@ -24,19 +24,17 @@ function LoginPage() {
       console.log("Attempting to log in with email:", email);
 
       await login(email, password);
-      toast.success("Successfully logged in! 🚀");
-
       const user = auth.currentUser;
       if (user) {
         console.log("Login successful:");
         console.log("User UID:", user.uid);
         console.log("User Email:", user.email);
         console.log("User Display Name:", user.displayName);
+        toast.success(`Welcome back, ${user.displayName || 'User'}! 🚀`);
+        navigate("/userdashboard");
       } else {
         console.warn("No user found after login. Something might be wrong.");
       }
-
-      navigate("/userdashboard");
     } catch (err) {
       console.error("Login error:", err);
 
@@ -65,13 +63,14 @@ function LoginPage() {
     try {
       const user = await signInWithGoogle();
       console.log("Google Login successful:", user);
+      toast.success(`Welcome back, ${user.displayName || 'User'}! 🚀`);
       navigate("/userdashboard");
     } catch (error) {
       console.error("Error during Google login:", error);
     } finally {
       setIsLoading(false); // Hide the loader
     }
-  };
+};
 
   const handleForgotPassword = async () => {
     if (!email) {

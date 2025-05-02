@@ -71,8 +71,8 @@
   position: absolute;  /* Change from fixed to absolute */
   width: 200px;
   height: 200px;
-  top: 60%;      /* Position vertically center */
-  right: 100px;  /* Distance from right edge */
+  top: 50%;      /* Position vertically center */
+  right: 140px;  /* Distance from right edge */
   transform: translateY(-50%);  /* Center alignment adjustment */
   z-index: 2;
 }
@@ -92,7 +92,7 @@
   top: 0;
   right: -300px;
   margin-right: 300px;
-  width: 600px;
+  width: 500px;
   height: auto;
   z-index: 1;
 }
@@ -364,10 +364,11 @@
   .profile-image-container {
     position: absolute;  /* Keep consistent with desktop */
     top: auto;          /* Remove top positioning */
-    bottom: 20px;       /* Position from bottom on mobile */
+    bottom: 80px;       /* Position from bottom on mobile */
     right: 20px;
     width: 150px;
     height: 150px;
+
     transform: none;    /* Remove transform on mobile */
   }
 }
