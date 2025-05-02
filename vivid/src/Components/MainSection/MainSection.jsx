@@ -36,6 +36,12 @@ function MainSection() {
   return (
     <section className="main-section">
       <div className="container">
+        {/* Decorative SVGs */}
+        <img src="../../src/assets/Rectangle-34.svg" alt="Rectangle Decoration" className="rectangle-34" />
+        <img src="../../src/assets/Rectangle-25.svg" alt="Rectangle Decoration" className="rectangle-25" />
+        <img src="../../src/assets/Ellipse-85-b.svg" alt="Ellipse Decoration" className="ellipse-85" />
+        <img src="../../src/assets/Ellipse-86.svg" alt="Ellipse Decoration" className="ellipse-86" />
+        
         {/* Text + Image Flex Row */}
         <div className="hero-row">
           <div className="hero-dot-ornament">

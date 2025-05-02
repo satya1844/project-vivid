@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from "react";
 import peopleData from "./peopleData";
 import PeopleCard from "./PeopleCard";

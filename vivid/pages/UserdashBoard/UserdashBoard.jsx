@@ -105,6 +105,11 @@ function UserDashBoard() {
 
   return (
     <div className="dashboard-container">
+      <img 
+        src="../../src/assets/Rectangle-34.svg" 
+        alt="Rectangle Decoration" 
+        className="rectangle-34"
+      />
       {/* Profile Section */}
       <div className="profile-section">
         <h1 className="name">{userData?.firstName} {userData?.lastName}</h1>
@@ -173,6 +178,11 @@ function UserDashBoard() {
           </div>
         </div>
       </div>
+
+      <div class="circle-blob yellow-blob"></div>
+      <div class="circle-blob purple-blob"></div>
+
+
   
       {/* Skills, Interests, and Learning Grid */}
       <div className="info-grid">

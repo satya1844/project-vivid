@@ -1,143 +1,192 @@
 .modal-overlay {
-  font-family: "", sans-serif; 
+  font-family: "Poppins", sans-serif;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  backdrop-filter: blur(3px);
+  transition: all 0.3s ease;
 }
 
 .modal-content {
   background-color: #fff;
-  padding: 24px; /* Padding inside the modal */
-  border-radius: 8px;
+  padding: 32px;
+  border-radius: 16px;
   width: 100%;
-  max-width: 600px; /* Similar to LinkedIn's modal width */
-  max-height: 90vh; /* Limit height for larger screens */
-  overflow-y: auto; /* Add scroll for overflowing content */
+  max-width: 600px;
+  max-height: 85vh;
+  overflow-y: auto;
   position: relative;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-  font-family: "Arial", sans-serif; /* Similar font */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transform: translateY(0);
+  transition: all 0.3s ease;
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #DFDEDA;
 }
 
 .modal-header h2 {
-  font-size: 20px; /* Similar font size */
+  font-size: 24px;
   font-weight: 600;
   margin: 0;
+  color: #000;
 }
 
 .modal-close-btn {
   background-color: transparent;
   border: none;
-  font-size: 24px; /* Larger close button */
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   cursor: pointer;
-  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
 .modal-close-btn:hover {
   background-color: #fbff1f;
-  border-radius: 60px; /* Change color on hover */
+  transform: rotate(90deg);
 }
 
 .modal-body {
-  font-family: "Poppins", sans-serif; /* Similar font */
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Space between form fields */
+  gap: 12px;
 }
 
 .modal-body label {
-  font-size: 14px; /* Label font size */
+  font-size: 14px;
   font-weight: 500;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
 }
 
 .modal-body input,
 .modal-body textarea,
 .modal-body select {
   width: 100%;
-  padding: 8px 5px; /* Input padding */
-  font-size: 14px; /* Input font size */
-  border: #DFDEDA 1px solid;
-  border-radius: 20px;
-  box-sizing: border-box;
+  padding: 8px 12px;
+  font-size: 15px;
+  border: 2px solid #DFDEDA;
+  border-radius: 12px;
   background-color: transparent;
-  margin-top: 0px;
-  color: #000000;
+  color: #000;
+  transition: all 0.2s ease;
+  margin: 0;
+  margin-top: 2px;
 }
 
-.modal-body textarea {
-  resize: none; /* Disable resizing */
+.modal-header {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+}
+
+.modal-footer {
+  margin-top: 16px;
+  padding-top: 12px;
+}
+
+.checkbox-group {
+  gap: 8px;
+  margin: 0;
+}
+
+.checkbox-group label {
+  padding: 4px 8px;
+}
+
+.modal-body input:focus,
+.modal-body textarea:focus,
+.modal-body select:focus {
+  border-color: #fbff1f;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(251, 255, 31, 0.2);
 }
 
 .modal-footer {
   display: flex;
   justify-content: flex-end;
-  margin-top: 16px;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid #DFDEDA;
 }
 
 .modal-footer button {
-  background-color: transparent; /* LinkedIn blue */
-  color: #000000;
-  border: 1px solid black; /* Border color */
-  padding: 8px 16px;
-  font-size: 14px;
+  padding: 10px 24px;
+  background-color: transparent;
+  color: #000;
+  font-size: 15px;
   font-weight: 600;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid #000;
 }
 
 .modal-footer button:hover {
   background-color: #fbff1f;
-  color: black;
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(251, 255, 31, 0.2);
 }
 
 .checkbox-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; /* Space between checkboxes */
+  gap: 16px;
+  margin-top: 8px;
 }
 
 .checkbox-group label {
   display: flex;
   align-items: center;
-  gap: 8px; /* Space between checkbox and label text */
-  font-size: 14px; /* Label font size */
-  font-weight: 500;
+  gap: 8px;
+  font-size: 14px;
   cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.checkbox-group label:hover {
+  background-color: rgba(251, 255, 31, 0.1);
 }
 
 .checkbox-group input[type="checkbox"] {
-  appearance: none; /* Remove default checkbox styling */
-  width: 16px;
-  height: 16px;
-  border: 2px solid #000; /* Border color */
-  border-radius: 4px; /* Rounded corners */
-  background-color: transparent;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #000;
+  border-radius: 6px;
   cursor: pointer;
-  display: inline-block;
   position: relative;
+  transition: all 0.2s ease;
 }
 
 .checkbox-group input[type="checkbox"]:checked {
-  background-color: #fbff1f; /* Highlight color when checked */
-  border-color: #000; /* Border color when checked */
+  background-color: #fbff1f;
+  border-color: #000;
 }
 
 .checkbox-group input[type="checkbox"]:checked::after {
-  content: "✔"; /* Checkmark symbol */
-  font-size: 12px;
+  content: "✔";
+  font-size: 14px;
   color: #000;
   position: absolute;
   top: 50%;

@@ -2,6 +2,8 @@
   position: relative; /* Ensure the .DotOrnament is positioned relative to this container */
   padding: 0rem 0rem 4rem;
   background: white;
+  max-width: 100%;
+  
 }
 
 .container {
@@ -132,3 +134,53 @@
   line-height: 1.6;
   font-weight: 400;
 }
+
+
+h2 {
+  z-index: 10;
+}
+
+/* Add these styles after your existing CSS */
+
+/* Decorative Elements */
+.rectangle-34 {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: -1;
+  animation: float 8s ease-in-out infinite;
+}
+
+.rectangle-25 {
+  position: absolute;
+  bottom: 30%;
+  left: -50px;
+  z-index: 0;
+  animation: float 8s ease-in-out infinite 1s;
+}
+
+.ellipse-85 {
+  position: absolute;
+  top: 100%;
+  right: 85%;
+  z-index: 0;
+  animation: float 8s ease-in-out infinite 1.5s;
+}
+
+.ellipse-86 {
+  position: absolute;
+  top: 120%;
+  right: -20%;
+  z-index: 0;
+  animation: float 8s ease-in-out infinite 2s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
