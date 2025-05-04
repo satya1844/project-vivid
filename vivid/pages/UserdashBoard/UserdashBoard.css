@@ -22,7 +22,7 @@ h3 {
 }
 
 /* Profile Section */
-.profile-section {
+.user-dashbard-profile-section {
   border-right: none;
   position: relative;
   padding: 0 2rem 2rem 2rem;
@@ -31,16 +31,21 @@ h3 {
   flex-direction: column;
   align-items: flex-start;
   overflow: visible;
+  z-index: 10;
 }
 
-.profile-section-image {
+.profile1-section-image {
   position: absolute;
   top: 0;
   right: -300px;
   margin-right: 300px;
   width: 500px;
   height: auto;
-  z-index: 1;
+  z-index: -10;
+  /* Remove the box-shadow */
+  /* box-shadow: #000000 10px 10px 0 5px; */
+  /* Add filter: drop-shadow instead */
+  filter: drop-shadow(20px 20px 0 rgba(222, 220, 212, 0.4));
 }
 
 /* Profile Image Styles */
@@ -51,7 +56,7 @@ h3 {
   top: 50%;
   right: 140px;
   transform: translateY(-50%);
-  z-index: 2;
+  z-index: 11;
 }
 
 .profile-image {
@@ -233,11 +238,12 @@ h3 {
     opacity: 0.7;
   }
 }
-.rectangle-34 {
+.user-dashboard-rectangle-34 {
   position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
+  top: -15px;
+  right: -15px;
+  z-index: 14;
+  
 }
 
 

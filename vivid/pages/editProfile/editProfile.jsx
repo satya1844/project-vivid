@@ -3,12 +3,15 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../src/config/authConfig";
 import "./editProfile.css";
 import Loader from "../../src/assets/Loader"; // Import the Loader component
+import ImageCropModal from "../../src/components/ImageCropModal/ImageCropModal";
+import placeholderProfilePic from '../../src/assets/ProfilePic.png'; 
 
 const EditProfile = ({ onClose, userData, userId, onProfileUpdate }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);  
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState(""); // New email field
+  const [email, setEmail] = useState(""); 
   const [bio, setBio] = useState("");
   const [mood, setMood] = useState("");
   const [location, setLocation] = useState("");
@@ -16,13 +19,16 @@ const EditProfile = ({ onClose, userData, userId, onProfileUpdate }) => {
   const [interests, setInterests] = useState([]);
   const [lookingToLearn, setLookingToLearn] = useState([]);
   const [openToCollab, setOpenToCollab] = useState([]);
-  const [bannerImage, setBannerImage] = useState(""); // New banner image field
+  const [bannerImage, setBannerImage] = useState(""); 
   const [socialLinks, setSocialLinks] = useState({
     github: "",
     linkedin: "",
     instagram: "",
     twitter: "",
   });
+  const [profileImage, setProfileImage] = useState("");
+  const [showCropModal, setShowCropModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     if (!userData) {
@@ -40,17 +46,37 @@ const EditProfile = ({ onClose, userData, userId, onProfileUpdate }) => {
     setInterests(userData.interests || []);
     setLookingToLearn(userData.lookingToLearn || []);
     setOpenToCollab(userData.openToCollab || []);
-    setBannerImage(userData.bannerImage || ""); // Pre-fill banner image
+    setBannerImage(userData.bannerImage || ""); 
     setSocialLinks(userData.socialLinks || {
       github: "",
       linkedin: "",
       instagram: "",
       twitter: "",
     });
-    setIsLoading(false); // Stop loading once data is pre-filled
+    setIsLoading(false); // End loading state
+    setProfileImage(userData.photoURL || "");
   }, [userData]);
 
+  const handleProfileImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setSelectedImage(event.target.result);
+        setShowCropModal(true);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  
+  // Move this function outside of handleProfileImageChange
+  const handleRemoveProfileImage = () => {
+    setProfileImage(placeholderProfilePic); // Set to placeholder image
+    setSelectedImage(null); // Clear any selected image
+  };
+
   const handleSave = async () => {
+    setIsSaving(true); // Start saving state
     try {
       if (!userData) {
         console.error("Error: userData is null or undefined.");
@@ -73,6 +99,7 @@ const EditProfile = ({ onClose, userData, userId, onProfileUpdate }) => {
       if (JSON.stringify(openToCollab) !== JSON.stringify(userData.openToCollab)) updatedData.openToCollab = openToCollab;
       if (bannerImage !== userData.bannerImage) updatedData.bannerImage = bannerImage; // Update banner image
       if (JSON.stringify(socialLinks) !== JSON.stringify(userData.socialLinks)) updatedData.socialLinks = socialLinks;
+      if (profileImage && profileImage !== userData.photoURL) updatedData.photoURL = profileImage;
 
       console.log("User ID:", userId);
       console.log("Updated Data:", updatedData);
@@ -91,6 +118,8 @@ const EditProfile = ({ onClose, userData, userId, onProfileUpdate }) => {
     } catch (error) {
       console.error("Error updating profile:", error);
       alert("Failed to update profile. Please try again.");
+    } finally {
+      setIsSaving(false); // End saving state
     }
   };
 
@@ -99,7 +128,9 @@ const EditProfile = ({ onClose, userData, userId, onProfileUpdate }) => {
   }
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay" onClick={() => {
+      if (!showCropModal) onClose(); // Prevent close if crop modal is open
+    }}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>Edit Profile</h2>
@@ -109,6 +140,37 @@ const EditProfile = ({ onClose, userData, userId, onProfileUpdate }) => {
         </div>
 
         <div className="modal-body">
+          {/* Profile Image Upload and Crop */}
+          <label htmlFor="profileImage">Profile Image</label>
+          <div className="profile-image-controls">
+            <input
+              id="profileImage"
+              type="file"
+              accept="image/*"
+              onChange={handleProfileImageChange}
+            />
+            {/* Add the Remove button */}
+            {profileImage && profileImage !== placeholderProfilePic && (
+              <button 
+                type="button" 
+                onClick={handleRemoveProfileImage} 
+                className="remove-image-btn"
+              >
+                Remove Picture
+              </button>
+            )}
+          </div>
+          {profileImage && (
+            <img
+              src={profileImage} // This will now show the placeholder when removed
+              alt="Profile Preview"
+              style={{ width: 80, height: 80, borderRadius: "50%", objectFit: "cover", marginBottom: 8 }}
+              onError={(e) => { // Add onError here too for safety
+                e.target.onerror = null; 
+                e.target.src = placeholderProfilePic; 
+              }}
+            />
+          )}
           {/* Form Fields */}
           <label htmlFor="firstName">First Name*</label>
           <input
@@ -235,9 +297,21 @@ const EditProfile = ({ onClose, userData, userId, onProfileUpdate }) => {
         </div>
 
         <div className="modal-footer">
-          <button onClick={handleSave}>Save</button>
+          <button onClick={handleSave} disabled={isSaving}> {/* Disable button while saving */}
+            {isSaving ? "Saving..." : "Save"} {/* Show loading text */}
+          </button>
         </div>
       </div>
+      {showCropModal && selectedImage && (
+        <ImageCropModal
+          image={selectedImage}
+          onClose={() => setShowCropModal(false)}
+          onSave={(croppedImage) => {
+            setProfileImage(croppedImage); // Keep inline handler
+            setShowCropModal(false);
+          }}
+        />
+      )}
     </div>
   );
 };

@@ -10,6 +10,7 @@
   border-radius: 100px 30px 30px 30px;
   margin: 0 auto;
   max-width: 100%;
+  border: olive solid 2px;
 
 }
 
@@ -163,4 +164,25 @@
   .people-card {
     width: 200px;
   }
+}
+
+
+/* Add these styles to your existing CSS file */
+
+.loading-message, .no-users-message {
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  color: #555;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 1rem auto;
+}
+
+.no-users-message p {
+  font-size: 1.1rem;
+  margin: 0;
+  padding: 1rem;
 }

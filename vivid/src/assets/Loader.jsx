@@ -10,7 +10,7 @@ const Loader = () => {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#2D2D2D', // Optional backdrop
+      backgroundColor: 'white', // Optional backdrop
     }}>
       <Quantum size="100" speed="1.75" color="yellow" />
     </div>

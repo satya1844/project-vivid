@@ -8,7 +8,8 @@ import {
   onAuthStateChanged,
   sendPasswordResetEmail
 } from 'firebase/auth';
-import { auth } from '../config/authConfig';
+import { auth, db } from '../config/authConfig'; // Import db
+import { doc, getDoc, setDoc } from 'firebase/firestore'; // Import Firestore functions
 
 const AuthContext = createContext();
 
@@ -20,8 +21,44 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  function signup(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password);
+  async function signup(email, password, fullName = '') {
+    try {
+      // Create authentication record
+      const result = await createUserWithEmailAndPassword(auth, email, password);
+      
+      // Create a user document in Firestore
+      const userDoc = doc(db, "users", result.user.uid);
+      const userSnapshot = await getDoc(userDoc);
+      
+      if (!userSnapshot.exists()) {
+        // Extract first and last name if provided
+        let firstName = "";
+        let lastName = "";
+        
+        if (fullName) {
+          const nameParts = fullName.trim().split(' ');
+          firstName = nameParts[0] || "";
+          lastName = nameParts.slice(1).join(' ') || "";
+        }
+        
+        // Extract username from email if available
+        const username = email.split('@')[0];
+        
+        await setDoc(userDoc, {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          username: username,
+          createdAt: new Date(),
+          lastLogin: new Date()
+        });
+      }
+      
+      return result.user;
+    } catch (error) {
+      console.error("Error in signup:", error);
+      throw error;
+    }
   }
 
   function login(email, password) {
@@ -71,7 +108,7 @@ export function AuthProvider({ children }) {
     login,
     googleLogin,
     logout,
-    resetPassword // Add this to the context value
+    resetPassword
   };
 
   return (

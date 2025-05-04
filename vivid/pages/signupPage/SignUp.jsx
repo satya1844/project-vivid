@@ -6,6 +6,13 @@ import './SignUp.css';
 import SignUpImage from '../../src/assets/signup.svg'; 
 import { toast } from 'react-hot-toast';
 
+// Add the isValidPassword function definition
+// Update the isValidPassword function to require an uppercase letter
+const isValidPassword = (password) => {
+  // At least 8 characters, one uppercase letter, one number, one special character
+  return /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/.test(password);
+};
+
 function SignUp() {
   const navigate = useNavigate();
   const { signup, googleLogin } = useAuth();
@@ -21,24 +28,27 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      return setError('Passwords do not match');
+      toast.error('Passwords do not match'); // Use toast instead of setError
+      return;
     }
 
     if (!isValidPassword(formData.password)) {
-      toast.error('Password must be at least 8 characters, include a number and a special character.');
+      toast.error('Password must be at least 8 characters and include an uppercase letter, a number, and a special character.');
       return;
     }
 
     try {
-      setError('');
-      await signup(formData.email, formData.password);
-      navigate("/login"); // Redirect to login page after successful signup
+      setError(''); // Clear any previous errors
+      // Pass the full name to the signup function
+      const user = await signup(formData.email, formData.password, formData.fullName);
+      toast.success('Account created successfully! Welcome to Vivid!');
+      navigate("/userdashboard"); // Redirect to dashboard instead of login
     } catch (err) {
       // Show custom message if email is already registered
       if (err.code === 'auth/email-already-in-use') {
-        setError('You are already signed up. Please try to log in instead.');
+        toast.error('You are already signed up. Please try to log in instead.');
       } else {
-        setError('Failed to create an account: ' + err.message);
+        toast.error('Failed to create an account: ' + err.message);
       }
     }
   };

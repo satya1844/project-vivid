@@ -1,0 +1,293 @@
+
+.dashboard-container {
+  position: relative;
+  top: -20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Profile Section */
+.profile-section {
+  top: -200px;
+  border-right: none;
+  position: relative;
+  padding: 0 2rem 2rem 2rem;
+  height: 489px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: visible;
+  z-index: 10;
+}
+
+.profile-section-image {
+  position: absolute;
+  top: 0;
+  right: -300px;
+  margin-right: 300px;
+  width: 500px;
+  height: auto;
+  z-index: 13;
+}
+
+/* Profile Image Styles */
+.profile-image-container {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  right: 140px;
+  transform: translateY(-50%);
+  z-index: 15; /* Increased z-index to ensure visibility */
+}
+
+.profile-image-wrapper {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 11;
+}
+
+.profile-container {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  top: 260px;
+  right: 15px;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.profile-rectangle-34{
+  position: relative;
+  height: 300px;
+  right: -800px;
+  top : 10px;
+  top : 120px;
+  fill: red ;
+}
+
+.rectangle-small-34{
+  position: relative;
+  height: 200px;
+  width:  220px;
+  right: -950px;
+  top : -50px;
+  z-index: 13;
+}
+
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid white;
+  object-fit: cover;
+  z-index: 14;
+}
+
+/* Text Content */
+.name {
+  font-size: 5rem;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 0.25rem;
+  z-index: 10;
+  max-width: 50%;
+  word-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.1;
+  text-align: left;
+  position: relative;
+}
+
+.about {
+  font-size: 1rem;
+  color: #000000;
+  margin: 1rem 0;
+  max-width: 45%;
+  line-height: 1.4;
+  text-align: left;
+  opacity: 0.8;
+  z-index: 10;
+}
+
+.location,
+.email {
+  z-index: 10;
+}
+
+/* Social Links */
+.socials {
+  margin-top: 1rem;
+  z-index: 10;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.social-icons a {
+  color: #555;
+  transition: transform 0.2s;
+}
+
+.social-icons a:hover {
+  transform: scale(1.1);
+}
+
+/* Info Grid */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+  z-index: 10;
+}
+
+.info-card {
+  margin-top: 2rem;
+  border: black 1px solid;
+  background-color: transparent;
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  z-index: 10;
+}
+
+.info-card h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.tag {
+  background-color: white;
+  color: #333;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Decorative Blobs */
+.circle-blob {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 5;
+  transform: scale(0);
+}
+
+.yellow-blob {
+  background: #fbff1f;
+  width: 575px;
+  height: 575px;
+  top: 200px;
+  left: -300px;
+  z-index: 5;
+  animation: growAndBreathe 10s ease-in-out infinite;
+}
+
+.purple-blob {
+  background: #e6e4f5;
+  width: 550px;
+  height: 550px;
+  top: 200px;
+  left: 10px;
+  z-index: 3;
+  animation: growAndBreathe 10s ease-in-out infinite 0.3s;
+}
+
+/* Combined Growth and Breathing Animation */
+@keyframes growAndBreathe {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  20% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  60% {
+    transform: scale(1.08);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+}
+
+/* Connect Button Styles */
+.connect-button {
+  height: 60px;
+  width: 180px;
+  position: absolute;
+  top: 370px;
+  right: 550px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.connect-button.none {
+  background-color: #fbff1f;
+  color: #000000;
+}
+
+.connect-button.none:hover {
+  background-color: #E7E7F2;
+  color: black;
+  transform: translateY(-10px);
+  box-shadow: 6px 6px 0px #C2D3F0;
+}
+
+.connect-button.pending {
+  background-color: #e0e0e0;
+  color: #555555;
+  cursor: default;
+}
+
+.connect-button.connected {
+  background-color: #4CAF50;
+  color: white;
+  cursor: default;
+}
+
+.connect-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

@@ -15,10 +15,12 @@ import Footer from '../src/Components/Footer/footer';
 import EditProfile from '../../vivid/pages/editProfile/editProfile';
 import Explore from '../pages/Explore/Explore';
 import ProfileSetup from "../pages/ProfileSetup/ProfileSetup";
-
+import UserProfile from '../src/Components/UserProfile/UserProfile'; // Import the UserProfile component
 import CommunityDetailPage from '../pages/CommunityDetailPage/CommunityDetailPage';
 import { Toaster } from 'react-hot-toast';
 import Loader from './assets/Loader'; // Import the Loader component
+// Add this import at the top with other imports
+import ChatPage from '../pages/chat/ChatPage';
 
 function LoginPageWithRedirect() {
   const navigate = useNavigate();
@@ -50,8 +52,7 @@ function Layout() {
               <MainSection />
               <PeopleCardsContainer />
               <CommunityCardsSection />
-              < Footer />
-              
+              <Footer />
             </>
           }
         />
@@ -62,6 +63,14 @@ function Layout() {
         <Route path="/profileSetup" element={<ProfileSetup />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/community/:id" element={<CommunityDetailPage />} />
+        <Route path="/userprofile/:userId" element={<UserProfile />} />
+        
+        {/* Add the new chat route */}
+        <Route path="/chat" element={
+          <ProtectedRoute>
+            <ChatPage />
+          </ProtectedRoute>
+        } />
       </Routes>
     </div>
   );

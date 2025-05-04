@@ -4,7 +4,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../src/config/authConfig";
 import './UserDashBoard.css';
 import Loader from '../../src/assets/Loader';
-import profileRectangle from '../../src/assets/profile-section-container.svg';
+import profileRectangle from '../../src/assets/user-section-image.svg';
 
 import profileBanner from '../../src/assets/placeholder-banner.png';
 import placeholderProfilePic from '../../src/assets/ProfilePic.png';
@@ -105,13 +105,9 @@ function UserDashBoard() {
 
   return (
     <div className="dashboard-container">
-      <img 
-        src="../../src/assets/Rectangle-34.svg" 
-        alt="Rectangle Decoration" 
-        className="rectangle-34"
-      />
+      
       {/* Profile Section */}
-      <div className="profile-section">
+      <div className="user-dashbard-profile-section">
         <h1 className="name">{userData?.firstName} {userData?.lastName}</h1>
         {/* Add about section here */}
         <p className="about">
@@ -120,15 +116,21 @@ function UserDashBoard() {
         <p className="location">{userData?.location || "Puerto Rico"}</p>
         <p className="email">{userData?.email || "youremail@domain.com"}</p>
         <div>
-          <img src={profileRectangle} alt="Profile Section" className="profile-section-image" />
+          <img src={profileRectangle} alt="Profile Section" className="profile1-section-image" />
+          <img 
+        src="../../src/assets/Rectangle-34.svg" 
+        alt="Rectangle Decoration" 
+        className="user-dashboard-rectangle-34"
+      />
         </div>
         
         {/* Profile Image with Edit Button */}
         <div className="profile-image-container">
           <div className="profile-image-wrapper">
-            {currentUser?.photoURL ? (
+            {/* Use userData.photoURL instead of currentUser.photoURL */}
+            {userData?.photoURL ? (
               <img 
-                src={currentUser.photoURL} 
+                src={userData.photoURL} 
                 alt="Profile"
                 className="profile-image"
                 onError={(e) => {
