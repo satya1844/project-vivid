@@ -1,4 +1,4 @@
-import { collection, addDoc, query, where, getDocs, updateDoc, doc, arrayUnion, deleteDoc, Timestamp } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs, updateDoc, doc, arrayUnion, deleteDoc, Timestamp, getDoc } from "firebase/firestore";
 import { db } from "../config/authConfig";
 
 // Send a connection request
@@ -88,7 +88,8 @@ export const getOutgoingRequests = async (userId) => {
 export const acceptConnectionRequest = async (requestId) => {
   try {
     const requestRef = doc(db, "connectionRequests", requestId);
-    const requestSnap = await getDocs(requestRef);
+    // CORRECT
+    const requestSnap = await getDoc(requestRef);
     
     if (!requestSnap.exists()) {
       return { success: false, message: "Request not found" };

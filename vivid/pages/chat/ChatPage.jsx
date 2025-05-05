@@ -56,13 +56,16 @@ const ChatPage = () => {
 
   return (
     <div className="chat-page-container">
+      <div className="chat-page-header">
+        <h1>Messages & Connections</h1>
+      </div>
+      
       <div className="chat-tabs">
         <button
           className={`tab ${activeTab === "chats" ? "active" : ""}`}
           onClick={() => setActiveTab("chats")}
         >
-          // Add this at the beginning of your return statement
-          <h1>Messages & Connections</h1>
+          Messages
         </button>
         <button
           className={`tab ${activeTab === "requests" ? "active" : ""}`}

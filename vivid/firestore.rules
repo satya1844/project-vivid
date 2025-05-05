@@ -1,0 +1,98 @@
+rules_version = '2'; 
+ service cloud.firestore { 
+   match /databases/{database}/documents { 
+     // Helper functions 
+     function isAuthenticated() { 
+       return request.auth != null; 
+     } 
+     
+     function isCurrentUser(userId) { 
+       return request.auth.uid == userId; 
+     } 
+     
+     // Users collection 
+     match /users/{userId} { 
+       // Anyone authenticated can read user profiles 
+       allow read: if isAuthenticated(); 
+       
+       // Only the user can update their own profile 
+       allow update: if isCurrentUser(userId); 
+       
+       // Allow creation if the user is authenticated and creating their own document 
+       allow create: if isAuthenticated() && isCurrentUser(userId); 
+       
+       // No one can delete user profiles 
+       allow delete: if false; 
+     } 
+     
+     // Connection Requests 
+     match /connectionRequests/{requestId} { 
+       // Allow read if user is authenticated (changed from sender/recipient only)
+       allow read: if isAuthenticated(); 
+       
+       // Allow create if user is the sender 
+       allow create: if isAuthenticated() && 
+                     request.resource.data.from == request.auth.uid; 
+       
+       // Allow update if the user is either the sender or recipient
+       // This enables both accepting/rejecting by recipient and cancellation by sender
+       allow update: if isAuthenticated() && 
+                    (resource.data.to == request.auth.uid || resource.data.from == request.auth.uid); 
+       
+       // No one can delete connection requests (for audit trail) 
+       allow delete: if false; 
+     } 
+     
+     // Connections collection (established connections) 
+     match /connections/{connectionId} { 
+       // Allow read if user is part of the connection 
+       allow read: if isAuthenticated() && 
+                   resource.data.users.hasAny([request.auth.uid]); 
+       
+       // Allow creation if user is authenticated and part of the connection 
+       // This allows client-side creation when accepting connection requests 
+       allow create: if isAuthenticated() && 
+                     request.auth.uid in request.resource.data.users; // Simplified check 
+       
+       // No direct updates or deletes 
+       allow update, delete: if false; 
+     } 
+     
+     // Chats collection 
+     match /chats/{chatId} { 
+       // Allow read if user is part of the chat 
+       allow read: if isAuthenticated() && 
+                   resource.data.users.hasAny([request.auth.uid]); 
+       
+       // Only allow creation if user is part of the chat 
+       allow create: if isAuthenticated() && 
+                     request.resource.data.users.hasAny([request.auth.uid]); 
+       
+       // Allow updates to lastMessage fields 
+       allow update: if isAuthenticated() && 
+                     resource.data.users.hasAny([request.auth.uid]); 
+       
+       // No deleting chats 
+       allow delete: if false; 
+       
+       // Messages subcollection 
+       match /messages/{messageId} { 
+         // Allow read if user is part of the parent chat 
+         allow read: if isAuthenticated() && 
+                     get(/databases/$(database)/documents/chats/$(chatId)).data.users.hasAny([request.auth.uid]); 
+         
+         // Allow create if user is the sender and part of the chat 
+         allow create: if isAuthenticated() && 
+                       request.resource.data.senderId == request.auth.uid && 
+                       get(/databases/$(database)/documents/chats/$(chatId)).data.users.hasAny([request.auth.uid]); 
+         
+         // Allow update only for marking messages as read 
+         allow update: if isAuthenticated() && 
+                       get(/databases/$(database)/documents/chats/$(chatId)).data.users.hasAny([request.auth.uid]); 
+         
+         // No deleting messages 
+         allow delete: if false; 
+       } 
+     } 
+   } 
+ }

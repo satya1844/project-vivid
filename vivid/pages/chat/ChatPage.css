@@ -1,19 +1,24 @@
 .chat-page-container {
   display: flex;
- flex-direction: column;
-  height: 100vh;
+  flex-direction: column;
+  height: calc(100vh - 70px); /* Adjust for navbar height */
   width: 100%;
   background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
 /* Header styling */
-.chat-page-container h1 {
+.chat-page-header {
+  padding: 20px 25px;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+}
+
+.chat-page-header h1 {
   font-size: 24px;
   font-weight: 600;
   margin: 0;
-  padding: 20px 25px;
   color: #333;
-  border-bottom: 1px solid #eee;
 }
 
 /* Tabs styling */
@@ -21,6 +26,7 @@
   display: flex;
   border-bottom: 1px solid #e1e4e8;
   background-color: #fff;
+  padding: 0 15px;
 }
 
 .tab {
@@ -32,7 +38,7 @@
   cursor: pointer;
   position: relative;
   color: #666;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .tab.active {
@@ -53,6 +59,7 @@
   position: absolute;
   top: 8px;
   right: 5px;
+  font-weight: bold;
 }
 
 /* Content area */
@@ -75,60 +82,47 @@
   display: flex;
   flex-direction: column;
   background-color: #f9f9f9;
+  position: relative;
 }
 
-/* Message item styling */
-.chat-item {
+/* No chat selected state */
+.no-chat-selected {
   display: flex;
-  padding: 15px 20px;
-  border-bottom: 1px solid #f0f0f0;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #666;
+  text-align: center;
+  padding: 20px;
 }
 
-.chat-item:hover {
-  background-color: #f9f9f9;
+.no-chat-selected h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
 }
 
-.chat-avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #e0e0e0;
+.no-chat-selected p {
+  font-size: 16px;
+  color: #666;
+  max-width: 300px;
+}
+
+/* Auth message */
+.auth-message {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 15px;
-  font-weight: 600;
-  color: #666;
+  height: 100%;
+  padding: 20px;
+  text-align: center;
 }
 
-.chat-details {
-  flex: 1;
-}
-
-.chat-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
-}
-
-.chat-name {
-  font-weight: 500;
-  margin: 0;
-}
-
-.chat-time {
-  color: #888;
-  font-size: 12px;
-}
-
-.chat-last-message {
-  color: #666;
-  font-size: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.auth-message h2 {
+  font-size: 22px;
+  color: #333;
+  max-width: 500px;
 }
 
 /* Responsive adjustments */
@@ -145,7 +139,7 @@
   }
   
   .chat-main {
-    height: calc(100vh - 300px - 100px); /* Adjust for tabs and header */
+    height: calc(100% - 300px);
   }
 }
 .no-chat-selected {

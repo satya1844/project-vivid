@@ -11,6 +11,7 @@ import placeholderProfilePic from '../../src/assets/ProfilePic.png';
 import editPen from '../../src/assets/editPen.svg';
 import EditProfile from '../../pages/editProfile/editProfile';
 import { FaGithub, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa"; // Import social media icons
+import { getUserConnections } from "../../src/services/connectionService";
 
 // Add this helper function at the top of your file
 const truncateText = (text, wordLimit) => {
@@ -181,8 +182,8 @@ function UserDashBoard() {
         </div>
       </div>
 
-      <div class="circle-blob yellow-blob"></div>
-      <div class="circle-blob purple-blob"></div>
+      <div className="circle-blob yellow-blob"></div>
+      <div className="circle-blob purple-blob"></div>
 
 
   
@@ -242,3 +243,29 @@ function UserDashBoard() {
 }
 
 export default UserDashBoard;
+
+
+const UserDashboard = () => {
+  const [connections, setConnections] = useState([]);
+
+  useEffect(() => {
+    const fetchConnections = async () => {
+      const userId = "currentUserId"; // Replace with actual user ID
+      const userConnections = await getUserConnections(userId);
+      setConnections(userConnections);
+    };
+
+    fetchConnections();
+  }, []);
+
+  return (
+    <div>
+      <h2>Friends</h2>
+      <ul>
+        {connections.map(connection => (
+          <li key={connection.id}>{connection.users.join(', ')}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
