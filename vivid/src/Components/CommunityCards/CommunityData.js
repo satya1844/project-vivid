@@ -1,5 +1,6 @@
 const communityData = [
   {
+    id: "tech-enthusiasts",
     name: "Tech Enthusiasts",
     info: "A community for tech lovers to discuss the latest trends, gadgets, and innovations.",
     admin: "John Doe",
@@ -8,6 +9,7 @@ const communityData = [
     tags: ["Technology", "Innovation", "Gadgets"],
   },
   {
+    id: "fitness-freaks",
     name: "Fitness Freaks",
     info: "Join us to share fitness tips, workout routines, and healthy lifestyle ideas.",
     admin: "Jane Smith",
@@ -16,6 +18,7 @@ const communityData = [
     tags: ["Fitness", "Health", "Wellness"],
   },
   {
+    id: "foodies-united",
     name: "Foodies United",
     info: "A paradise for food lovers to explore recipes, restaurants, and culinary adventures.",
     admin: "Emily Brown",

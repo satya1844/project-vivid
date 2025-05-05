@@ -23,7 +23,13 @@ import Loader from './assets/Loader'; // Import the Loader component
 import ChatPage from '../pages/chat/ChatPage';
 // Add this import near the top with other imports
 import './ChatLayout.css';
+// Add these imports at the top
+import GroupsPage from '../pages/GroupsPage/GroupsPage';
+import GroupDetailPage from '../pages/GroupDetailPage/GroupDetailPage';
+import CreateGroupPage from '../pages/CreateGroupPage/CreateGroupPage';
+// Remove the setupDefaultGroups import
 
+// Remove the useEffect that was placed outside of any component
 
 function LoginPageWithRedirect() {
   const navigate = useNavigate();
@@ -78,6 +84,11 @@ function Layout() {
             <ChatPage />
           </ProtectedRoute>
         } />
+        
+        {/* Add the new group routes */}
+        <Route path="/groups" element={<GroupsPage />} />
+        <Route path="/groups/:groupId" element={<GroupDetailPage />} />
+        <Route path="/groups/create" element={<CreateGroupPage />} />
       </Routes>
     </div>
   );
@@ -96,6 +107,8 @@ function App() {
 // Separate component to use hooks after AuthProvider is mounted
 function AppContent() {
   const { currentUser, isLoading } = useAuth();
+
+  // Remove the useEffect for setting up default groups
 
   if (isLoading) {
     return <Loader />;

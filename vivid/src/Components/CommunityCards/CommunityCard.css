@@ -1,5 +1,5 @@
- .community-card {
-  background-color: #d9d9e4;  Light gray background 
+.community-card {
+  background-color: #d9d9e4; /* Light gray background */
   border-radius: 1rem;
   padding: 1.5rem;
   width: 280px;
@@ -12,7 +12,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
-} */
+} 
 
 .community-card-title {
   font-family: "Poppins", sans-serif;
@@ -27,6 +27,38 @@
   font-size: 0.9rem;
   color: #555555; /* Dark gray text */
   margin: 0;
+}
+
+/* Add this to your existing CSS file */
+
+.community-card-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.community-card-join-button {
+  display: inline-block;
+  background-color: #ffffff; /* White background */
+  color: #000000; /* Black text */
+  border: 1px solid #fbff1f; /* Yellow border */
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.community-card-join-button:hover {
+  background-color: #fbff1f; /* Yellow background on hover */
+}
+
+.community-card-join-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .community-card-button {

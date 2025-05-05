@@ -1,0 +1,46 @@
+.groups-page-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
+}
+
+.groups-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.groups-page-title {
+  font-size: 2rem;
+  color: #333;
+  margin: 0;
+}
+
+.create-group-button {
+  background-color: #fbff1f;
+  color: #000;
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.create-group-button:hover {
+  background-color: #e6e800;
+  transform: translateY(-2px);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .groups-page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

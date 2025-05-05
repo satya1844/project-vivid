@@ -138,7 +138,8 @@ const Navbar = () => {
                   <i className="fas fa-compass nav-icon"></i>
                   <span className="nav-text">Explore</span>
                 </a>
-              </li>
+              </li>              
+              
               {currentUser && (
                 <>
                   <li className="navBar-item">
@@ -151,6 +152,13 @@ const Navbar = () => {
                     <a href="#" className="navBar-link" onClick={() => handleNavigation("/people")}>
                       <i className="fas fa-users nav-icon"></i>
                       <span className="nav-text">People</span>
+                    </a>
+                  </li>
+                  {/* Add this new list item for Groups */}
+                  <li className="navBar-item">
+                    <a href="#" className="navBar-link" onClick={() => handleNavigation("/groups")}>
+                      <i className="fas fa-user-friends nav-icon"></i>
+                      <span className="nav-text">Groups</span>
                     </a>
                   </li>
                   <li className="navBar-item">

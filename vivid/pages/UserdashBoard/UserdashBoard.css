@@ -19,6 +19,7 @@ h3 {
   margin: 0 auto;
   padding: 2rem;
   font-family: 'Poppins', sans-serif;
+  overflow: visible; /* Change from hidden if present */
 }
 
 /* Profile Section */
@@ -30,8 +31,8 @@ h3 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  overflow: visible;
-  z-index: 10;
+  overflow: visible; /* Ensure this is set to visible */
+  z-index: 1; /* Lower this z-index */
 }
 
 .profile1-section-image {
@@ -328,8 +329,8 @@ h3 {
   border-radius: 50%;
   opacity: 0.5;
   pointer-events: none;
-  z-index: 5;
-  transform: scale(0);
+  z-index: -1; /* Change to negative to ensure it stays behind content */
+  transform: scale(1);
 }
 
 .yellow-blob {
@@ -338,7 +339,7 @@ h3 {
   height: 575px;
   top: 200px;
   left: -300px;
-  z-index: 5;
+  z-index: -2; /* Consistent negative z-index */
   animation: growAndBreathe 10s ease-in-out infinite;
 }
 
@@ -348,27 +349,19 @@ h3 {
   height: 550px;
   top: 200px;
   left: 10px;
-  z-index: 3;
+  z-index: -3; /* Consistent negative z-index */
   animation: growAndBreathe 10s ease-in-out infinite 0.3s;
 }
 
 /* Combined Growth and Breathing Animation */
 @keyframes growAndBreathe {
-  0% {
-    transform: scale(0);
-    opacity: 0;
+  0%, 100% {
+    transform: scale(0.95);
+    opacity: 0.6; /* Start with higher opacity */
   }
-  20% {
-    transform: scale(1);
-    opacity: 0.7;
-  }
-  60% {
-    transform: scale(1.08);
-    opacity: 0.7;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0.7;
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8; /* Peak at higher opacity */
   }
 }
 .user-dashboard-rectangle-34 {

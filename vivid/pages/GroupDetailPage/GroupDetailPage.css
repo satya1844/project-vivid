@@ -1,0 +1,9 @@
+.group-detail-page-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Add any additional styling specific to the page container */
+/* The component-specific styling is already in GroupDetail.css */

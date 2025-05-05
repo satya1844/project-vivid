@@ -36,8 +36,7 @@
 .yellow-blob {
   background: #fbff1f;
   width: 45%; /* Use percentage instead of fixed width */
-  height: 0;
-  padding-bottom: 45%; /* Create aspect ratio */
+  height: 45%; /* Change from 0 to match width for proper circle */
   position: absolute;
   border-radius: 50%;
   top: 0;
@@ -49,8 +48,7 @@
 .purple-blob {
   background: #e6e4f5;
   width: 40%; /* Use percentage instead of fixed width */
-  height: 0;
-  padding-bottom: 40%; /* Create aspect ratio */
+  height: 40%; /* Change from 0 to match width for proper circle */
   position: absolute;
   border-radius: 50%;
   top: 15%;
@@ -108,6 +106,12 @@
   max-width: 60%;
   line-height: 1.6;
   text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  -webkit-box-orient: vertical;
+  max-height: 4.8rem; /* 3 lines × 1.6 line-height = 4.8rem */
 }
 
 .location,
