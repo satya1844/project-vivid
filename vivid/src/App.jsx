@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ProtectedRoute } from './ProtectedRouteComponent';
 import MainSection from './Components/MainSection/MainSection';
@@ -21,6 +21,9 @@ import { Toaster } from 'react-hot-toast';
 import Loader from './assets/Loader'; // Import the Loader component
 // Add this import at the top with other imports
 import ChatPage from '../pages/chat/ChatPage';
+// Add this import near the top with other imports
+import './ChatLayout.css';
+
 
 function LoginPageWithRedirect() {
   const navigate = useNavigate();
@@ -36,6 +39,7 @@ function Layout() {
     if (location.pathname === '/signup') return 'signup-page';
     if (location.pathname === '/login') return 'login-page';
     if (location.pathname === '/userdashboard') return 'dashboard-page';
+    if (location.pathname === '/chat') return 'chat-page'; // Add this line
     return 'home-page';
   };
 
@@ -64,6 +68,9 @@ function Layout() {
         <Route path="/explore" element={<Explore />} />
         <Route path="/community/:id" element={<CommunityDetailPage />} />
         <Route path="/userprofile/:userId" element={<UserProfile />} />
+        
+        {/* Add the new people route */}
+        <Route path="/people" element={<Navigate to="/explore" replace />} />
         
         {/* Add the new chat route */}
         <Route path="/chat" element={

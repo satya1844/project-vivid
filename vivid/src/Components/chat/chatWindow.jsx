@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { getChatMessages, sendMessage, subscribeToChatMessages } from "../../services/chatService";
+import { getChatMessages, sendMessage, subscribeToChatMessages, markMessagesAsRead } from "../../services/chatService";
 import ChatMessage from "./ChatMessage";
 import "./ChatWindow.css";
 
@@ -12,18 +12,30 @@ const ChatWindow = ({ chatId, otherUser }) => {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    if (!chatId) return;
+    if (!chatId || !currentUser) return;
 
     setLoading(true);
     
     // Subscribe to real-time updates
-    const unsubscribe = subscribeToChatMessages(chatId, (updatedMessages) => {
+    const unsubscribe = subscribeToChatMessages(chatId, async (updatedMessages) => {
       setMessages(updatedMessages);
       setLoading(false);
+      
+      // Mark messages as read whenever new messages arrive
+      try {
+        await markMessagesAsRead(chatId, currentUser.uid);
+      } catch (error) {
+        console.error("Error marking messages as read:", error);
+      }
     });
     
-    return () => unsubscribe(); // Cleanup subscription on unmount
-  }, [chatId]);
+    // Initial mark as read when opening chat
+    markMessagesAsRead(chatId, currentUser.uid);
+    
+    return () => {
+      unsubscribe(); // Cleanup subscription on unmount
+    };
+  }, [chatId, currentUser]);
 
   useEffect(() => {
     // Scroll to bottom when messages change
@@ -88,7 +100,7 @@ const ChatWindow = ({ chatId, otherUser }) => {
         )}
       </div>
       
-      <form className="message-form" onSubmit={handleSave}>
+      <form className="message-form" onSubmit={handleSend}>
         <input
           type="text"
           value={newMessage}

@@ -67,14 +67,24 @@
 }
 
 .notification-badge {
-  background-color: #ff3e55;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff4757;
   color: white;
   border-radius: 50%;
-  padding: 2px 6px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 12px;
-  position: absolute;
-  top: -5px;
-  right: -10px;
+  font-weight: bold;
+}
+
+.navBar-item {
+  position: relative;
+  width: auto;
 }
 
 .navBar-link {
@@ -117,9 +127,10 @@
 }
 
 /* Responsive adjustments */
+/* Enhance responsive styles for navbar */
 @media (max-width: 768px) {
   .navBar-container {
-    padding: 12px 16px;
+    padding: 10px 16px;
   }
   
   .navBar-right {
@@ -129,5 +140,169 @@
   .navBar-menu {
     gap: 16px;
   }
+  
+  .logo {
+    height: 32px;
+  }
+  
+  .navBar-link {
+    font-size: 0.9rem;
+    padding: 6px 8px;
+  }
+  
+  .navBar-loginButton {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}
+
+/* Add hamburger menu for very small screens */
+@media (max-width: 480px) {
+  .navBar-menu {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    flex-direction: column;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: none;
+  }
+  
+  .navBar-menu.show {
+    display: flex;
+  }
+  
+  .navBar-item {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  .hamburger-menu {
+    display: block;
+    cursor: pointer;
+  }
+  
+  /* Hide the menu by default on small screens */
+  .navBar-navigation {
+    position: relative;
+  }
+}
+
+/* Add icon styling for normal mode */
+.nav-icon {
+  margin-right: 8px;
+  font-size: 1rem;
+  display: inline-block;
+}
+
+.login-icon {
+  display: none; /* Hide icon in normal mode */
+}
+
+/* Normal mode - ensure text is visible */
+.nav-text, .login-text {
+  display: inline;
+}
+
+/* Chat page sidebar mode styles */
+/* These styles ONLY apply when the page has the chat-page class */
+.page-wrapper.chat-page .navBar {
+  width: 70px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  background-color: #fff;
+  box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.page-wrapper.chat-page .navBar-container {
+  flex-direction: column;
+  height: 100%;
+  padding: 20px 10px;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: none;
+}
+
+.page-wrapper.chat-page .navBar-logo {
+  margin-bottom: 30px;
+}
+
+.page-wrapper.chat-page .logo {
+  height: 30px;
+}
+
+.page-wrapper.chat-page .navBar-right {
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.page-wrapper.chat-page .navBar-navigation {
+  width: 100%;
+}
+
+.page-wrapper.chat-page .navBar-menu {
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 15px;
+}
+
+.page-wrapper.chat-page .navBar-item {
+  width: 100%;
+  text-align: center;
+}
+
+.page-wrapper.chat-page .navBar-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.page-wrapper.chat-page .nav-icon {
+  margin-right: 0;
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.page-wrapper.chat-page .nav-text {
+  display: none; /* Hide text in sidebar mode */
+}
+
+.page-wrapper.chat-page .notification-badge {
+  position: absolute;
+  top: 0;
+  right: 10px;
+}
+
+.page-wrapper.chat-page .navBar-loginButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin-top: auto; /* Push to bottom */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  min-width: 0;
+}
+
+.page-wrapper.chat-page .login-icon {
+  display: block;
+  font-size: 1.2rem;
+}
+
+.page-wrapper.chat-page .login-text {
+  display: none; /* Hide text in sidebar mode */
 }
 

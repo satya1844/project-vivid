@@ -1,25 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useAuth } from "../../context/AuthContext";
-import { getUserChats } from "../../firebase/chatFunctions";
 import "./ChatList.css";
 
-const ChatList = ({ onSelectChat }) => {
+const ChatList = ({ chats, loading, onSelectChat, selectedChatId }) => {
   const { currentUser } = useAuth();
-  const [chats, setChats] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchChats = async () => {
-      if (currentUser) {
-        setLoading(true);
-        const userChats = await getUserChats(currentUser.uid);
-        setChats(userChats);
-        setLoading(false);
-      }
-    };
-
-    fetchChats();
-  }, [currentUser]);
 
   const formatTime = (timestamp) => {
     if (!timestamp) return "";
@@ -50,38 +34,50 @@ const ChatList = ({ onSelectChat }) => {
         <p className="loading">Loading chats...</p>
       ) : chats.length > 0 ? (
         <div className="chats">
-          {chats.map((chat) => (
-            <div 
-              key={chat.id} 
-              className="chat-item"
-              onClick={() => onSelectChat(chat.id, chat.otherUser)}
-            >
-              <div className="chat-avatar">
-                {chat.otherUser.photoURL ? (
-                  <img 
-                    src={chat.otherUser.photoURL} 
-                    alt={chat.otherUser.name} 
-                    className="avatar-img"
-                  />
-                ) : (
-                  <div className="avatar-placeholder">
-                    {chat.otherUser.name.charAt(0)}
-                  </div>
-                )}
-              </div>
-              
-              <div className="chat-details">
-                <div className="chat-header">
-                  <h3 className="chat-name">{chat.otherUser.name}</h3>
-                  <span className="chat-time">{formatTime(chat.lastMessageTime)}</span>
+          {chats.map((chat) => {
+            // Extract the other user's info
+            const otherUserId = chat.users.find(id => id !== currentUser.uid);
+            const otherUserData = chat.userData?.[otherUserId] || { name: "User" };
+            
+            return (
+              <div 
+                key={chat.id} 
+                className={`chat-item ${selectedChatId === chat.id ? 'selected' : ''}`}
+                onClick={() => onSelectChat(chat.id, {
+                  id: otherUserId,
+                  name: otherUserData.name || `${otherUserData.firstName || ''} ${otherUserData.lastName || ''}`,
+                  photoURL: otherUserData.photoURL
+                })}
+              >
+                <div className="chat-avatar">
+                  {otherUserData.photoURL ? (
+                    <img 
+                      src={otherUserData.photoURL} 
+                      alt={otherUserData.name || "User"} 
+                      className="avatar-img"
+                    />
+                  ) : (
+                    <div className="avatar-placeholder">
+                      {(otherUserData.name || "U").charAt(0)}
+                    </div>
+                  )}
                 </div>
                 
-                <p className="chat-last-message">
-                  {chat.lastMessage || "No messages yet"}
-                </p>
+                <div className="chat-details">
+                  <div className="chat-header">
+                    <h3 className="chat-name">
+                      {otherUserData.name || `${otherUserData.firstName || ''} ${otherUserData.lastName || ''}`}
+                    </h3>
+                    <span className="chat-time">{formatTime(chat.lastMessageTime)}</span>
+                  </div>
+                  
+                  <p className="chat-last-message">
+                    {chat.lastMessage || "No messages yet"}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       ) : (
         <div className="no-chats">

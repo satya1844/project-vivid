@@ -18,16 +18,80 @@
   flex-direction: column;
 }
 
+/* Enhance chat list items */
 .chat-item {
   display: flex;
-  padding: 15px 20px;
+  padding: 15px;
   border-bottom: 1px solid #f0f0f0;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s;
+  position: relative;
 }
 
 .chat-item:hover {
   background-color: #f9f9f9;
+}
+
+.chat-item.selected {
+  background-color: #f0f7ff;
+}
+
+/* Style chat details */
+.chat-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Style chat name row */
+.chat-name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+/* Style chat name */
+.chat-name {
+  font-weight: 500;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70%;
+}
+
+/* Style unread chat name */
+.chat-name.unread {
+  font-weight: 700;
+}
+
+/* Style chat timestamp */
+.chat-timestamp {
+  font-size: 12px;
+  color: #999;
+  white-space: nowrap;
+}
+
+/* Style chat last message */
+.chat-last-message {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Style unread indicator */
+.unread-indicator {
+  width: 8px;
+  height: 8px;
+  background-color: #1890ff;
+  border-radius: 50%;
+  margin-right: 5px;
+  display: inline-block;
 }
 
 .chat-avatar {
@@ -60,6 +124,7 @@
 }
 
 .chat-header {
+  color: #666;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -100,4 +165,50 @@
   font-size: 14px;
   margin-top: 10px;
   color: #aaa;
+}
+
+
+/* Add responsive styles for mobile */
+@media (max-width: 768px) {
+  .chat-list-container h2 {
+    padding: 15px;
+    font-size: 16px;
+  }
+  
+  .chat-item {
+    padding: 12px 15px;
+  }
+  
+  .avatar-img, .avatar-placeholder {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .chat-name {
+    font-size: 14px;
+  }
+  
+  .chat-last-message {
+    font-size: 13px;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  .chat-item {
+    padding: 10px;
+  }
+  
+  .avatar-img, .avatar-placeholder {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .chat-details {
+    width: calc(100% - 50px);
+  }
+  
+  .chat-name {
+    max-width: 70%;
+  }
 }

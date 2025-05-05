@@ -1,0 +1,188 @@
+/* Default layout */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Special layout for chat page */
+.page-wrapper.chat-page {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Enhanced sidebar for chat page */
+.page-wrapper.chat-page .navBar {
+  width: 80px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  background-color: #fff;
+  box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease;
+}
+
+/* Adjust the chat page container to make room for the sidebar */
+.page-wrapper.chat-page .chat-page-container {
+  margin-left: 80px;
+  width: calc(100% - 80px);
+}
+
+/* Style the sidebar container */
+.page-wrapper.chat-page .navBar-container {
+  flex-direction: column;
+  height: 100%;
+  padding: 20px 10px;
+  align-items: center;
+  justify-content: space-between; /* Space between top items and bottom items */
+}
+
+/* Style the navigation menu */
+.page-wrapper.chat-page .navBar-menu {
+  flex-direction: column;
+  width: 100%;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+/* Style navigation items */
+.page-wrapper.chat-page .navBar-item {
+  width: 100%;
+  position: relative;
+}
+
+/* Style navigation links */
+.page-wrapper.chat-page .navBar-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border-radius: 10px;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+/* Add hover effect to navigation links */
+.page-wrapper.chat-page .navBar-link:hover {
+  background-color: #f5f5f5;
+}
+
+/* Style active navigation link - highlight active state */
+.page-wrapper.chat-page .navBar-link.active {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+/* Style navigation icons */
+.page-wrapper.chat-page .nav-icon {
+  font-size: 1.5rem;
+}
+
+/* Hide text in sidebar mode */
+.page-wrapper.chat-page .nav-text {
+  display: none;
+}
+
+/* Position notification badge */
+.page-wrapper.chat-page .notification-badge {
+  position: absolute;
+  top: 0;
+  right: 5px;
+}
+
+/* Add user profile at bottom of sidebar */
+.page-wrapper.chat-page .navBar-right {
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+/* Move logout button to bottom */
+.page-wrapper.chat-page .navBar-loginButton {
+  margin-top: auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.page-wrapper.chat-page .login-text {
+  display: none;
+}
+
+.page-wrapper.chat-page .login-icon {
+  display: block;
+}
+
+/* Add user profile avatar at bottom */
+.page-wrapper.chat-page .user-profile {
+  margin-top: auto;
+  margin-bottom: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.page-wrapper.chat-page .user-profile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .page-wrapper.chat-page {
+    flex-direction: column;
+  }
+  
+  .page-wrapper.chat-page .navBar {
+    width: 100%;
+    height: auto;
+    position: sticky;
+    top: 0;
+  }
+  
+  .page-wrapper.chat-page .navBar-container {
+    flex-direction: row;
+    padding: 10px 15px;
+  }
+  
+  .page-wrapper.chat-page .navBar-logo {
+    margin-bottom: 0;
+  }
+  
+  .page-wrapper.chat-page .navBar-right {
+    flex-direction: row;
+    justify-content: space-between;
+    width: auto;
+  }
+  
+  .page-wrapper.chat-page .navBar-menu {
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 0;
+  }
+  
+  .page-wrapper.chat-page .user-profile,
+  .page-wrapper.chat-page .navBar-loginButton {
+    margin: 0 0 0 10px;
+  }
+  
+  .page-wrapper.chat-page .chat-page-container {
+    margin-left: 0;
+    width: 100%;
+  }
+}

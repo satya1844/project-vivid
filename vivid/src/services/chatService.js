@@ -1,4 +1,4 @@
-import { collection, addDoc, query, where, getDocs, orderBy, limit, onSnapshot, Timestamp, doc, getDoc } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs, orderBy, limit, onSnapshot, Timestamp, doc, getDoc, updateDoc, writeBatch } from "firebase/firestore";
 import { db } from "../config/authConfig";
 
 // Create or get a chat between two users
@@ -136,6 +136,7 @@ export const subscribeToChatMessages = (chatId, callback) => {
 };
 
 // Mark messages as read
+// Mark messages as read
 export const markMessagesAsRead = async (chatId, userId) => {
   try {
     const q = query(
@@ -145,7 +146,7 @@ export const markMessagesAsRead = async (chatId, userId) => {
     );
     
     const snapshot = await getDocs(q);
-    const batch = db.batch();
+    const batch = writeBatch(db); // Use writeBatch instead of db.batch()
     
     snapshot.docs.forEach(doc => {
       batch.update(doc.ref, { read: true });

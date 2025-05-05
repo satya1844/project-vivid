@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../src/context/AuthContext';
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../src/config/authConfig";
 import './UserDashBoard.css';
 import Loader from '../../src/assets/Loader';
 import profileRectangle from '../../src/assets/user-section-image.svg';
+import { Link } from 'react-router-dom';
 
 import profileBanner from '../../src/assets/placeholder-banner.png';
 import placeholderProfilePic from '../../src/assets/ProfilePic.png';
 import editPen from '../../src/assets/editPen.svg';
 import EditProfile from '../../pages/editProfile/editProfile';
-import { FaGithub, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa"; // Import social media icons
+import { FaGithub, FaInstagram, FaTwitter, FaLinkedin, FaUserFriends } from "react-icons/fa"; // Import social media icons
 import { getUserConnections } from "../../src/services/connectionService";
 
 // Add this helper function at the top of your file
@@ -26,6 +27,9 @@ function UserDashBoard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [connections, setConnections] = useState([]);
+  const [connectionProfiles, setConnectionProfiles] = useState([]);
+  const [isLoadingConnections, setIsLoadingConnections] = useState(true);
 
   // Define the missing states
   const [firstName, setFirstName] = useState("");
@@ -87,6 +91,53 @@ function UserDashBoard() {
       setIsLoading(false); // Data is loaded
     }
   }, [userData]);
+
+  // Fetch user connections
+  // Replace the connections useEffect with this updated version
+  useEffect(() => {
+    const fetchConnections = async () => {
+      if (!currentUser?.uid) return;
+      
+      try {
+        setIsLoadingConnections(true);
+        const userConnections = await getUserConnections(currentUser.uid);
+        setConnections(userConnections);
+        
+        // Extract the connected user IDs (excluding current user)
+        const connectedUserIds = userConnections.flatMap(conn => 
+          conn.users.filter(id => id !== currentUser.uid)
+        );
+        
+        // Remove duplicate user IDs
+        const uniqueUserIds = [...new Set(connectedUserIds)];
+        
+        // Fetch user profiles for each unique connection
+        if (uniqueUserIds.length > 0) {
+          const profiles = [];
+          
+          for (const userId of uniqueUserIds) {
+            const userDoc = doc(db, "users", userId);
+            const userSnapshot = await getDoc(userDoc);
+            
+            if (userSnapshot.exists()) {
+              profiles.push({
+                id: userId,
+                ...userSnapshot.data()
+              });
+            }
+          }
+          
+          setConnectionProfiles(profiles);
+        }
+      } catch (error) {
+        console.error("Error fetching connections:", error);
+      } finally {
+        setIsLoadingConnections(false);
+      }
+    };
+
+    fetchConnections();
+  }, [currentUser]);
 
   const handleEditClick = () => {
     setIsModalOpen(true);
@@ -189,15 +240,15 @@ function UserDashBoard() {
   
       {/* Skills, Interests, and Learning Grid */}
       <div className="info-grid">
-        <div className="info-card">
+        <div className="info-card skills-card">
           <h3>Skills</h3>
-          <div className="tags">
+          <div className="tags figma-inspired-tags">
             {userData?.skills?.length > 0 ? (
               userData.skills.map((skill, index) => (
-                <span key={index} className="tag">{skill}</span>
+                <span key={index} className="tag figma-tag">{skill}</span>
               ))
             ) : (
-              <span className="tag">No skills added</span>
+              <span className="tag figma-tag empty-tag">No skills added</span>
             )}
           </div>
         </div>
@@ -228,6 +279,53 @@ function UserDashBoard() {
           </div>
         </div>
       </div>
+      
+      {/* Friends Section */}
+      <div className="friends-section figma-friends-section">
+        <div className="info-card">
+          <h3><FaUserFriends /> Friends</h3>
+          {isLoadingConnections ? (
+            <p>Loading connections...</p>
+          ) : connectionProfiles.length > 0 ? (
+            <div className="friends-grid figma-friends-grid">
+              {connectionProfiles.map(profile => (
+                <div key={profile.id} className="friend-card-container figma-friend-card">
+                  <Link 
+                    to={`/userprofile/${profile.id}`} 
+                    className="friend-card"
+                  >
+                    <div className="friend-avatar figma-avatar">
+                      <img 
+                        src={profile.photoURL || placeholderProfilePic} 
+                        alt={`${profile.firstName} ${profile.lastName}`}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = placeholderProfilePic;
+                        }}
+                      />
+                    </div>
+                    <div className="friend-info">
+                      <h4>{profile.firstName} {profile.lastName}</h4>
+                      <p className="friend-location">{profile.location || "No location"}</p>
+                    </div>
+                  </Link>
+                  <Link 
+                    to="/chat" 
+                    className="chat-button figma-button"
+                    onClick={(e) => {
+                      localStorage.setItem('selectedChatUser', profile.id);
+                    }}
+                  >
+                    Message
+                  </Link>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="no-friends-message">No connections yet</p>
+          )}
+        </div>
+      </div>
   
       {/* Edit Profile Modal */}
       {isModalOpen && (
@@ -243,29 +341,3 @@ function UserDashBoard() {
 }
 
 export default UserDashBoard;
-
-
-const UserDashboard = () => {
-  const [connections, setConnections] = useState([]);
-
-  useEffect(() => {
-    const fetchConnections = async () => {
-      const userId = "currentUserId"; // Replace with actual user ID
-      const userConnections = await getUserConnections(userId);
-      setConnections(userConnections);
-    };
-
-    fetchConnections();
-  }, []);
-
-  return (
-    <div>
-      <h2>Friends</h2>
-      <ul>
-        {connections.map(connection => (
-          <li key={connection.id}>{connection.users.join(', ')}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};

@@ -137,23 +137,16 @@ function UserProfile() {
     return <Loader />;
   }
 
+  // No changes needed to imports and hooks
+  
+  // In the return statement, update the profile section:
   return (
     <div className="dashboard-container">
-      <img 
-        src="../../src/assets/Rectangle-34.svg" 
-        alt="Rectangle Decoration" 
-        className="rectangle-small-34"
-      />
-      <img 
-        src="../../src/assets/profile-container.svg" 
-        alt="Rectangle Decoration" 
-        className="profile-container"
-      />
       {/* Profile Section */}
       <div className="profile-section">
         <h1 className="name">{userData?.firstName} {userData?.lastName}</h1>
         <p className="about">
-          {truncateText(userData?.bio || "No bio available.", 50)}
+          {userData?.bio ? truncateText(userData.bio, 50) : "No bio added yet."}
         </p>
         <p className="location">{userData?.location || "Location not specified"}</p>
         <p className="email">{userData?.email}</p>
@@ -171,9 +164,8 @@ function UserProfile() {
           </button>
         )}
         
-        <div>
-          <img src={profileRectangle} alt="Profile Section" className="profile-section-image" />
-        </div>
+        {/* Background elements */}
+        <div className="profile-section-image"></div>
         
         {/* Profile Image */}
         <div className="profile-image-container">
@@ -189,7 +181,7 @@ function UserProfile() {
             />
           </div>
         </div>
-  
+
         {/* Social Links */}
         <div className="socials">
           <h3>Socials:</h3>
@@ -218,14 +210,9 @@ function UserProfile() {
         </div>
       </div>
 
-      {/* Change these lines */}
+      {/* Background blobs */}
       <div className="circle-blob yellow-blob"></div>
       <div className="circle-blob purple-blob"></div>
-      
-      {/* Remove these lines */}
-      {/* Decorative Ellipses */}
-      {/* <img src={ellipse85} alt="Ellipse Decoration" className="ellipse-85" /> */}
-      {/* <img src={ellipse86} alt="Ellipse Decoration" className="ellipse-86" /> */}
 
       {/* Skills, Interests, and Learning Grid */}
       <div className="info-grid">
@@ -241,7 +228,7 @@ function UserProfile() {
             )}
           </div>
         </div>
-  
+
         <div className="info-card">
           <h3>Interests</h3>
           <div className="tags">
@@ -254,7 +241,7 @@ function UserProfile() {
             )}
           </div>
         </div>
-  
+
         <div className="info-card">
           <h3>Looking to Learn</h3>
           <div className="tags">
