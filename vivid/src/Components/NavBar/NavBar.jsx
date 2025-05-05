@@ -13,6 +13,27 @@ const Navbar = () => {
   const { currentUser, logout } = useAuth();
   const [pendingRequests, setPendingRequests] = useState(0);
   const [unreadMessages, setUnreadMessages] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+  
+  // Add scroll detection
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    // Initial check
+    handleScroll();
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   
   useEffect(() => {
     if (currentUser) {
@@ -118,7 +139,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navBar">
+    <nav className={`navBar ${isScrolled ? 'scrolled' : 'at-top'}`}>
       <div className="navBar-container">
         <div className="navBar-logo">
           <img src={logo} alt="Logo" className="logo" onClick={() => handleNavigation("/")} />

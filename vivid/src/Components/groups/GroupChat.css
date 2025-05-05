@@ -38,12 +38,48 @@
   background-color: #fff;
   border-bottom-left-radius: 5px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  margin-left: 40px; /* Make space for the avatar */
+}
+
+/* New styles for user info with avatar */
+.message-user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.message-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 8px;
+  position: absolute;
+  left: -40px;
+  top: 0;
+}
+
+.message-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #757575;
 }
 
 .message-sender {
   font-size: 0.8rem;
   font-weight: 600;
-  margin-bottom: 0.3rem;
   color: #555;
 }
 

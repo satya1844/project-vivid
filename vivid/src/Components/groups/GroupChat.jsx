@@ -96,11 +96,22 @@ const GroupChat = ({ groupId }) => {
                   className={`group-message ${isCurrentUser ? 'message-sent' : 'message-received'}`}
                 >
                   {!isCurrentUser && (
-                    <div className="message-sender">
-                      {profile.name}
+                    <div className="message-avatar">
+                      {profile.photoURL ? (
+                        <img src={profile.photoURL} alt={profile.name} />
+                      ) : (
+                        <div className="avatar-placeholder">
+                          {profile.name.charAt(0)}
+                        </div>
+                      )}
                     </div>
                   )}
                   <div className="message-content">
+                    {!isCurrentUser && (
+                      <div className="message-sender">
+                        {profile.name}
+                      </div>
+                    )}
                     <p>{message.text}</p>
                     <div className="message-footer">
                       <span className="message-time">

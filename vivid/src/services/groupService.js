@@ -152,3 +152,25 @@ export const leaveGroup = async (groupId, userId) => {
     return { success: false, error: error.message };
   }
 };
+
+// Add this function to your existing groupService.js file
+
+// Update group details (admin only)
+export const updateGroup = async (groupId, updatedData, imageFile) => {
+  try {
+    // Upload new group image to Cloudinary if provided
+    if (imageFile) {
+      const groupPicURL = await uploadToCloudinary(imageFile);
+      updatedData.groupPic = groupPicURL;
+    }
+    
+    // Update group document
+    const groupRef = doc(db, "groups", groupId);
+    await updateDoc(groupRef, updatedData);
+    
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating group:", error);
+    return { success: false, error: error.message };
+  }
+};

@@ -64,6 +64,10 @@ function CommunityCardsSection() {
               id={group.id}
               title={group.name}
               description={group.bio || group.info} // Support both formats
+              createdAt={group.createdAt ? group.createdAt.toDate() : ""}
+              memberCount={group.members ? group.members.length : 0}
+              category={group.type || ""}
+              groupPic={group.groupPic || ""}
             />
           ))
         ) : (

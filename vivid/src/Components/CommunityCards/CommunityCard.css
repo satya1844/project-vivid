@@ -1,35 +1,85 @@
 .community-card {
-  background-color: #d9d9e4; /* Light gray background */
+  background-color: #ffffff;
   border-radius: 1rem;
-  padding: 1.5rem;
   width: 280px;
-  text-align: left;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 1rem;
-  color: #000000; /* Black text color */
+  color: #000000;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
-} 
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.community-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.community-card-header {
+  background-color: #fbff1f; /* Yellow header */
+  height: 80px;
+  width: 100%;
+  position: relative;
+}
+
+.community-card-image-container {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid white;
+  background-color: #f0f0f0;
+}
+
+.community-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 .community-card-title {
   font-family: "Poppins", sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: bold;
-  margin: 0;
-  color: #000000; /* Black text */
+  margin: 35px 0 10px;
+  padding: 0 1rem;
+  color: #000000;
+}
+
+.community-card-meta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0 1rem;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.community-card-date,
+.community-card-members,
+.community-card-category {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .community-card-description {
   font-family: "Poppins", sans-serif;
   font-size: 0.9rem;
-  color: #555555; /* Dark gray text */
+  color: #555555;
   margin: 0;
+  padding: 0 1.5rem 1.5rem;
+  text-align: center;
 }
-
-/* Add this to your existing CSS file */
 
 .community-card-buttons {
   display: flex;

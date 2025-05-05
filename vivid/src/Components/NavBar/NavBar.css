@@ -306,3 +306,63 @@
   display: none; /* Hide text in sidebar mode */
 }
 
+/* Base navbar styling */
+.navBar {
+  width: 100%;
+  margin-top: 0px;
+  position: sticky;
+  top: 0;
+  background-color: transparent;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+/* Styling for when navbar is at the top */
+.navBar.at-top {
+  background-color: transparent;
+}
+
+/* Styling for when navbar is scrolled */
+.navBar.scrolled {
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Hide icons when navbar is at the top, BUT NOT in chat-page mode */
+.navBar.at-top .nav-icon {
+  display: none;
+}
+
+/* Exception: Always show icons in sidebar mode */
+.page-wrapper.chat-page .navBar.at-top .nav-icon {
+  display: inline-block;
+  margin-right: 0;
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+/* Show icons when navbar is scrolled */
+.navBar.scrolled .nav-icon {
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 1rem;
+}
+
+/* Adjust login button icon */
+.navBar.at-top .login-icon {
+  display: none;
+}
+
+/* Exception: Always show login icon in sidebar mode */
+.page-wrapper.chat-page .navBar.at-top .login-icon {
+  display: block;
+  font-size: 1.2rem;
+}
+
+/* Center text when icons are hidden */
+.navBar.at-top .navBar-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

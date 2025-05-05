@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { getGroupById, joinGroup, leaveGroup } from "../../services/groupService";
 import GroupChat from "./GroupChat";
+import GroupEditModal from "./GroupEditModal";
 import "./GroupDetail.css";
 
 const GroupDetail = () => {
@@ -15,6 +16,7 @@ const GroupDetail = () => {
   const [error, setError] = useState("");
   const [isMember, setIsMember] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   
   useEffect(() => {
     const fetchGroupDetails = async () => {
@@ -79,6 +81,18 @@ const GroupDetail = () => {
       console.error("Error leaving group:", error);
     }
   };
+
+  const handleOpenEditModal = () => {
+    setShowEditModal(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
+  };
+
+  const handleGroupUpdate = (updatedGroup) => {
+    setGroup(updatedGroup);
+  };
   
   if (loading) {
     return <div className="group-detail-loading">Loading group details...</div>;
@@ -114,25 +128,30 @@ const GroupDetail = () => {
             <span className="group-created">Created {new Date(group.createdAt.toDate()).toLocaleDateString()}</span>
           </div>
           
-          {!isAdmin && (
-            <div className="group-actions">
-              {isMember ? (
-                <button 
-                  className="leave-group-button" 
-                  onClick={handleLeaveGroup}
-                >
-                  Leave Group
-                </button>
-              ) : (
-                <button 
-                  className="join-group-button" 
-                  onClick={handleJoinGroup}
-                >
-                  Join Group
-                </button>
-              )}
-            </div>
-          )}
+          <div className="group-actions">
+            {isAdmin ? (
+              <button 
+                className="edit-group-button" 
+                onClick={handleOpenEditModal}
+              >
+                Edit Group
+              </button>
+            ) : isMember ? (
+              <button 
+                className="leave-group-button" 
+                onClick={handleLeaveGroup}
+              >
+                Leave Group
+              </button>
+            ) : (
+              <button 
+                className="join-group-button" 
+                onClick={handleJoinGroup}
+              >
+                Join Group
+              </button>
+            )}
+          </div>
         </div>
       </div>
       
@@ -149,6 +168,15 @@ const GroupDetail = () => {
           </div>
         )}
       </div>
+
+      {/* Edit Modal */}
+      {showEditModal && (
+        <GroupEditModal 
+          group={group} 
+          onClose={handleCloseEditModal} 
+          onUpdate={handleGroupUpdate} 
+        />
+      )}
     </div>
   );
 };
