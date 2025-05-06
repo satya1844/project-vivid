@@ -3,6 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { getPublicGroups, getUserGroups } from "../../services/groupService";
 import { Link } from "react-router-dom";
 import "./GroupList.css";
+import Loader from "../../assets/Loader";
 
 const GroupList = () => {
   const { currentUser } = useAuth();
@@ -56,7 +57,9 @@ const GroupList = () => {
       </div>
 
       {loading ? (
-        <div className="loading">Loading groups...</div>
+        <div className="loading-container">
+          <Loader size="50" speed="1.75" color="yellow" />
+        </div>
       ) : activeTab === "myGroups" ? (
         <div className="groups">
           {userGroups.length > 0 ? (

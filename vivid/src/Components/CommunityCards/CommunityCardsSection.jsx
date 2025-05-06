@@ -3,6 +3,7 @@ import CommunityCard from "./CommunityCard";
 import "./CommunityCardsSection.css";
 import { getPublicGroups } from "../../services/groupService";
 import { useAuth } from "../../context/AuthContext";
+import Loader from "../../assets/Loader";
 
 function CommunityCardsSection() {
   const containerRef = useRef(null);
@@ -46,13 +47,16 @@ function CommunityCardsSection() {
     return () => clearInterval(interval); // Cleanup
   }, [groups]);
 
-  if (loading) {
-    return (
-      <div className="community-cards-container">
-        <div className="loading-message">Loading communities...</div>
-      </div>
-    );
-  }
+  // Then replace the loading section:
+   if (loading) {
+      return (
+        <div className="community-cards-container">
+          <div className="loading-container">
+            <Loader size="50" speed="1.75" color="yellow" />
+          </div>
+        </div>
+      );
+    }
 
   return (
     <div className="community-cards-container">

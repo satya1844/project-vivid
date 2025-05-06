@@ -125,3 +125,13 @@
   color: #888;
   font-size: 16px;
 }
+
+
+/* Add this to your existing CSS file */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+  height: 150px;
+}

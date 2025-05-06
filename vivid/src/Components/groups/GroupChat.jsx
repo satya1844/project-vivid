@@ -4,6 +4,8 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../config/authConfig";
 import { sendGroupMessage, subscribeToGroupMessages } from "../../services/groupMessageService";
 import "./GroupChat.css";
+import EmojiPicker from 'emoji-picker-react';
+import { FaSmile, FaPaperPlane } from 'react-icons/fa';
 
 const GroupChat = ({ groupId }) => {
   const { currentUser } = useAuth();
@@ -12,6 +14,7 @@ const GroupChat = ({ groupId }) => {
   const [loading, setLoading] = useState(true);
   const [userProfiles, setUserProfiles] = useState({});
   const messagesEndRef = useRef(null);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   
   // Subscribe to messages
   useEffect(() => {
@@ -78,6 +81,11 @@ const GroupChat = ({ groupId }) => {
     const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
+
+  const handleEmojiClick = (emojiData) => {
+    setNewMessage(prev => prev + emojiData.emoji);
+    setShowEmojiPicker(false);
+  };
   
   return (
     <div className="group-chat-container">
@@ -133,20 +141,44 @@ const GroupChat = ({ groupId }) => {
       </div>
       
       <form className="group-message-form" onSubmit={handleSendMessage}>
-        <input
-          type="text"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Type a message..."
-          className="group-message-input"
-        />
-        <button 
-          type="submit" 
-          className="group-send-button"
-          disabled={!newMessage.trim()}
-        >
-          Send
-        </button>
+        {showEmojiPicker && (
+          <div className="emoji-picker-container whatsapp-style">
+            <EmojiPicker 
+              onEmojiClick={handleEmojiClick}
+              width="100%"
+              height="350px"
+              previewConfig={{ showPreview: true }}
+              searchPlaceholder="Search"
+            />
+          </div>
+        )}
+        
+        <div className="message-input-container">
+          <button 
+            type="button" 
+            className="emoji-button"
+            onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+          >
+            <FaSmile />
+          </button>
+          
+          <input
+            type="text"
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            placeholder="Type a message..."
+            className="group-message-input"
+          />
+          
+          {/* Send button */}
+          <button 
+            type="submit" 
+            className="group-send-button"
+            disabled={!newMessage.trim()}
+          >
+            <FaPaperPlane />
+          </button>
+        </div>
       </form>
     </div>
   );

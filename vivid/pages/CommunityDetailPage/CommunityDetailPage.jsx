@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './CommunityDetailPage.css';
 import communityData from '../../src/Components/CommunityCards/CommunityData';
+import Loader from '../../src/assets/Loader';
 
 const CommunityDetailPage = () => {
   const { id } = useParams();
-  const community = communityData.find((c) => c.id === parseInt(id));
+  const [community, setCommunity] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading
+    setLoading(true);
+    const foundCommunity = communityData.find((c) => c.id === parseInt(id));
+    setCommunity(foundCommunity);
+    setLoading(false);
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="community-detail-loading">
+        <Loader size="100" speed="1.75" color="yellow" />
+      </div>
+    );
+  }
 
   if (!community) {
     return <div>Community not found</div>;

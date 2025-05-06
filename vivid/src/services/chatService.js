@@ -159,3 +159,37 @@ export const markMessagesAsRead = async (chatId, userId) => {
     return { success: false, message: error.message };
   }
 };
+
+// Add these functions to your existing chatService.js file
+
+// Delete a message
+export const deleteMessage = async (chatId, messageId) => {
+  try {
+    const messageRef = doc(db, "chats", chatId, "messages", messageId);
+    await updateDoc(messageRef, {
+      deleted: true,
+      content: "This message was deleted",
+      text: "This message was deleted" // For compatibility with both content and text fields
+    });
+    return true;
+  } catch (error) {
+    console.error("Error deleting message:", error);
+    throw error;
+  }
+};
+
+// Delete an entire chat
+export const deleteChat = async (chatId) => {
+  try {
+    // Mark chat as deleted (soft delete)
+    const chatRef = doc(db, "chats", chatId);
+    await updateDoc(chatRef, {
+      deleted: true,
+      deletedAt: Timestamp.now()
+    });
+    return true;
+  } catch (error) {
+    console.error("Error deleting chat:", error);
+    throw error;
+  }
+};

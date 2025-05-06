@@ -457,3 +457,103 @@
     max-width: 85%;
   }
 }
+
+/* WhatsApp style emoji picker */
+.emoji-picker-container.whatsapp-style {
+  position: absolute;
+  bottom: 70px;  /* Distance from the bottom of the chat */
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border-radius: 12px 12px 0 0; /* Rounded corners only at the top */
+  overflow: hidden;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-height: 50vh; /* Limit height to half the viewport */
+  background-color: white;
+}
+
+/* Style the emoji picker to match WhatsApp */
+.emoji-picker-container.whatsapp-style .epr-body {
+  padding: 8px;
+}
+
+.emoji-picker-container.whatsapp-style .epr-emoji-category-label {
+  font-size: 14px;
+  color: #128C7E; /* WhatsApp green */
+}
+
+.emoji-picker-container.whatsapp-style .epr-search-container input {
+  border-radius: 20px;
+  border: 1px solid #E2E8F0;
+  padding: 8px 12px;
+  color: #000000; /* Make search text black */
+}
+
+.emoji-picker-container.whatsapp-style .epr-preview {
+  border-top: 1px solid #E2E8F0;
+  padding: 12px;
+}
+
+/* Make sure the form has proper positioning for absolute elements */
+.message-form {
+  position: relative;
+}
+
+/* Style the message input container */
+.message-input-container {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 24px;
+  padding: 8px 12px;
+  width: 100%;
+  position: relative;
+}
+
+/* Style the emoji button */
+.emoji-button {
+  background: none;
+  border: none;
+  color: #919191;
+  font-size: 1.3rem;
+  padding: 0;
+  margin-right: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+  min-width: 24px;
+}
+
+.emoji-button:hover {
+  color: #128C7E; /* WhatsApp green */
+}
+
+/* Update the send button to match WhatsApp */
+.send-button {
+  background-color: #128C7E; /* WhatsApp green */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-left: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  min-width: 40px;
+}
+
+.send-button:hover {
+  background-color: #075E54; /* Darker WhatsApp green */
+}
+
+.send-button:disabled {
+  background-color: #e0e0e0;
+  color: #919191;
+  cursor: not-allowed;
+}

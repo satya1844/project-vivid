@@ -5,6 +5,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../config/authConfig";
 import "./ConnectionRequestList.css";
 import { toast } from "react-hot-toast";
+import Loader from "../../assets/Loader"; // Import the Loader component
 
 const ConnectionRequestList = () => {
   const { currentUser } = useAuth();
@@ -152,7 +153,9 @@ const ConnectionRequestList = () => {
 
       <div className="requests-list">
         {loading ? (
-          <p className="loading">Loading requests...</p>
+          <div className="loading-container">
+            <Loader size="50" speed="1.75" color="yellow" fullScreen={false} />
+          </div>
         ) : activeTab === "received" ? (
           receivedRequests.length > 0 ? (
             receivedRequests.map((request) => (

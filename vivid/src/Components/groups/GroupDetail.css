@@ -173,3 +173,328 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+/* Three-column layout */
+.group-detail-page {
+  display: flex;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: calc(100vh - 60px); /* Adjust based on your navbar height */
+}
+
+/* Left sidebar - Groups list */
+.groups-sidebar {
+  width: 250px;
+  background-color: #fff;
+  border-right: 1px solid #eee;
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.groups-sidebar h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: #333;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.sidebar-groups-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sidebar-group-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.sidebar-group-item:hover {
+  background-color: #f5f5f5;
+}
+
+.sidebar-group-item.active {
+  background-color: #f0f0f0;
+  font-weight: 500;
+}
+
+.sidebar-group-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #666;
+  font-size: 1rem;
+}
+
+.sidebar-group-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sidebar-group-name {
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.no-groups-message {
+  color: #888;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+/* Main content - Keep existing styles but adjust width */
+.group-detail-container {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Right sidebar - Members list */
+.members-sidebar {
+  width: 250px;
+  background-color: #fff;
+  border-left: 1px solid #eee;
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.members-sidebar h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: #333;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.members-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Make member items clickable */
+.member-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  text-decoration: none; /* Remove link underline */
+  color: inherit; /* Keep text color */
+  cursor: pointer;
+}
+
+.member-item:hover {
+  background-color: #f5f5f5;
+}
+
+.member-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.member-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.member-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.member-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.admin-badge {
+  font-size: 0.75rem;
+  color: #128C7E; /* WhatsApp green */
+  font-weight: 600;
+}
+
+.loading-members,
+.no-members-message {
+  color: #888;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .group-detail-page {
+    flex-direction: column;
+  }
+  
+  .groups-sidebar,
+  .members-sidebar {
+    width: 100%;
+    border: none;
+    padding: 1rem;
+  }
+  
+  .groups-sidebar {
+    border-bottom: 1px solid #eee;
+  }
+  
+  .members-sidebar {
+    border-top: 1px solid #eee;
+  }
+  
+  .sidebar-groups-list,
+  .members-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.5rem;
+  }
+}
+
+/* Keep all existing styles from the original GroupDetail.css file */
+
+.group-header {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.group-image-container {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.group-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.group-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #757575;
+}
+
+.group-info {
+  flex: 1;
+}
+
+.group-name {
+  font-size: 2.5rem;
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.group-bio {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.group-meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.group-actions {
+  margin-top: 1rem;
+}
+
+.join-group-button, .leave-group-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.join-group-button {
+  background-color: #fbff1f;
+  color: #000;
+}
+
+.join-group-button:hover {
+  background-color: #e6e800;
+  transform: translateY(-2px);
+}
+
+.leave-group-button {
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.leave-group-button:hover {
+  background-color: #e0e0e0;
+}
+
+.edit-group-button {
+  background-color: #fbff1f;
+  color: #000;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-group-button:hover {
+  background-color: #f0f500;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

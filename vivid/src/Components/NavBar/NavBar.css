@@ -346,6 +346,7 @@
   display: inline-block;
   margin-right: 8px;
   font-size: 1rem;
+  display: none;
 }
 
 /* Adjust login button icon */

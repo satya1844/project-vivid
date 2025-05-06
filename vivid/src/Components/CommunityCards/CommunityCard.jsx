@@ -29,9 +29,13 @@ const CommunityCard = ({
   return (
     <div className="community-card" onClick={handleCardClick}>
       <div className="community-card-header">
-        {groupPic && (
+        {groupPic ? (
           <div className="community-card-image-container">
             <img src={groupPic} alt={title} className="community-card-image" />
+          </div>
+        ) : (
+          <div className="community-card-image-container">
+            <div className="community-card-placeholder">{title.charAt(0)}</div>
           </div>
         )}
       </div>
