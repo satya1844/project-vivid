@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+/* Outfit font is already imported in index.html, no need to import again here */
 
 * {
   margin: 0;
@@ -7,11 +8,16 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Outfit', sans-serif; /* Changed from Poppins to Outfit */
   font-weight: 400;
   color: #333;
   line-height: 1.6;
   /* We remove background-color from here to avoid interference */
+}
+
+/* Keep headings with Poppins font */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
 }
 
 /* A container that changes background based on the route */

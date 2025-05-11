@@ -1,0 +1,137 @@
+.create-post-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.create-post-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.create-post-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-post-title-input {
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  font-family: "Poppins", sans-serif;
+}
+
+.create-post-content {
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 80px;
+  margin-bottom: 15px;
+  font-family: "Poppins", sans-serif;
+}
+
+.create-post-image-preview {
+  position: relative;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.create-post-image-preview img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  background-color: #f5f5f5;
+}
+
+.create-post-remove-image {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.create-post-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.create-post-upload {
+  display: flex;
+  align-items: center;
+}
+
+.create-post-upload-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #555;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  border-radius: 20px;
+  background-color: #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.create-post-upload-label:hover {
+  background-color: #e0e0e0;
+}
+
+.create-post-upload-input {
+  display: none;
+}
+
+.create-post-submit {
+  background-color: #fbff1f;
+  color: #000000;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.create-post-submit:hover {
+  background-color: #f0f500;
+  transform: translateY(-2px);
+}
+
+.create-post-submit:disabled {
+  background-color: #f0f0f0;
+  color: #888;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.create-post-error {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}

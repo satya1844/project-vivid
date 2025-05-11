@@ -5,11 +5,21 @@
   margin-bottom: 10px;
   position: relative;
   word-wrap: break-word;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.2px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.message:hover {
+  background-color: rgba(0, 0, 0, 0.03); /* Subtle hover effect */
 }
 
 .message-sent {
   align-self: flex-end;
-  background-color: #dcf8c6;
+  background-color: #efefef; /* Instagram's light gray for sent messages */
   border-bottom-right-radius: 5px;
 }
 
@@ -31,7 +41,13 @@
   align-items: center;
   margin-top: 4px;
   font-size: 11px;
-  color: #999;
+  color: #8e8e8e; /* Instagram's text secondary color */
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .message-time {

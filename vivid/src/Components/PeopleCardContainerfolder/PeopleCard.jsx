@@ -1,6 +1,7 @@
 import React from "react";
 import "./PeopleCard.css";
 import { useNavigate } from "react-router-dom";
+import placeholderProfilePic from "../../assets/ProfilePic.png"; // Add this import
 
 const PeopleCard = ({ name, image, userId, interests = [], lookingToLearn = [], openToCollab = [] }) => {
   const navigate = useNavigate();

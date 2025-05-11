@@ -3,6 +3,7 @@ import "./ChatMessage.css";
 
 const ChatMessage = ({ message, isCurrentUser, onDeleteMessage }) => {
   const [showContextMenu, setShowContextMenu] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
   const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
   const contextMenuRef = useRef(null);
   const messageRef = useRef(null);
@@ -20,6 +21,11 @@ const ChatMessage = ({ message, isCurrentUser, onDeleteMessage }) => {
     e.preventDefault();
     setContextMenuPosition({ x: e.clientX, y: e.clientY });
     setShowContextMenu(true);
+  };
+
+  // Handle click on message to show/hide details
+  const handleMessageClick = () => {
+    setShowDetails(!showDetails);
   };
 
   // Handle delete message
@@ -48,20 +54,23 @@ const ChatMessage = ({ message, isCurrentUser, onDeleteMessage }) => {
     <div 
       className={`message ${isCurrentUser ? 'message-sent' : 'message-received'}`}
       onContextMenu={handleContextMenu}
+      onClick={handleMessageClick}
       ref={messageRef}
     >
       <div className="message-content">
         <p>{message.content || message.text}</p>
-        <div className="message-footer">
-          <span className="message-time">
-            {formatTime(message.timestamp)}
-          </span>
-          {isCurrentUser && (
-            <span className="message-status">
-              {message.read ? "Read" : "Sent"}
+        {showDetails && (
+          <div className="message-footer">
+            <span className="message-time">
+              {formatTime(message.timestamp)}
             </span>
-          )}
-        </div>
+            {isCurrentUser && (
+              <span className="message-status">
+                {message.read ? "Read" : "Sent"}
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
       {showContextMenu && (

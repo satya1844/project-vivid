@@ -12,6 +12,8 @@ import './UserProfile.css';
 import ellipse85 from '../../assets/Ellipse-85-b.svg';
 import ellipse86 from '../../assets/Ellipse-86.svg';
 
+import PostFeed from '../PostFeed/PostFeed';
+
 const truncateText = (text, wordLimit) => {
   if (!text) return "";
   const words = text.trim().split(/\s+/);
@@ -254,6 +256,19 @@ function UserProfile() {
             )}
           </div>
         </div>
+      </div>
+    </div>
+  );
+  
+  // Add the posts section to your return statement, before the final closing div
+  return (
+    <div className="user-profile-container">
+      {/* Your existing JSX code */}
+      
+      {/* Add this before the final closing div */}
+      <div className="user-posts-section">
+        <h3>Posts</h3>
+        <PostFeed userId={userId} />
       </div>
     </div>
   );

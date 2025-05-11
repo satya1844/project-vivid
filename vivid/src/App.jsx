@@ -20,6 +20,7 @@ import CommunityDetailPage from '../pages/CommunityDetailPage/CommunityDetailPag
 import { Toaster } from 'react-hot-toast';
 import Loader from './assets/Loader'; // Import the Loader component
 // Add this import at the top with other imports
+import PeoplePage from '../pages/PeoplePage/PeoplePage';
 import ChatPage from '../pages/chat/ChatPage';
 // Add this import near the top with other imports
 import './ChatLayout.css';
@@ -28,7 +29,8 @@ import GroupsPage from '../pages/GroupsPage/GroupsPage';
 import GroupDetailPage from '../pages/GroupDetailPage/GroupDetailPage';
 import CreateGroupPage from '../pages/CreateGroupPage/CreateGroupPage';
 // Remove the setupDefaultGroups import
-
+// Add this to your index.html or install via npm
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 // Remove the useEffect that was placed outside of any component
 
 function LoginPageWithRedirect() {
@@ -76,7 +78,7 @@ function Layout() {
         <Route path="/userprofile/:userId" element={<UserProfile />} />
         
         {/* Add the new people route */}
-        <Route path="/people" element={<Navigate to="/explore" replace />} />
+        <Route path="/people" element={<PeoplePage />} />
         
         {/* Add the new chat route */}
         <Route path="/chat" element={

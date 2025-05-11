@@ -13,11 +13,21 @@ function CommunityCardsSection() {
 
   // Fetch groups from Firestore
   useEffect(() => {
+    // Inside the fetchGroups function, after getting the groups:
+    
     const fetchGroups = async () => {
       try {
         setLoading(true);
         const publicGroups = await getPublicGroups();
-        setGroups(publicGroups);
+        
+        // Sort groups by member count (highest first)
+        const sortedGroups = publicGroups.sort((a, b) => {
+          const aMemberCount = a.members ? a.members.length : 0;
+          const bMemberCount = b.members ? b.members.length : 0;
+          return bMemberCount - aMemberCount;
+        });
+        
+        setGroups(sortedGroups);
       } catch (error) {
         console.error("Error fetching groups:", error);
       } finally {

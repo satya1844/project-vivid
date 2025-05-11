@@ -12,10 +12,12 @@
   flex: 1;
   overflow-y: auto;
   padding: 1.5rem;
-  background-color: #f5f5f5;
+  background: linear-gradient(to right, #00c9c8, #1e9cd7, #00b8d4, #48cae4, #90e0ef);
   display: flex;
   flex-direction: column;
 }
+
+/* Update these styles in your existing GroupChat.css file */
 
 .group-message {
   max-width: 70%;
@@ -25,11 +27,21 @@
   position: relative;
   word-wrap: break-word;
   animation: fadeIn 0.3s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.2px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.group-message:hover {
+  background-color: rgba(0, 0, 0, 0.03); /* Subtle hover effect */
 }
 
 .message-sent {
   align-self: flex-end;
-  background-color: #dcf8c6;
+  background-color: #efefef; /* Instagram's light gray for sent messages */
   border-bottom-right-radius: 5px;
 }
 
@@ -39,6 +51,25 @@
   border-bottom-left-radius: 5px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   margin-left: 40px; /* Make space for the avatar */
+}
+
+.message-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 4px;
+  font-size: 11px;
+  color: #8e8e8e; /* Instagram's text secondary color */
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.message-time {
+  margin-right: 5px;
 }
 
 /* New styles for user info with avatar */

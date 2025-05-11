@@ -22,6 +22,9 @@ const truncateText = (text, wordLimit) => {
   return words.slice(0, wordLimit).join(" ") + "...";
 };
 
+// Import the PostFeed component
+import PostFeed from '../../src/Components/PostFeed/PostFeed';
+
 function UserDashBoard() {
   const { currentUser } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -341,3 +344,8 @@ function UserDashBoard() {
 }
 
 export default UserDashBoard;
+
+// Then in your component's render method, add:
+<div className="dashboard-content">
+  <PostFeed />
+</div>

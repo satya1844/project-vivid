@@ -2,11 +2,25 @@
   max-width: 1000px;
   margin: 0 auto;
   padding: 2rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Gothic', sans-serif;
+}
+
+/* Add this new rule for body text */
+body, p, .person-info, .group-bio, .member-info, .sidebar-group-name, .no-groups-message, 
+.loading-members, .no-members-message, .member-name {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Keep headings with your original font */
+h1, h2, h3, h4, h5, h6, .group-name {
+  font-family: 'Gothic', sans-serif;
 }
 
 .group-header {
+  border: lavender 1px solid;
+  border-radius: 30px;
   display: flex;
+  background-color: #F9F9F9;
   gap: 2rem;
   margin-bottom: 2rem;
   align-items: center;
@@ -186,11 +200,12 @@
 /* Left sidebar - Groups list */
 .groups-sidebar {
   width: 250px;
-  background-color: #fff;
+  background-color: #E7E7F1;
   border-right: 1px solid #eee;
   padding: 1.5rem;
   overflow-y: auto;
   flex-shrink: 0;
+  border-radius: 30px;
 }
 
 .groups-sidebar h3 {
@@ -275,11 +290,12 @@
 /* Right sidebar - Members list */
 .members-sidebar {
   width: 250px;
-  background-color: #fff;
+  background-color: #F0F0F0;
   border-left: 1px solid #eee;
   padding: 1.5rem;
   overflow-y: auto;
   flex-shrink: 0;
+  border-radius: 30px;
 }
 
 .members-sidebar h3 {

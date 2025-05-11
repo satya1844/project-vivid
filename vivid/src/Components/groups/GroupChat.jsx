@@ -15,6 +15,8 @@ const GroupChat = ({ groupId }) => {
   const [userProfiles, setUserProfiles] = useState({});
   const messagesEndRef = useRef(null);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  // Add state to track which messages have details showing
+  const [messagesWithDetails, setMessagesWithDetails] = useState({});
   
   // Subscribe to messages
   useEffect(() => {
@@ -87,6 +89,14 @@ const GroupChat = ({ groupId }) => {
     setShowEmojiPicker(false);
   };
   
+  // Add function to toggle message details
+  const toggleMessageDetails = (messageId) => {
+    setMessagesWithDetails(prev => ({
+      ...prev,
+      [messageId]: !prev[messageId]
+    }));
+  };
+  
   return (
     <div className="group-chat-container">
       <div className="group-messages-container">
@@ -97,11 +107,13 @@ const GroupChat = ({ groupId }) => {
             {messages.map((message) => {
               const isCurrentUser = message.from === currentUser?.uid;
               const profile = userProfiles[message.from] || { name: "User" };
+              const showDetails = messagesWithDetails[message.id] || false;
               
               return (
                 <div 
                   key={message.id} 
                   className={`group-message ${isCurrentUser ? 'message-sent' : 'message-received'}`}
+                  onClick={() => toggleMessageDetails(message.id)}
                 >
                   {!isCurrentUser && (
                     <div className="message-avatar">
@@ -121,11 +133,13 @@ const GroupChat = ({ groupId }) => {
                       </div>
                     )}
                     <p>{message.text}</p>
-                    <div className="message-footer">
-                      <span className="message-time">
-                        {formatTime(message.createdAt)}
-                      </span>
-                    </div>
+                    {showDetails && (
+                      <div className="message-footer">
+                        <span className="message-time">
+                          {formatTime(message.createdAt)}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
               );

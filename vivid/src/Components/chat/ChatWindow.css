@@ -4,6 +4,7 @@
   height: 100%; /* Ensure it takes full height */
   background-color: #f9f9f9;
   min-height: 0; /* Important for flex child to respect parent's boundaries */
+  
 }
 
 /* Make sure the message form stays at the bottom */
@@ -26,7 +27,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  background-color: #f9f9f9;
+  background: linear-gradient(to right, #00c9c8, #1e9cd7, #00b8d4, #48cae4, #90e0ef);
   transition: opacity 0.3s ease;
   min-height: 0; /* Important for scrolling to work properly */
 }

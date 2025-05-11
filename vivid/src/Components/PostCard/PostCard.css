@@ -24,6 +24,32 @@
   margin-right: 10px;
 }
 
+/* Add the missing avatar-placeholder styling */
+.avatar-placeholder {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #fbff1f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #333;
+  margin-right: 10px;
+}
+
+/* Add styles for the user link to remove underline */
+.postcard-user-link {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.username-link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .postcard-userinfo {
   display: flex;
   flex-direction: column;

@@ -1,39 +1,75 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PostCard from '../PostCard/PostCard';
+import CreatePost from '../CreatePost/CreatePost';
+import { getAllPosts } from '../../services/postService';
+import { useAuth } from '../../context/AuthContext';
 import './PostFeed.css';
+import Loader from '../../assets/Loader';
 
-const postData = [
-  {
-    id: 1,
-    username: "John Doe",
-    userAvatar: "https://via.placeholder.com/40",
-    time: "2 hours ago",
-    title: "My First Post",
-    text: "This is my first post on the platform! Excited to be here!",
-    image: "https://via.placeholder.com/500x300",
-    likes: 15,
-    comments: 5
-  },
-  {
-    id: 2,
-    username: "Jane Smith",
-    userAvatar: "https://via.placeholder.com/40",
-    time: "5 hours ago",
-    title: "Amazing Discovery",
-    text: "Just found this incredible new technology that could change everything!",
-    image: "https://via.placeholder.com/500x300",
-    likes: 32,
-    comments: 8
-  },
-  // Add more posts as needed
-];
+const PostFeed = ({ userId = null }) => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const { currentUser } = useAuth();
 
-const PostFeed = () => {
+  const fetchPosts = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      
+      let postsData;
+      if (userId) {
+        // If userId is provided, fetch only that user's posts
+        postsData = await getPostsByUser(userId);
+      } else {
+        // Otherwise fetch all posts
+        postsData = await getAllPosts();
+      }
+      
+      setPosts(postsData);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+      setError('Failed to load posts');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, [userId]);
+
+  const handlePostCreated = () => {
+    fetchPosts();
+  };
+
   return (
     <div className="post-feed">
-      {postData.map(post => (
-        <PostCard key={post.id} post={post} />
-      ))}
+      {currentUser && !userId && (
+        <CreatePost onPostCreated={handlePostCreated} />
+      )}
+      
+      {loading ? (
+        <div className="posts-loading">
+          <Loader size="50" speed="1.75" color="yellow" fullScreen={false} />
+        </div>
+      ) : error ? (
+        <div className="posts-error">{error}</div>
+      ) : posts.length > 0 ? (
+        posts.map(post => (
+          <PostCard 
+            key={post.id} 
+            post={post} 
+            onPostUpdate={fetchPosts}
+          />
+        ))
+      ) : (
+        <div className="no-posts">
+          {userId ? 
+            'This user hasn\'t posted anything yet.' : 
+            'No posts yet. Be the first to post something!'}
+        </div>
+      )}
     </div>
   );
 };

@@ -7,12 +7,12 @@ import "./ConnectionRequestList.css";
 import { toast } from "react-hot-toast";
 import Loader from "../../assets/Loader"; // Import the Loader component
 
-const ConnectionRequestList = () => {
+const ConnectionRequestList = ({ type }) => {  // Accept type prop instead of using internal state
   const { currentUser } = useAuth();
   const [sentRequests, setSentRequests] = useState([]);
   const [receivedRequests, setReceivedRequests] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("received");
+  // Remove the activeTab state since we'll use the type prop instead
   const [processingRequests, setProcessingRequests] = useState([]);
   const [userDetails, setUserDetails] = useState({});
   
@@ -136,27 +136,15 @@ const ConnectionRequestList = () => {
 
   return (
     <div className="connection-requests-container">
-      <div className="tabs">
-        <button 
-          className={`tab ${activeTab === "received" ? "active" : ""}`}
-          onClick={() => setActiveTab("received")}
-        >
-          Received Requests
-        </button>
-        <button 
-          className={`tab ${activeTab === "sent" ? "active" : ""}`}
-          onClick={() => setActiveTab("sent")}
-        >
-          Sent Requests
-        </button>
-      </div>
-
+      {/* Remove the tabs section entirely */}
+      
       <div className="requests-list">
         {loading ? (
           <div className="loading-container">
             <Loader size="50" speed="1.75" color="yellow" fullScreen={false} />
           </div>
-        ) : activeTab === "received" ? (
+        ) : type === "received" ? (
+          // Use type prop instead of activeTab
           receivedRequests.length > 0 ? (
             receivedRequests.map((request) => (
               <div key={request.id} className="request-item">

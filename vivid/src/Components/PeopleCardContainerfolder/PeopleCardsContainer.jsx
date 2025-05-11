@@ -4,6 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../config/authConfig";
 import PeopleCard from "./PeopleCard";
 import "./PeopleCardsContainer.css";
+import placeholderProfilePic from "../../assets/ProfilePic.png"; // Add this import
 
 const PeopleCardsContainer = () => {
   const [peopleData, setPeopleData] = useState([]);

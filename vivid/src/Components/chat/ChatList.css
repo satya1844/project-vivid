@@ -125,6 +125,7 @@
 
 .chat-header {
   color: #666;
+  background-color : white;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
