@@ -2,8 +2,11 @@ import React, { useRef, useEffect } from 'react';
 import Typed from 'typed.js';
 import './MainSection.css';
 import heroImage from '../../assets/hero-image.png';
-import VariableProximity from '../../assets/VariableProximity/VariableProximity';
+import Rectangle25 from '../../assets/Rectangle-25.svg';
+import Ellipse85 from '../../assets/Ellipse-85-b.svg';
+import Ellipse86 from '../../assets/Ellipse-86.svg';
 import DotOrnament from '../../assets/DotOrnament.svg';
+import VariableProximity from '../../assets/VariableProximity/VariableProximity';
 
 function MainSection() {
   const containerRef = useRef(null);
@@ -36,11 +39,10 @@ function MainSection() {
   return (
     <section className="main-section">
       <div className="container">
-        {/* Decorative SVGs */}
-        {/* <img src="../../src/assets/Rectangle-34.svg" alt="Rectangle Decoration" className="rectangle-34" /> */}
-        <img src="../../src/assets/Rectangle-25.svg" alt="Rectangle Decoration" className="rectangle-25" />
-        <img src="../../src/assets/Ellipse-85-b.svg" alt="Ellipse Decoration" className="ellipse-85" />
-        <img src="../../src/assets/Ellipse-86.svg" alt="Ellipse Decoration" className="ellipse-86" />
+        {/* Use imported assets */}
+        <img src={Rectangle25} alt="Rectangle Decoration" className="rectangle-25" />
+        <img src={Ellipse85} alt="Ellipse Decoration" className="ellipse-85" />
+        <img src={Ellipse86} alt="Ellipse Decoration" className="ellipse-86" />
         
         {/* Text + Image Flex Row */}
         <div className="hero-row">
