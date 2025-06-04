@@ -1,0 +1,10 @@
+export { default as Rectangle25 } from './Rectangle-25.svg';
+export { default as Rectangle34 } from './Rectangle-34.svg';
+export { default as Ellipse85 } from './Ellipse-85-b.svg';
+export { default as Ellipse86 } from './Ellipse-86.svg';
+export { default as Ellipse87 } from './Ellipse-87.svg';
+export { default as Ellipse88 } from './Ellipse-88.svg';
+export { default as DotOrnament } from './DotOrnament.svg';
+export { default as heroImage } from './hero-image.png';
+export { default as ProfileDecoration } from './profile-decoration.svg';
+export { default as GroupDecoration } from './group-decoration.svg';
