@@ -28,9 +28,9 @@ console.log('Current environment:', {
 });
 
 const SITE_NAME = 'Vivid Platform';
-const MODEL_NAME = 'deepseek/deepseek-prover-v2:free'; // Free model
+const MODEL_NAME = 'mistralai/mistral-7b-instruct:free'; // Free model with correct format
 
-const systemPrompt = `You are Vivi, the AI assistant for Vivid — a social networking platform that helps users connect through shared interests, skills, and passions. You speak like a helpful, chill, and slightly witty friend who knows the platform inside out. Your job is to help users understand and navigate Vivid’s features, always keeping your answers short, clear, and friendly. Avoid long explanations. Never give essay-style responses. Keep everything simple, concise, and focused on what the user needs.
+const systemPrompt = `You are Vivi, the AI assistant for Vivid — a social networking platform that helps users connect through shared interests, skills, and passions. You speak like a helpful, chill, and slightly witty friend who knows the platform inside out. Your job is to help users understand and navigate Vivid's features, always keeping your answers short, clear, and friendly. Avoid long explanations. Never give essay-style responses. Keep everything simple, concise, and focused on what the user needs.
 
 You assist users with:
 
@@ -88,12 +88,16 @@ const getFetchConfig = (body) => ({
   credentials: "omit",
   headers: {
     "authorization": `Bearer ${OPENROUTER_API_KEY}`,
-    "http-referer": SITE_URL,
-    "x-title": SITE_NAME,
-    "content-type": "application/json",
-    "origin": SITE_URL
+    "HTTP-Referer": SITE_URL,
+    "X-Title": SITE_NAME,
+    "content-type": "application/json"
   },
-  body: JSON.stringify(body)
+  body: JSON.stringify({
+    model: MODEL_NAME,
+    messages: body.messages,
+    temperature: 0.7,
+    max_tokens: 1000
+  })
 });
 
 // Create a chat session
@@ -149,40 +153,49 @@ export const startChat = async () => {
 export const generateResponse = async (messages, userMessage) => {
   try {
     const result = await retryWithBackoff(async () => {
+      const requestBody = {
+        model: MODEL_NAME,
+        messages: [
+          {
+            role: "system",
+            content: systemPrompt
+          },
+          ...messages,
+          {
+            role: "user",
+            content: userMessage
+          }
+        ],
+        temperature: 0.7,
+        max_tokens: 1000
+      };
+
+      console.log('Request Body:', requestBody); // Log request body
+
       const response = await fetch("https://openrouter.ai/api/v1/chat/completions", 
         getFetchConfig({
-          model: MODEL_NAME,
-          temperature: 0.7,
-          max_tokens: 1000,
-          messages: [
-            {
-              role: "system",
-              content: systemPrompt
-            },
-            ...messages,
-            {
-              role: "user",
-              content: userMessage
-            }
-          ]
+          messages: requestBody.messages
         })
       );
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('OpenRouter API Error:', {
-          status: response.status,
-          statusText: response.statusText,
-          error: errorText,
-          headers: Object.fromEntries(response.headers)
+      const data = await response.json();
+      console.log('Full API Response:', data); // Log full response
+      console.log('Response Structure:', {
+        hasChoices: Boolean(data.choices),
+        choicesLength: data.choices?.length,
+        firstChoice: data.choices?.[0],
+        message: data.choices?.[0]?.message
+      });
+
+      if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+        console.error('Invalid Response Structure:', {
+          data,
+          error: data.error,
+          message: data.message
         });
-        if (response.status === 401) {
-          throw new Error('Authentication failed. Please check your OpenRouter API key');
-        }
-        throw new Error(`API error: ${response.status} ${response.statusText} - ${errorText}`);
+        throw new Error('Invalid response structure from OpenRouter API');
       }
 
-      const data = await response.json();
       return data.choices[0].message.content;
     });
 
