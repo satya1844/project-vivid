@@ -24,9 +24,8 @@ const CommentItem = ({ comment, currentUser, onCommentDeleted }) => {
     
     setIsDeleting(true);
     try {
-      await deleteComment(comment.id);
-      
-      if (onCommentDeleted) {
+      const result = await deleteComment(comment.postId, comment.id);
+      if (result.success) {
         onCommentDeleted();
       }
     } catch (error) {
@@ -41,10 +40,19 @@ const CommentItem = ({ comment, currentUser, onCommentDeleted }) => {
   };
 
   return (
-    <div className="comment-item">
-      <Link to={`/userprofile/${comment.userId}`} className="comment-user-link">
-        {comment.userPhotoURL ? (
-          <img src={comment.userPhotoURL} alt="User avatar" className="comment-avatar" />
+    <div className="comment-item">      <Link to={`/userprofile/${comment.userId}`} className="comment-user-link">
+        {comment.userPhotoURL ? (          <img 
+            src={comment.userPhotoURL} 
+            alt="User avatar" 
+            className="comment-avatar" 
+            onError={(e) => {
+              e.target.onerror = null;
+              const placeholder = document.createElement('div');
+              placeholder.className = 'comment-avatar-placeholder';
+              placeholder.textContent = comment.userName ? comment.userName.charAt(0).toUpperCase() : 'A';
+              e.target.parentElement.replaceChild(placeholder, e.target);
+            }}
+          />
         ) : (
           <div className="comment-avatar-placeholder">
             {comment.userName ? comment.userName.charAt(0).toUpperCase() : 'A'}

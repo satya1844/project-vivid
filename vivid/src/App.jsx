@@ -19,19 +19,13 @@ import UserProfile from '../src/Components/UserProfile/UserProfile'; // Import t
 import CommunityDetailPage from '../pages/CommunityDetailPage/CommunityDetailPage';
 import { Toaster } from 'react-hot-toast';
 import Loader from './assets/Loader'; // Import the Loader component
-// Add this import at the top with other imports
 import PeoplePage from '../pages/PeoplePage/PeoplePage';
 import ChatPage from '../pages/chat/ChatPage';
-// Add this import near the top with other imports
 import './ChatLayout.css';
-// Add these imports at the top
 import GroupsPage from '../pages/GroupsPage/GroupsPage';
 import GroupDetailPage from '../pages/GroupDetailPage/GroupDetailPage';
 import CreateGroupPage from '../pages/CreateGroupPage/CreateGroupPage';
-// Remove the setupDefaultGroups import
-// Add this to your index.html or install via npm
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-// Remove the useEffect that was placed outside of any component
+import ChatBot from './Components/ChatBot/ChatBot';
 
 function LoginPageWithRedirect() {
   const navigate = useNavigate();
@@ -50,6 +44,8 @@ function Layout() {
     if (location.pathname === '/chat') return 'chat-page'; // Add this line
     return 'home-page';
   };
+
+  const showChatBot = location.pathname !== '/signup' && location.pathname !== '/login';
 
   return (
     <div className={`page-wrapper ${getPageClass()}`}>
@@ -91,7 +87,14 @@ function Layout() {
         <Route path="/groups" element={<GroupsPage />} />
         <Route path="/groups/:groupId" element={<GroupDetailPage />} />
         <Route path="/groups/create" element={<CreateGroupPage />} />
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <UserdashBoard />
+          </ProtectedRoute>
+        } />
       </Routes>
+
+      {showChatBot && <ChatBot />}
     </div>
   );
 }
@@ -109,8 +112,6 @@ function App() {
 // Separate component to use hooks after AuthProvider is mounted
 function AppContent() {
   const { currentUser, isLoading } = useAuth();
-
-  // Remove the useEffect for setting up default groups
 
   if (isLoading) {
     return <Loader />;

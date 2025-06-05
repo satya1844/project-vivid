@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../src/context/AuthContext';
-import { doc, getDoc, collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../src/config/authConfig";
-import './UserDashBoard.css';
-import Loader from '../../src/assets/Loader';
-import profileRectangle from '../../src/assets/user-section-image.svg';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../src/context/AuthContext';
+import { doc, getDoc, setDoc, collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../../src/config/authConfig";
+import { FaGithub, FaInstagram, FaTwitter, FaLinkedin, FaUserFriends } from "react-icons/fa";
 
+// Components
+import Loader from '../../src/assets/Loader';
+import EditProfile from '../../pages/editProfile/editProfile';
+import PostFeed from '../../src/Components/PostFeed/PostFeed';
+
+// Assets
+import profileRectangle from '../../src/assets/user-section-image.svg';
+import Rectangle34 from '../../src/assets/Rectangle-34.svg';
 import profileBanner from '../../src/assets/placeholder-banner.png';
 import placeholderProfilePic from '../../src/assets/ProfilePic.png';
 import editPen from '../../src/assets/editPen.svg';
-import EditProfile from '../../pages/editProfile/editProfile';
-import { FaGithub, FaInstagram, FaTwitter, FaLinkedin, FaUserFriends } from "react-icons/fa"; // Import social media icons
+
+// Services
 import { getUserConnections } from "../../src/services/connectionService";
+
+// Styles
+import './UserDashBoard.css';
 
 // Add this helper function at the top of your file
 const truncateText = (text, wordLimit) => {
@@ -21,9 +30,6 @@ const truncateText = (text, wordLimit) => {
   if (words.length <= wordLimit) return text;
   return words.slice(0, wordLimit).join(" ") + "...";
 };
-
-// Import the PostFeed component
-import PostFeed from '../../src/Components/PostFeed/PostFeed';
 
 function UserDashBoard() {
   const { currentUser } = useAuth();
@@ -61,13 +67,38 @@ function UserDashBoard() {
 
           if (userSnapshot.exists()) {
             setUserData(userSnapshot.data());
-            console.log("Fetched userData:", userSnapshot.data()); // Debug log
+            console.log("Fetched userData:", userSnapshot.data());
           } else {
-            console.log("No such document!");
+            // Create a new user document if it doesn't exist
+            const newUserData = {
+              firstName: currentUser.displayName?.split(' ')[0] || '',
+              lastName: currentUser.displayName?.split(' ')[1] || '',
+              email: currentUser.email,
+              photoURL: currentUser.photoURL,
+              bio: '',
+              location: '',
+              skills: [],
+              interests: [],
+              lookingToLearn: [],
+              openToCollab: [],
+              socialLinks: {
+                github: '',
+                linkedin: '',
+                instagram: '',
+                twitter: ''
+              },
+              createdAt: new Date()
+            };
+
+            await setDoc(userDoc, newUserData);
+            setUserData(newUserData);
+            console.log("Created new user document:", newUserData);
           }
         }
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error("Error fetching/creating user data:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -154,8 +185,20 @@ function UserDashBoard() {
     setUserData(updatedData);
   };
 
+  if (!currentUser) {
+    return (
+      <div className="dashboard-container">
+        <p>Please log in to view your dashboard</p>
+      </div>
+    );
+  }
+
   if (isLoading) {
-    return <Loader />;
+    return (
+      <div className="dashboard-container">
+        <Loader />
+      </div>
+    );
   }
 
   return (
@@ -167,16 +210,23 @@ function UserDashBoard() {
         {/* Add about section here */}
         <p className="about">
           {truncateText(userData?.bio || "No bio added yet.", 50)}
-        </p>
-        <p className="location">{userData?.location || "Puerto Rico"}</p>
+        </p>        <p className="location">{userData?.location || "Puerto Rico"}</p>
         <p className="email">{userData?.email || "youremail@domain.com"}</p>
-        <div>
-          <img src={profileRectangle} alt="Profile Section" className="profile1-section-image" />
+        <div className="decorative-images">
           <img 
-        src="../../src/assets/Rectangle-34.svg" 
-        alt="Rectangle Decoration" 
-        className="user-dashboard-rectangle-34"
-      />
+            src={profileRectangle} 
+            alt="Profile Section" 
+            className="profile1-section-image" 
+          />
+          <img 
+            src={Rectangle34}
+            alt="Rectangle Decoration" 
+            className="user-dashboard-rectangle-34"
+            onError={(e) => {
+              e.target.style.display = 'none';
+              console.warn(`Decorative image failed to load: ${e.target.src}`);
+            }}
+          />
         </div>
         
         {/* Profile Image with Edit Button */}
@@ -325,9 +375,13 @@ function UserDashBoard() {
               ))}
             </div>
           ) : (
-            <p className="no-friends-message">No connections yet</p>
-          )}
+            <p className="no-friends-message">No connections yet</p>          )}
         </div>
+      </div>
+
+      {/* Posts Feed Section */}
+      <div className="dashboard-content">
+        <PostFeed />
       </div>
   
       {/* Edit Profile Modal */}
@@ -344,8 +398,3 @@ function UserDashBoard() {
 }
 
 export default UserDashBoard;
-
-// Then in your component's render method, add:
-<div className="dashboard-content">
-  <PostFeed />
-</div>

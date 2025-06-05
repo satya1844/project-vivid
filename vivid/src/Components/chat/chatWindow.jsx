@@ -161,7 +161,7 @@ const ChatWindow = ({ chatId, otherUser, onChatDeleted }) => {
         )}
       </div>
       
-      // Update just the context menu part in the ChatWindow.jsx file
+      
       
       {showContextMenu && (
         <div 

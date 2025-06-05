@@ -20,12 +20,12 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: #e0e0e0;
+  background-color: #fbff1f;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  color: #666;
+  color: #333;
   font-size: 0.9rem;
 }
 
