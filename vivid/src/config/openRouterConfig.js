@@ -1,6 +1,32 @@
 // OpenRouter API configuration
 const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
-const SITE_URL = 'https://vivid-connect.web.app'; // Replace with your actual site URL
+
+// Enhanced API key validation
+if (!OPENROUTER_API_KEY) {
+  throw new Error('OpenRouter API key is missing. Set VITE_OPENROUTER_API_KEY in your .env file');
+}
+
+if (typeof OPENROUTER_API_KEY !== 'string' || !OPENROUTER_API_KEY.startsWith('sk-')) {
+  throw new Error('Invalid OpenRouter API key format. Key should start with "sk-"');
+}
+
+// Add debug logging for API key (safely)
+console.log('API Key validation:', {
+  exists: Boolean(OPENROUTER_API_KEY),
+  length: OPENROUTER_API_KEY.length,
+  format: OPENROUTER_API_KEY.startsWith('sk-') ? 'valid' : 'invalid'
+});
+
+// Dynamically set the site URL based on environment
+const SITE_URL = import.meta.env.PROD 
+  ? import.meta.env.VITE_PRODUCTION_URL || 'https://vivid-platform.com'
+  : 'http://localhost:5173';
+
+console.log('Current environment:', {
+  isProd: import.meta.env.PROD,
+  siteUrl: SITE_URL
+});
+
 const SITE_NAME = 'Vivid Platform';
 const MODEL_NAME = 'mistralai/mistral-7b-instruct'; // Free model
 
@@ -38,6 +64,10 @@ const retryWithBackoff = async (fn, maxRetries = 3, initialDelay = 1000) => {
     try {
       return await fn();
     } catch (error) {
+      if (error.status === 401) {
+        console.error('Authentication error with OpenRouter API. Please check your API key.');
+        throw error;
+      }
       if (error.status === 429) {
         retries++;
         if (retries === maxRetries) throw error;
@@ -51,36 +81,60 @@ const retryWithBackoff = async (fn, maxRetries = 3, initialDelay = 1000) => {
   }
 };
 
+// Common headers and fetch configuration for OpenRouter API
+const getFetchConfig = (body) => ({
+  method: "POST",
+  mode: "cors",
+  credentials: "omit",
+  headers: {
+    "authorization": `Bearer ${OPENROUTER_API_KEY}`,
+    "http-referer": SITE_URL,
+    "x-title": SITE_NAME,
+    "content-type": "application/json",
+    "origin": SITE_URL
+  },
+  body: JSON.stringify(body)
+});
+
 // Create a chat session
 export const startChat = async () => {
   try {
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
-        "HTTP-Referer": SITE_URL,
-        "X-Title": SITE_NAME,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        "model": MODEL_NAME,
-        "temperature": 0.7,
-        "max_tokens": 1000,
-        "messages": [
+    console.log('Attempting to start chat with config:', {
+      url: SITE_URL,
+      keyLength: OPENROUTER_API_KEY.length,
+      model: MODEL_NAME
+    });
+
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", 
+      getFetchConfig({
+        model: MODEL_NAME,
+        temperature: 0.7,
+        max_tokens: 1000,
+        messages: [
           {
-            "role": "system",
-            "content": systemPrompt
+            role: "system",
+            content: systemPrompt
           },
           {
-            "role": "user",
-            "content": "Hello! I'd like to learn more about the Vivid platform."
+            role: "user",
+            content: "Hello! I'd like to learn more about the Vivid platform."
           }
         ]
       })
-    });
+    );
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorText = await response.text();
+      console.error('OpenRouter API Error:', {
+        status: response.status,
+        statusText: response.statusText,
+        error: errorText,
+        headers: Object.fromEntries(response.headers)
+      });
+      if (response.status === 401) {
+        throw new Error('Authentication failed. Please check your OpenRouter API key');
+      }
+      throw new Error(`API error: ${response.status} ${response.statusText} - ${errorText}`);
     }
 
     const data = await response.json();
@@ -95,34 +149,37 @@ export const startChat = async () => {
 export const generateResponse = async (messages, userMessage) => {
   try {
     const result = await retryWithBackoff(async () => {
-      const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
-          "HTTP-Referer": SITE_URL,
-          "X-Title": SITE_NAME,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          "model": MODEL_NAME,
-          "temperature": 0.7,
-          "max_tokens": 1000,
-          "messages": [
+      const response = await fetch("https://openrouter.ai/api/v1/chat/completions", 
+        getFetchConfig({
+          model: MODEL_NAME,
+          temperature: 0.7,
+          max_tokens: 1000,
+          messages: [
             {
-              "role": "system",
-              "content": systemPrompt
+              role: "system",
+              content: systemPrompt
             },
             ...messages,
             {
-              "role": "user",
-              "content": userMessage
+              role: "user",
+              content: userMessage
             }
           ]
         })
-      });
+      );
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        console.error('OpenRouter API Error:', {
+          status: response.status,
+          statusText: response.statusText,
+          error: errorText,
+          headers: Object.fromEntries(response.headers)
+        });
+        if (response.status === 401) {
+          throw new Error('Authentication failed. Please check your OpenRouter API key');
+        }
+        throw new Error(`API error: ${response.status} ${response.statusText} - ${errorText}`);
       }
 
       const data = await response.json();
